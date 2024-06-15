@@ -16,12 +16,13 @@ class HomeViewModel: ObservableObject{
     @Published var storyUsers: [User] = []
     @Published var selectedStoryUser: String = ""
     @Published var showStory: Bool = false
+    @Published var fetchinStory = false
     
     //@Published var storys = [Story]()
     
     @Published var userFollowingUsernames = [String]()
     
-    private var fetchedUsers = [String]()
+    @Published var fetchedUsers = [String]()
     
 
     @Published var seenPosts = [String]()
@@ -102,8 +103,12 @@ extension HomeViewModel {
     
     @MainActor
     func fetchStorysForUser() async throws{
-        guard !fetchedUsers.contains(selectedStoryUser) else { return }
+        
+            guard !fetchedUsers.contains(selectedStoryUser) else { return }
             
+       
+        
+        
             let storiesForSelectedUser = try await StoryService.fetchStory(userId: selectedStoryUser)
             
             if let index = storyUsers.firstIndex(where: { $0.id == selectedStoryUser}){
@@ -112,7 +117,9 @@ extension HomeViewModel {
             
             fetchedUsers.append(selectedStoryUser)
         
+            fetchinStory = false
         
+            
     }
     
     @MainActor

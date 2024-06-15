@@ -18,6 +18,7 @@ struct CalendarView: View {
     
     @State var hasSelectedDate = false
     
+    @EnvironmentObject var homeVM: HomeViewModel
     @EnvironmentObject var profileViewModel: ProfileViewModel
     
     private var user: User{
@@ -105,11 +106,11 @@ struct CalendarView: View {
                                             
                                                 
                                             ).onTapGesture {
-                                                withAnimation{
+                                                
                                                     currentDate = value.date
                                                     hasSelectedDate = true
-                                                    print("DEBUG APP \(currentDate)")
-                                                }
+                                                   
+                                                
                                                 
                                             }
                                     }
@@ -119,8 +120,24 @@ struct CalendarView: View {
                         
         
                         
+                        if hasSelectedDate{
+                            Rectangle()
+                                .fill(.black)
+                                .frame(height: 1)
+                                .padding(.horizontal, 16)
+                                
+                            
+                            ForEach(Array(profileViewModel.calenderStorys.filter{ isSameDay(date1: $0.timestamp.dateValue(), date2: currentDate) }.enumerated()), id: \.element.id) { index, story in
+                                
+                               
+                                StoryCell(story: story, oddStory: index % 2 != 0)
+                                    .environmentObject(homeVM)
+                                    .padding(.horizontal, 16)
+                                   
+                            }
+                        }
                         
-                        
+
                         
                         //MARK: STORYS
                         //CustomDatePicker(user: user, currentDate: $currentDate)
@@ -128,6 +145,12 @@ struct CalendarView: View {
                        // CustomDateGrid(user: user, currentDate: $currentDate)
                     }
             }.navigationBarBackButtonHidden(true)
+            .onChange(of: currentDate){
+                //print("DEBUG APP currentDAte: \(currentDate)")
+                Task{
+                    try await profileViewModel.fetchStorysForDate(date: currentDate)
+                }
+            }
         
         
     }
@@ -140,16 +163,29 @@ struct CalendarView: View {
                     .font(.custom("HankenGrotesk-Regular", size: 18))
                     .frame(width: 30, height: 30)
                     .clipShape(RoundedRectangle(cornerRadius: 4))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(isInStoryUploadDays(date: value.date) ? Color.colorWhite : Color.black)
                     .fontWeight(.semibold)
                     .background(
                         RoundedRectangle(cornerRadius: 4)
-                            .fill(isSameDay(date1: value.date, date2: currentDate) ? Color.colorOrange : Color.colorOrange)
+                            //.fill(isSameDay(date1: value.date, date2: currentDate) ? Color.colorOrange : Color.colorOrange)
+                            .fill(isInStoryUploadDays(date: value.date) ? Color.colorOrange : Color.white)
+                            .stroke(isInStoryUploadDays(date: value.date) ? Color.colorOrange : Color(.systemGray))
                             .opacity(isSameDay(date1: value.date, date2: currentDate) ? 1 : 0.7) // Adjust opacity based on the date
+                            
                     )
             }.padding(.vertical, 4)
+                .onAppear{
+                    print("DEBUG APP DATEVALUE: \(value)")
+                }
         }
     }
+    
+    func isInStoryUploadDays(date: Date) -> Bool {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MMMdd"
+            let dateString = dateFormatter.string(from: date)
+            return profileViewModel.userStoryDats.contains(dateString)
+        }
 
     
 //FUNCTIONS

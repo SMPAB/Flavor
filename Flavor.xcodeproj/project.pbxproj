@@ -47,6 +47,8 @@
 		184060DA2C1C9CF40002894C /* StoryOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184060D92C1C9CF40002894C /* StoryOverlayView.swift */; };
 		184060DC2C1CA6EB0002894C /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184060DB2C1CA6EB0002894C /* Story.swift */; };
 		184060DE2C1CA97E0002894C /* StoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184060DD2C1CA97E0002894C /* StoryCell.swift */; };
+		184060E02C1DB5830002894C /* CalenderStoryGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184060DF2C1DB5830002894C /* CalenderStoryGrid.swift */; };
+		184060E42C1DCDC20002894C /* LandingAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184060E32C1DCDC20002894C /* LandingAlbumView.swift */; };
 		1844C2292C18D13900243FAB /* FlavorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1844C2282C18D13900243FAB /* FlavorApp.swift */; };
 		1844C22B2C18D13900243FAB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1844C22A2C18D13900243FAB /* ContentView.swift */; };
 		1844C22D2C18D13B00243FAB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1844C22C2C18D13B00243FAB /* Assets.xcassets */; };
@@ -140,6 +142,8 @@
 		184060D92C1C9CF40002894C /* StoryOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryOverlayView.swift; sourceTree = "<group>"; };
 		184060DB2C1CA6EB0002894C /* Story.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
 		184060DD2C1CA97E0002894C /* StoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryCell.swift; sourceTree = "<group>"; };
+		184060DF2C1DB5830002894C /* CalenderStoryGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderStoryGrid.swift; sourceTree = "<group>"; };
+		184060E32C1DCDC20002894C /* LandingAlbumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingAlbumView.swift; sourceTree = "<group>"; };
 		1844C2252C18D13900243FAB /* Flavor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flavor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1844C2282C18D13900243FAB /* FlavorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlavorApp.swift; sourceTree = "<group>"; };
 		1844C22A2C18D13900243FAB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -304,6 +308,7 @@
 		183B21FD2C19D8DA008A3DCF /* View */ = {
 			isa = PBXGroup;
 			children = (
+				184060E12C1DCDA60002894C /* Album */,
 				184060CB2C1B9BD00002894C /* Saved */,
 				183B22162C1A2CA0008A3DCF /* List */,
 				183B22012C19D90E008A3DCF /* Edit */,
@@ -406,6 +411,22 @@
 			children = (
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		184060E12C1DCDA60002894C /* Album */ = {
+			isa = PBXGroup;
+			children = (
+				184060E22C1DCDB50002894C /* View */,
+			);
+			path = Album;
+			sourceTree = "<group>";
+		};
+		184060E22C1DCDB50002894C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				184060E32C1DCDC20002894C /* LandingAlbumView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		1844C21C2C18D13900243FAB = {
@@ -687,6 +708,7 @@
 			isa = PBXGroup;
 			children = (
 				18DDBD172C18E66100E288DE /* CalenderView.swift */,
+				184060DF2C1DB5830002894C /* CalenderStoryGrid.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -850,6 +872,7 @@
 				18C954512C1B1DEA00B6439E /* Loading.swift in Sources */,
 				18C954472C1B172300B6439E /* CommentsViewModel.swift in Sources */,
 				183B22032C19D935008A3DCF /* currentProfilveView.swift in Sources */,
+				184060E42C1DCDC20002894C /* LandingAlbumView.swift in Sources */,
 				18332F262C19AC34002E95F4 /* MainAuthView.swift in Sources */,
 				18DDBD1C2C19071800E288DE /* GIFrenderer.swift in Sources */,
 				18DDBD1A2C1906EB00E288DE /* LoginView.swift in Sources */,
@@ -864,6 +887,7 @@
 				183B221A2C1A2CBB008A3DCF /* ListView.swift in Sources */,
 				183B220B2C19E631008A3DCF /* ImagePickerOptions.swift in Sources */,
 				184060D82C1C94690002894C /* StoryService.swift in Sources */,
+				184060E02C1DB5830002894C /* CalenderStoryGrid.swift in Sources */,
 				183B22152C1A1AA3008A3DCF /* ImageUploader.swift in Sources */,
 				18332F2B2C19B280002E95F4 /* AddUserName.swift in Sources */,
 				186E2B7F2C1AE714003E35D4 /* FeedCell.swift in Sources */,

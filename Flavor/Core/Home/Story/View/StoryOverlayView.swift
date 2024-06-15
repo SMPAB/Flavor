@@ -68,31 +68,70 @@ struct StoryOverlayView: View {
                             let storiesToday = user.storys?.filter { Calendar.current.isDate($0.timestamp.dateValue(), inSameDayAs: Date()) }
                             let storiesYesterday = user.storys?.filter { Calendar.current.isDate($0.timestamp.dateValue(), inSameDayAs: yesterday) }
                            
-                            if !(storiesToday?.isEmpty ?? [].isEmpty){
+                            if storyVM.fetchinStory {
                                 VStack(spacing: 16){
-                                    Text("\(today.toFormattedString()) (Today)")
-                                        .font(.primaryFont(.P1))
-                                        .fontWeight(.semibold)
+                                    HStack(spacing: 16){
+                                        RoundedRectangle(cornerRadius: 8)
+                                            .fill(Color(.systemGray6))
+                                            .frame(width: 96, height: 96)
+                                        
+                                        VStack(alignment: .leading){
+                                            RoundedRectangle(cornerRadius: 5)
+                                                .frame(width: 120, height: 10)
+                                            
+                                            RoundedRectangle(cornerRadius: 5)
+                                                .frame(width: 180, height: 10)
+                                        }
+                                        
+                                        Spacer()
+                                    }
                                     
-                                    ForEach(Array(storiesToday!.enumerated()), id: \.element.id) { index, story in
-                                        StoryCell(story: story, oddStory: index % 2 != 0)
-                                            .padding(.horizontal, 16)
+                                    HStack(spacing: 16){
+                                        
+                                        Spacer()
+                                        VStack(alignment: .trailing){
+                                            RoundedRectangle(cornerRadius: 5)
+                                                .frame(width: 120, height: 10)
+                                            
+                                            RoundedRectangle(cornerRadius: 5)
+                                                .frame(width: 180, height: 10)
+                                        }
+                                        
+                                        RoundedRectangle(cornerRadius: 8)
+                                            .fill(Color(.systemGray6))
+                                            .frame(width: 96, height: 96)
+                                    }
+                                }.foregroundStyle(Color(.systemGray6))
+                                    .padding(.horizontal, 16)
+                                    .padding(.top)
+                            } else {
+                                if !(storiesToday?.isEmpty ?? [].isEmpty){
+                                    VStack(spacing: 16){
+                                        Text("\(today.toFormattedString()) (Today)")
+                                            .font(.primaryFont(.P1))
+                                            .fontWeight(.semibold)
+                                        
+                                        ForEach(Array(storiesToday!.enumerated()), id: \.element.id) { index, story in
+                                            StoryCell(story: story, oddStory: index % 2 != 0)
+                                                .padding(.horizontal, 16)
+                                        }
+                                    }
+                                }
+                                
+                                if !(storiesYesterday?.isEmpty ?? [].isEmpty){
+                                    VStack(spacing: 16){
+                                        Text("\(yesterday.toFormattedString()) (Yesterday)")
+                                            .font(.primaryFont(.P1))
+                                            .fontWeight(.semibold)
+                                        
+                                        ForEach(Array(storiesYesterday!.enumerated()), id: \.element.id) { index, story in
+                                            StoryCell(story: story, oddStory: index % 2 != 0)
+                                                .padding(.horizontal, 16)
+                                        }
                                     }
                                 }
                             }
                             
-                            if !(storiesYesterday?.isEmpty ?? [].isEmpty){
-                                VStack(spacing: 16){
-                                    Text("\(yesterday.toFormattedString()) (Yesterday)")
-                                        .font(.primaryFont(.P1))
-                                        .fontWeight(.semibold)
-                                    
-                                    ForEach(Array(storiesYesterday!.enumerated()), id: \.element.id) { index, story in
-                                        StoryCell(story: story, oddStory: index % 2 != 0)
-                                            .padding(.horizontal, 16)
-                                    }
-                                }
-                            }
                             
                             /*if let storys = user.storys {
                                 if !storys.isEmpty {
@@ -116,12 +155,20 @@ struct StoryOverlayView: View {
                             }
                         
                     }.onAppear {
+                        if !storyVM.fetchedUsers.contains(storyVM.selectedStoryUser){
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2){
+                                storyVM.fetchinStory = true
+                            }
+                           
+                        }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
-                            Task{ 
+                            Task{
                                 try await  storyVM.fetchStorysForUser()
                                 try await storyVM.storySeen()
                             }
                         }
+                            
+                        
                         
                     }
                     

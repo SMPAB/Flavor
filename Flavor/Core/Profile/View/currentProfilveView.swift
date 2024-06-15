@@ -151,7 +151,7 @@ struct currentProfilveView: View {
                                 offsetRectangle =  -(35 + 6 + 6)
                             }
                         }){
-                            Iconoir.bookmark.asImage
+                            Iconoir.folder.asImage
                                 .foregroundStyle(.black)
                         }.frame(maxWidth: .infinity)
                         
@@ -202,6 +202,8 @@ struct currentProfilveView: View {
                 //MARK: SUBVIEWS
                 if viewModel.calender{
                     CalendarView()
+                        .environmentObject(viewModel)
+                        .environmentObject(homeVM)
                 }
                 
                 if viewModel.saved{
@@ -223,6 +225,9 @@ struct currentProfilveView: View {
                         print("DEBUG APP LOADER APPEAR")
                         Task{
                             try await viewModel.fetchGridPosts()
+                        }
+                        Task{
+                            try await viewModel.fetchCalenderStoryDays()
                         }
                     }
                 }

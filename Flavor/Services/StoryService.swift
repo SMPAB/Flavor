@@ -89,5 +89,42 @@ class StoryService {
         }
     }
     
+    static func fetchStorysForDate(userId: String, dateString: String) async throws -> [Story] {
+        do {
+            print("DEBUG APP USERID: \(userId) DATESTRING: -\(dateString)-")
+            let snapshot = try await FirebaseConstants
+                .StoryCollection
+                .whereField("ownerUid", isEqualTo: userId)
+                .whereField("timestampDate", isEqualTo: dateString)
+                .getDocuments()
+            
+            print("DEBUG APP SNAPSHOT COUNT \(snapshot.count)")
+            var storys = snapshot.documents.compactMap({ try? $0.data(as: Story.self)})
+            return storys
+        } catch {
+            return []
+        }
+    }
+    
+    static func fetchCalenderStoryDays(_ userId: String) async throws -> [String]{
+        
+        do {
+            let snapshot = try await FirebaseConstants
+                .UserCollection
+                .document(userId)
+                .collection("story-days")
+                .document("batch1")
+                .getDocument()
+            
+            if let data = snapshot.data(), let days = data["storyDays"] as? [String] {
+                        return days
+                    } else {
+                        return []
+                    }
+        } catch {
+            return []
+        }
+    }
+    
     
 }

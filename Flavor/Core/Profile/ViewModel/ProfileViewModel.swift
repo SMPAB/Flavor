@@ -43,6 +43,13 @@ class ProfileViewModel: ObservableObject {
     private var lastPostFetched: String?
     @Published var fetchingGridPosts = false
     
+    //MARK: CALENDER
+    @Published var fetchedCalenderDays: [String] = []
+    @Published var calenderStorys: [Story] = []
+    @Published var userStoryDats: [String] = []
+    
+    //MARK: ALBUM
+    
     
     init(user: User) {
         self.user = user
@@ -128,5 +135,30 @@ extension ProfileViewModel {
         self.posts.append(contentsOf: newPosts)
         self.lastPostFetched = lastPostId
         fetchingGridPosts = false
+    }
+}
+
+//MARK: - CALENDER
+
+extension ProfileViewModel{
+    func fetchStorysForDate(date: Date) async throws {
+        
+        let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MMMdd"
+        
+        let dateString = dateFormatter.string(from: date)
+        
+        print("DEBUG APP DATESTRING: \(dateString)")
+        
+        guard !fetchedCalenderDays.contains(dateString) else { return }
+        
+        let newStorys = try await StoryService.fetchStorysForDate(userId: user.id, dateString: dateString)
+        
+        calenderStorys.append(contentsOf: newStorys)
+        fetchedCalenderDays.append(dateString)
+    }
+    
+    func fetchCalenderStoryDays() async throws {
+        self.userStoryDats = try await StoryService.fetchCalenderStoryDays(user.id)
     }
 }

@@ -324,3 +324,32 @@ extension UserService {
             .updateData(["usernames": FieldValue.arrayRemove([userRemoving.userName])])
     }
 }
+
+//MARK: Albums
+extension UserService {
+    static func fetchUserAlbums(_ userId: String, latestDocument: DocumentSnapshot? = nil) async throws -> ([Album], DocumentSnapshot?){
+        do {
+            var query: Query = FirebaseConstants
+                .AlbumCollection
+                .whereField("ownerUid", isEqualTo: userId)
+                .limit(to: 10)
+            
+            
+            if let lastDocument = latestDocument {
+                query = query.start(afterDocument: lastDocument)
+            }
+            
+            let snapshot = try await query.getDocuments()
+            
+           
+            var albums = snapshot.documents.compactMap({ try? $0.data(as: Album.self)})
+            
+            let latestSnapshot = snapshot.documents.last
+            
+            return (albums, latestDocument)
+        } catch {
+            return ([], latestDocument)
+        }
+    }
+}
+

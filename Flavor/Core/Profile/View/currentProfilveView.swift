@@ -211,6 +211,11 @@ struct currentProfilveView: View {
                         .environmentObject(viewModel)
                         .environmentObject(homeVM)
                 }
+                
+                if viewModel.album {
+                    LandingAlbumView()
+                        .environmentObject(viewModel)
+                }
                 LazyVStack{
                     if viewModel.grid {
                         GridView(posts: $viewModel.posts, variableTitle: "Uploads", variableSubtitle: "\(user.userName)")

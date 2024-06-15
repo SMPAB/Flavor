@@ -49,6 +49,10 @@ class ProfileViewModel: ObservableObject {
     @Published var userStoryDats: [String] = []
     
     //MARK: ALBUM
+    @Published var albums: [Album] = []
+    private var latestAlbumSnapshot: DocumentSnapshot?
+    
+    @Published var showCreateAlbum = false
     
     
     init(user: User) {
@@ -160,5 +164,19 @@ extension ProfileViewModel{
     
     func fetchCalenderStoryDays() async throws {
         self.userStoryDats = try await StoryService.fetchCalenderStoryDays(user.id)
+    }
+}
+//MARK: - Albums
+
+extension ProfileViewModel {
+    func fetchAlbums() async throws {
+        let (newAlbums, latestDocument) = try await UserService.fetchUserAlbums(user.id, latestDocument: latestAlbumSnapshot)
+        
+        let filteredAlbums = newAlbums.filter { newAlbum in
+                    !self.albums.contains(where: { $0.id == newAlbum.id })
+                }
+        
+        self.albums.append(contentsOf: filteredAlbums)
+        self.latestAlbumSnapshot = latestDocument
     }
 }

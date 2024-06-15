@@ -49,6 +49,9 @@
 		184060DE2C1CA97E0002894C /* StoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184060DD2C1CA97E0002894C /* StoryCell.swift */; };
 		184060E02C1DB5830002894C /* CalenderStoryGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184060DF2C1DB5830002894C /* CalenderStoryGrid.swift */; };
 		184060E42C1DCDC20002894C /* LandingAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184060E32C1DCDC20002894C /* LandingAlbumView.swift */; };
+		184060E62C1DD05B0002894C /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184060E52C1DD05B0002894C /* Album.swift */; };
+		184060E82C1DDF230002894C /* CreateAlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184060E72C1DDF230002894C /* CreateAlbumView.swift */; };
+		184060EB2C1DDF3D0002894C /* CreateAlbumViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184060EA2C1DDF3D0002894C /* CreateAlbumViewModel.swift */; };
 		1844C2292C18D13900243FAB /* FlavorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1844C2282C18D13900243FAB /* FlavorApp.swift */; };
 		1844C22B2C18D13900243FAB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1844C22A2C18D13900243FAB /* ContentView.swift */; };
 		1844C22D2C18D13B00243FAB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1844C22C2C18D13B00243FAB /* Assets.xcassets */; };
@@ -144,6 +147,9 @@
 		184060DD2C1CA97E0002894C /* StoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryCell.swift; sourceTree = "<group>"; };
 		184060DF2C1DB5830002894C /* CalenderStoryGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalenderStoryGrid.swift; sourceTree = "<group>"; };
 		184060E32C1DCDC20002894C /* LandingAlbumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingAlbumView.swift; sourceTree = "<group>"; };
+		184060E52C1DD05B0002894C /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
+		184060E72C1DDF230002894C /* CreateAlbumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAlbumView.swift; sourceTree = "<group>"; };
+		184060EA2C1DDF3D0002894C /* CreateAlbumViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAlbumViewModel.swift; sourceTree = "<group>"; };
 		1844C2252C18D13900243FAB /* Flavor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flavor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1844C2282C18D13900243FAB /* FlavorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlavorApp.swift; sourceTree = "<group>"; };
 		1844C22A2C18D13900243FAB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -416,6 +422,7 @@
 		184060E12C1DCDA60002894C /* Album */ = {
 			isa = PBXGroup;
 			children = (
+				184060E92C1DDF320002894C /* ViewModel */,
 				184060E22C1DCDB50002894C /* View */,
 			);
 			path = Album;
@@ -425,8 +432,17 @@
 			isa = PBXGroup;
 			children = (
 				184060E32C1DCDC20002894C /* LandingAlbumView.swift */,
+				184060E72C1DDF230002894C /* CreateAlbumView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		184060E92C1DDF320002894C /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				184060EA2C1DDF3D0002894C /* CreateAlbumViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		1844C21C2C18D13900243FAB = {
@@ -682,6 +698,7 @@
 				183B21FB2C19D701008A3DCF /* Post.swift */,
 				18C954482C1B174200B6439E /* Comment.swift */,
 				184060DB2C1CA6EB0002894C /* Story.swift */,
+				184060E52C1DD05B0002894C /* Album.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -852,6 +869,7 @@
 				18DDBD182C18E66100E288DE /* CalenderView.swift in Sources */,
 				184060DC2C1CA6EB0002894C /* Story.swift in Sources */,
 				183B21EF2C19D105008A3DCF /* UserControllView.swift in Sources */,
+				184060EB2C1DDF3D0002894C /* CreateAlbumViewModel.swift in Sources */,
 				183B21F12C19D117008A3DCF /* UserControllViewModel.swift in Sources */,
 				183B21F82C19D5A2008A3DCF /* HomeViewModel.swift in Sources */,
 				184060CA2C1B99DD0002894C /* VariableView.swift in Sources */,
@@ -868,7 +886,9 @@
 				18C9544F2C1B1C1100B6439E /* PrimaryCommentCellViewModel.swift in Sources */,
 				18C954572C1B2B6100B6439E /* SubCommentViewModel.swift in Sources */,
 				18DDBD0A2C18E3C700E288DE /* LoginViewModel.swift in Sources */,
+				184060E62C1DD05B0002894C /* Album.swift in Sources */,
 				18DDBD242C1916EA00E288DE /* ContentViewModel.swift in Sources */,
+				184060E82C1DDF230002894C /* CreateAlbumView.swift in Sources */,
 				18C954512C1B1DEA00B6439E /* Loading.swift in Sources */,
 				18C954472C1B172300B6439E /* CommentsViewModel.swift in Sources */,
 				183B22032C19D935008A3DCF /* currentProfilveView.swift in Sources */,

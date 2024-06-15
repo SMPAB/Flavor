@@ -52,6 +52,8 @@ struct MainHomeView: View {
             //MARK: FEED
             FeedView()
                 .environmentObject(viewModel)
+            
+            Text("please work")
         }
     }
 }

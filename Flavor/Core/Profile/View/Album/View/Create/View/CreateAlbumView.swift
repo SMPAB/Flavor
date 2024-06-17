@@ -12,10 +12,19 @@ struct CreateAlbumView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel: CreateAlbumViewModel
     
+    private let gridItems: [GridItem] = [
+    
+        .init(.flexible(), spacing: 1),
+        .init(.flexible(), spacing: 1),
+        .init(.flexible(), spacing: 1)
+    ]
+    
     init(user: User, profileVM: ProfileViewModel){
         self._viewModel = StateObject(wrappedValue: CreateAlbumViewModel(user: user, profileVM: profileVM))
     }
     var body: some View {
+        
+        let width = UIScreen.main.bounds.width
         ZStack {
             ScrollView {
                 LazyVStack(spacing: 16){
@@ -66,6 +75,12 @@ struct CreateAlbumView: View {
             
             if viewModel.showImagePicker{
                 ImagePickerOptions(image: $viewModel.image, uiimage: $viewModel.uiImage, showView: $viewModel.showImagePicker, imageType: .albumImage)
+            }
+            
+            LazyVGrid(columns: gridItems) {
+                ForEach(viewModel.user.postIds ?? [], id: \.self){ postId in
+                    
+                }
             }
             
         }

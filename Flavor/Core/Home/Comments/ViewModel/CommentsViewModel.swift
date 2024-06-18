@@ -61,6 +61,7 @@ class CommentsViewModel: ObservableObject {
         comments.insert(commentToDisplay, at: 0)
         self.commentText = ""
         try await CommentService.uploadPrimaryComment(comment, postId: post.id, documentId: docId)
+        try await NotificationsManager.shared.uploadCommentNotification(toUid: post.ownerUid, post: post)
     }
     
     @MainActor

@@ -13,6 +13,7 @@ import Kingfisher
 struct LandingAlbumView: View {
     
     @EnvironmentObject var viewModel: ProfileViewModel
+    @EnvironmentObject var homeVM: HomeViewModel
     
     private let gridItems: [GridItem] = [
     
@@ -49,10 +50,12 @@ struct LandingAlbumView: View {
             }
             
             LazyVGrid(columns: gridItems) {
-                ForEach(viewModel.albums) { album in
+                ForEach(viewModel.albums.sorted(by: {$0.timestamp.dateValue() > $1.timestamp.dateValue()})) { album in
                     
                     NavigationLink(destination: {
-                        Text(album.title)
+                        MainAlbumView(album: album, profileVM: viewModel)
+                            .environmentObject(homeVM)
+                           
                     }){
                         ZStack(alignment: .topLeading){
                             if let imageurl = album.imageUrl{
@@ -97,9 +100,33 @@ struct LandingAlbumView: View {
                     
                     
                 }
+                
+                if viewModel.loadingAlbums {
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color(.systemGray6))
+                        .frame(width: (width - 40)/2, height: (width - 40)/2)
+                    
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color(.systemGray6))
+                        .frame(width: (width - 40)/2, height: (width - 40)/2)
+                }
             }.padding(.horizontal, 16)
             
-            
+            if !viewModel.user.isCurrentUser && viewModel.albums.isEmpty && !viewModel.loadingAlbums && viewModel.hasLoadedAlbum{
+                VStack {
+                    Image(.noAlbum)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: width - 32, height: 120)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .contentShape(RoundedRectangle(cornerRadius: 8))
+                    
+                    Text("Oh no, looks like this profile have not created any albums yet...")
+                        .font(.primaryFont(.P1))
+                        .foregroundStyle(Color(.systemGray))
+                        .multilineTextAlignment(.center)
+                }
+            }
         }.onFirstAppear {
             Task{
                 try await viewModel.fetchAlbums()

@@ -10,11 +10,13 @@ import SwiftUI
 struct UserControllView: View {
     
     @StateObject var viewModel = UserControllViewModel()
+    @EnvironmentObject var contentViewModel: ContentViewModel
     var authservice: AuthService
     
     var body: some View {
         if let user = viewModel.user {
             Tabview(user: user, authService: authservice)
+                .environmentObject(contentViewModel)
         } else if viewModel.user == nil && viewModel.hasFetchedUser {
             Text("Set upp account")
         } else {

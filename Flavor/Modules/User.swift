@@ -47,7 +47,7 @@ struct UserStats: Codable, Hashable{
 extension User {
     static var mockUsers: [User] {
         return [
-            .init(id: UUID().uuidString, email: "mock1@example.com", userName: "MockUser1", publicAccount: true),
+            .init(id: UUID().uuidString, email: "mock1@example.com", userName: "MockUser1", publicAccount: false),
             .init(id: UUID().uuidString, email: "mock2@example.com", userName: "MockUser2", publicAccount: true),
             .init(id: UUID().uuidString, email: "mock3@example.com", userName: "MockUser3", publicAccount: true),
             .init(id: UUID().uuidString, email: "mock4@example.com", userName: "MockUser4", publicAccount: true),

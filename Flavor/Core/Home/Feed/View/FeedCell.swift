@@ -36,7 +36,11 @@ struct FeedCell: View {
         let width = UIScreen.main.bounds.width
         VStack(spacing: 8){
             if let user = post.user {
-                NavigationLink(destination: Text(user.userName)){
+                NavigationLink(destination: 
+                                ProfileView(user: user)
+                    .environmentObject(homeVM)
+                
+                ){
                     HStack(spacing: 16){
                         ImageView(size: .small, imageUrl: user.profileImageUrl, background: false)
                         
@@ -128,6 +132,7 @@ struct FeedCell: View {
                         .resizable()
                         .scaledToFill()
                         .frame(height: 250)
+                        .frame(width: width - 32 - 120 - 16)
                         .clipShape(RoundedRectangle(cornerRadius: 16))
                         .contentShape(RoundedRectangle(cornerRadius: 16))
                         .background(
@@ -181,6 +186,7 @@ struct FeedCell: View {
                         .resizable()
                         .scaledToFill()
                         .frame(height: 250)
+                        .frame(width: width - 32 - 120 - 16)
                         .clipShape(RoundedRectangle(cornerRadius: 16))
                         .contentShape(RoundedRectangle(cornerRadius: 16))
                         .background(

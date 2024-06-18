@@ -43,6 +43,15 @@ class HomeViewModel: ObservableObject{
     @Published var focusPost: Post?
     @Published var showFocusPost = false
     
+    //NOTIFICATIONS
+    @Published var userHasNotification = false
+        //FRIEND REQUESRTS
+    @Published var friendRequestUsernames: [String] = []
+    
+    
+    //UPLOAD
+    @Published var showCamera = false
+    
     init(user: User) {
         self.user = user
     }
@@ -191,12 +200,26 @@ extension HomeViewModel {
                 last2Days.append(dateFormatter.string(from: date))
             }
         }
-        
+    
+        print("DEBUG APP LATEST STORY DAYS: \(last2Days)")
         if let latestStory = user.latestStory{
             self.currentUserHasStory = last2Days.contains(latestStory)
         }
         
         print("DEBUG APP HASSTORY: \(currentUserHasStory)")
        
+    }
+}
+//MARK: - NOTIFICATIONS
+
+extension HomeViewModel {
+    @MainActor
+    func fetchFriendRequests() async throws {
+        self.friendRequestUsernames = try await UserService.fetchFriendRequestUsernames()
+    }
+    
+    @MainActor
+    func checkIfUserHasANotification() async throws {
+        self.userHasNotification = try await NotificationService.fetchOneNotification()
     }
 }

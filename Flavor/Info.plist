@@ -9,12 +9,12 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.491046515548-28h5vq4jb47121hkcm0mcjeaddv4vvt7</string>
+				<string>com.googleusercontent.apps.491046515548-73ufu3aiutuf31b7ve3v8720456898bo</string>
 			</array>
 		</dict>
 	</array>
 	<key>GIDClientID</key>
-	<string>491046515548-28h5vq4jb47121hkcm0mcjeaddv4vvt7.apps.googleusercontent.com</string>
+	<string>491046515548-73ufu3aiutuf31b7ve3v8720456898bo.apps.googleusercontent.com</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Font1.ttf</string>
@@ -36,5 +36,11 @@
 			</array>
 		</dict>
 	</dict>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>processing</string>
+		<string>remote-notification</string>
+	</array>
 </dict>
 </plist>

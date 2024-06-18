@@ -6,3 +6,16 @@
 //
 
 import Foundation
+
+class SearchCellViewModel: ObservableObject {
+    @Published var username: String
+    @Published var user: User?
+    
+    init(username: String) {
+        self.username = username
+    }
+    
+    func fetchUser() async throws {
+        self.user = try await UserService.fetchUserWithUsername(withUsername: username)
+    }
+}

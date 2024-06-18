@@ -23,6 +23,7 @@ struct ContentView: View {
                 MainAuthView(authService: authService)
             } else {
                 UserControllView(authservice: authService)
+                    .environmentObject(viewModel)
             }
         }
     }

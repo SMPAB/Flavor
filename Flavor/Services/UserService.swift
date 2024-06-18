@@ -46,6 +46,30 @@ class UserService{
     }
     
     @MainActor
+    static func fetchAllUsernamesNoLowercase() async throws -> [String]{
+        do {
+            let snapshot = try await Firestore
+                .firestore()
+                .collection("usernames")
+                .document("batch1")
+                .getDocument()
+            
+            let usersNotToShow = try await usersToNotShow()
+            
+            //print("DEBUG APP USERSNOT TO SHOW: \(usersNotToShow)")
+            
+            if let usernames = snapshot.data()?["usernames"] as? [String]{
+                let filteredUsernames = usernames.filter { !usersNotToShow.contains($0) }
+                        return filteredUsernames
+            } else {
+                return []
+            }
+        } catch {
+            return []
+        }
+    }
+    
+    @MainActor
         static func fetchUserWithUsername(withUsername username: String) async throws -> User? {
             
             do {
@@ -54,6 +78,7 @@ class UserService{
                     .whereField("userName", isEqualTo: username)
                     .getDocuments()
 
+               
                 
                 guard let document = querySnapshot.documents.first else {return nil}
 
@@ -78,7 +103,7 @@ class UserService{
                 let usersToNotShow = try await usersToNotShow()
                 
                 if let usernames = documentSnapshot.data()?["usernames"] as? [String] {
-                    let filteredUsernames = usernames.filter { usersToNotShow.contains($0) }
+                    let filteredUsernames = usernames.filter { !usersToNotShow.contains($0) }
                             return filteredUsernames
                         } else {
                             return []
@@ -102,7 +127,7 @@ class UserService{
             
             
             if let usernames = documentSnapshot.data()?["usernames"] as? [String] {
-                let filteredUsernames = usernames.filter { usersToNotShow.contains($0) }
+                let filteredUsernames = usernames.filter { !usersToNotShow.contains($0) }
                         return filteredUsernames
                     } else {
                         return []
@@ -133,15 +158,16 @@ class UserService{
             }
             
             // Fetching usernames, assuming usersToNotShow would be used to filter these usernames.
-            let documentSnapshot = try await FirebaseConstants
-                .userNameCollection
-                .document("batch1")
+            let hasBlocked = try await FirebaseConstants
+                .UserCollection
+                .document(currentUid)
+                .collection("block")
+                .document("has_blocked")
                 .getDocument()
             
-            if let usernames = documentSnapshot.data()?["usernames"] as? [String] {
-                // Assuming you need to filter usernames
-                let filteredUsernames = usernames.filter { !usersToNotShow.contains($0) }
-                return filteredUsernames
+            if let usernames = hasBlocked.data()?["usernames"] as? [String] {
+                usersToNotShow.append(contentsOf: usernames)
+                return usersToNotShow
             } else {
                 return []
             }
@@ -200,6 +226,7 @@ extension UserService {
                 .collection("user-followersID")
                 .document(uid)
                 .getDocument()
+            
             
             return snapshot.exists
         } catch {
@@ -327,11 +354,11 @@ extension UserService {
 
 //MARK: Albums
 extension UserService {
-    static func fetchUserAlbums(_ userId: String, latestDocument: DocumentSnapshot? = nil) async throws -> ([Album], DocumentSnapshot?){
+    static func fetchUserAlbums(_ user: User, latestDocument: DocumentSnapshot? = nil) async throws -> ([Album], DocumentSnapshot?){
         do {
             var query: Query = FirebaseConstants
                 .AlbumCollection
-                .whereField("ownerUid", isEqualTo: userId)
+                .whereField("ownerUid", isEqualTo: user.id)
                 .limit(to: 10)
             
             
@@ -343,7 +370,9 @@ extension UserService {
             
            
             var albums = snapshot.documents.compactMap({ try? $0.data(as: Album.self)})
-            
+            for i in 0..<albums.count {
+                albums[i].user = user
+            }
             let latestSnapshot = snapshot.documents.last
             
             return (albums, latestDocument)
@@ -353,3 +382,147 @@ extension UserService {
     }
 }
 
+//MARK: BLOCK
+extension UserService {
+    static func blockUser(user: User, currentUser: User) async throws {
+        do {
+            //MARK: HAS BLOCKED
+            
+            try await FirebaseConstants
+                .UserCollection
+                .document(currentUser.id)
+                .collection("block")
+                .document("has_blocked")
+                .setData(["usernames": FieldValue.arrayUnion([user.userName])], merge: true)
+            
+            
+            //MARK: BEEN BLOCKED
+            
+            try await FirebaseConstants
+                .UserCollection
+                .document(user.id)
+                .collection("block")
+                .document("been_blocked")
+                .setData(["usernames": FieldValue.arrayUnion([currentUser.userName])], merge: true)
+            
+        } catch {
+            return
+        }
+    }
+    
+    static func report(reportText: String, user: User) async throws {
+        do {
+            
+            var data: [String:Any] = [
+                "reportText": reportText,
+                "userId": user.id,
+                "timestamp": Timestamp(date: Date())
+            ]
+            try await FirebaseConstants
+                .ReportsCollection
+                .document("accounts")
+                .collection("accounts")
+                .document()
+                .setData(data)
+        } catch {
+            return
+        }
+    }
+}
+//MARK: NOTFICAITONS
+extension UserService {
+    static func fetchFriendRequestUsernames() async throws -> [String]{
+        
+        guard let currentUid = Auth.auth().currentUser?.uid else { return []}
+        do {
+            
+            let snapshot = try await FirebaseConstants
+                .FollowersCollection
+                .document(currentUid)
+                .collection("friend-requestUsername")
+                .document("batch1")
+                .getDocument()
+            
+            if let usernames = snapshot.data()?["usernames"] as? [String]{
+                return usernames
+            } else {
+                return []
+            }
+        } catch {
+            return []
+        }
+    }
+}
+
+//MARK: - SETTINGS
+
+extension UserService {
+    static func fetchBlockedUsers() async throws -> [String]{
+        guard let uid = Auth.auth().currentUser?.uid else { return []}
+        
+        do {
+            let snapshot = try await FirebaseConstants
+                .UserCollection
+                .document(uid)
+                .collection("block")
+                .document("has_blocked")
+                .getDocument()
+            
+            if let usernames = snapshot.data()?["usernames"] as? [String] {
+                return usernames
+            } else {
+                return []
+            }
+        } catch {
+            return []
+        }
+    }
+    
+    static func unblock(userToUnblock: User, currentUser: User) async throws {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        do {
+            try await FirebaseConstants
+                .UserCollection
+                .document(uid)
+                .collection("block")
+                .document("has_blocked")
+                .updateData(["usernames": FieldValue.arrayRemove([userToUnblock.userName])])
+            
+            
+            try await FirebaseConstants
+                .UserCollection
+                .document(userToUnblock.id)
+                .collection("block")
+                .document("been_blocked")
+                .updateData(["usernames": FieldValue.arrayRemove([currentUser.userName])])
+            
+            
+            
+        } catch {
+            
+        }
+    }
+}
+
+//MARK: - DELETE
+
+extension UserService{
+    static func deleteAccount(_ user: User) async throws {
+        //MARK: DELETE USERNAME FROM BACKEND
+        
+        //MARK: FETCH ALL USERFOLLOWERS, GO INTO THERE USER FOLLOWING AND DELETEE USERNAME, ID,
+        
+        //MARK: FETCH ALL USERFOLLOWING, UNFOLLOW ALL USERS
+        
+        //MARK: FETCH ALL CREWS USER IS IN, REMOVE FROM CREW
+        
+        //MARK: DELETE ALL POSTS USER HAS
+        
+        //MARK: DELETE ALL STORYS USER HAS
+        
+        //MARK: DELETE ALL CHALLENGPOST USER HAS
+        
+        //MARK: DELETE ACCOUNT FROM FIREBASE...
+    }
+}

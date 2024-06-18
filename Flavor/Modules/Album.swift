@@ -18,4 +18,6 @@ struct Album: Identifiable, Hashable, Codable {
     var title: String
     var uploadIds: [String]
     
+    
+    var user: User?
 }

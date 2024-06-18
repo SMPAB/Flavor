@@ -14,6 +14,7 @@ struct GridView: View {
     @Binding var posts: [Post]
     let variableTitle: String
     let variableSubtitle: String?
+    let navigateFromMain: Bool
     
     var body: some View {
         
@@ -927,34 +928,72 @@ struct GridView: View {
         
         let width = UIScreen.main.bounds.width
         
-        if let imageUrl = posts[index].imageUrls{
-            KFImage(URL(string: imageUrl[0]))
-                .resizable()
-                .scaledToFill()
-                .frame(width: width * widthMultiplier, height: width * heightMultiplier)
-                .clipShape(RoundedRectangle(cornerRadius: 16))
-                .contentShape(RoundedRectangle(cornerRadius: 16))
-                .onTapGesture {
-                    homeVM.selectedVariableUploadId = posts[index].id
-                    homeVM.variableUplaods = posts
-                    homeVM.variablesTitle = variableTitle
-                    homeVM.variableSubTitle = variableSubtitle
-                    homeVM.showVariableView = true
+        if !navigateFromMain{
+            NavigationLink(destination: 
+                VariableView()
+                .environmentObject(homeVM)
+            .onAppear{
+                homeVM.selectedVariableUploadId = posts[index].id
+                homeVM.variableUplaods = posts
+                homeVM.variablesTitle = variableTitle
+                homeVM.variableSubTitle = variableSubtitle
+            }
+                           )
+            {
+                if let imageUrl = posts[index].imageUrls{
+                    KFImage(URL(string: imageUrl[0]))
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: width * widthMultiplier, height: width * heightMultiplier)
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                        .contentShape(RoundedRectangle(cornerRadius: 16))
+                        /*.overlay{
+                            ZStack{
+                                Color.black
+                                Text("\(index)")
+                                    .foregroundStyle(.white)
+                            }
+                        }*/
+                        
+                } else {
+                    RoundedRectangle(cornerRadius: 16)
+                        .fill(Color(.systemGray6))
+                        .frame(width: width * widthMultiplier, height: width * heightMultiplier)
+                        
                 }
-                /*.overlay{
-                    ZStack{
-                        Color.black
-                        Text("\(index)")
-                            .foregroundStyle(.white)
-                    }
-                }*/
-                
+            }
         } else {
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Color(.systemGray6))
-                .frame(width: width * widthMultiplier, height: width * heightMultiplier)
-                
+            if let imageUrl = posts[index].imageUrls{
+                KFImage(URL(string: imageUrl[0]))
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: width * widthMultiplier, height: width * heightMultiplier)
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                    .contentShape(RoundedRectangle(cornerRadius: 16))
+                    .onTapGesture {
+                        homeVM.selectedVariableUploadId = posts[index].id
+                        homeVM.variableUplaods = posts
+                        homeVM.variablesTitle = variableTitle
+                        homeVM.variableSubTitle = variableSubtitle
+                        homeVM.showVariableView = true
+                    }
+                    /*.overlay{
+                        ZStack{
+                            Color.black
+                            Text("\(index)")
+                                .foregroundStyle(.white)
+                        }
+                    }*/
+                    
+            } else {
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(Color(.systemGray6))
+                    .frame(width: width * widthMultiplier, height: width * heightMultiplier)
+                    
+            }
         }
+        
+       
         
         }
     

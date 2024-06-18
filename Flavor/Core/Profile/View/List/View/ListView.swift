@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Iconoir
+import Firebase
 
 struct ListView: View {
     
@@ -22,20 +23,31 @@ struct ListView: View {
     @State var searchText = ""
     
     var filteredFollowers: [String] {
-            if searchText.isEmpty {
-                return viewModel.userFollowers
-            } else {
-                return viewModel.userFollowers.filter { $0.lowercased().contains(searchText.lowercased()) }
-            }
+        let currentUid = homeVM.user.userName
+        
+        let followers: [String]
+        if searchText.isEmpty {
+            followers = viewModel.userFollowers
+        } else {
+            followers = viewModel.userFollowers.filter { $0.lowercased().contains(searchText.lowercased()) }
         }
         
-        var filteredFollowing: [String] {
-            if searchText.isEmpty {
-                return viewModel.userFollowing
-            } else {
-                return viewModel.userFollowing.filter { $0.lowercased().contains(searchText.lowercased()) }
-            }
+        return followers.sorted { $0 == currentUid ? true : $1 == currentUid ? false : $0 < $1 }
+    }
+
+    var filteredFollowing: [String] {
+        let currentUid = homeVM.user.userName
+        
+        let following: [String]
+        if searchText.isEmpty {
+            following = viewModel.userFollowing
+        } else {
+            following = viewModel.userFollowing.filter { $0.lowercased().contains(searchText.lowercased()) }
         }
+        
+        return following.sorted { $0 == currentUid ? true : $1 == currentUid ? false : $0 < $1 }
+    }
+
     
     var body: some View {
         

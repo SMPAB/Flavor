@@ -12,7 +12,7 @@ struct Story: Identifiable, Hashable, Codable {
     let id: String
     let ownerUid: String
     
-    let imageUrl: String?
+    var imageUrl: String?
     let postID: String?
     let challengeUploadId: String?
     

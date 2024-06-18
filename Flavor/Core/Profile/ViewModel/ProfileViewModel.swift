@@ -51,8 +51,15 @@ class ProfileViewModel: ObservableObject {
     //MARK: ALBUM
     @Published var albums: [Album] = []
     private var latestAlbumSnapshot: DocumentSnapshot?
+    @Published var loadingAlbums = false
+    @Published var hasLoadedAlbum = false
     
     @Published var showCreateAlbum = false
+    
+    //MARK: OPTIONS FOR NOT CURRENT USER
+    @Published var showOptions = false
+    @Published var showBlock = false
+    @Published var showReport = false
     
     
     init(user: User) {
@@ -130,6 +137,13 @@ extension ProfileViewModel {
 extension ProfileViewModel {
     func fetchGridPosts() async throws {
         fetchingGridPosts = true
+        
+        if posts.isEmpty{
+            let mockPosts = [Post(id: "001", ownerUid: "", ownerUsername: "", likes: 0, storyID: nil, recipeId: nil, timestamp: Timestamp(date: Date()), timestampDate: ""), Post(id: "002", ownerUid: "", ownerUsername: "", likes: 0, storyID: nil, recipeId: nil, timestamp: Timestamp(date: Date()), timestampDate: ""), Post(id: "003", ownerUid: "", ownerUsername: "", likes: 0, storyID: nil, recipeId: nil, timestamp: Timestamp(date: Date()), timestampDate: ""), Post(id: "004", ownerUid: "", ownerUsername: "", likes: 0, storyID: nil, recipeId: nil, timestamp: Timestamp(date: Date()), timestampDate: ""), Post(id: "005", ownerUid: "", ownerUsername: "", likes: 0, storyID: nil, recipeId: nil, timestamp: Timestamp(date: Date()), timestampDate: ""), Post(id: "006", ownerUid: "", ownerUsername: "", likes: 0, storyID: nil, recipeId: nil, timestamp: Timestamp(date: Date()), timestampDate: ""), Post(id: "007", ownerUid: "", ownerUsername: "", likes: 0, storyID: nil, recipeId: nil, timestamp: Timestamp(date: Date()), timestampDate: "")]
+            
+            posts.append(contentsOf: mockPosts)
+        }
+        
         let (fetchedPosts, lastPostId) = try await PostService.fetchGridPosts(user, lastPostFetch: lastPostFetched)
         
         let newPosts = fetchedPosts.filter { fetchedPost in
@@ -139,6 +153,13 @@ extension ProfileViewModel {
         self.posts.append(contentsOf: newPosts)
         self.lastPostFetched = lastPostId
         fetchingGridPosts = false
+        posts.removeAll(where: {$0.id == "001"})
+        posts.removeAll(where: {$0.id == "002"})
+        posts.removeAll(where: {$0.id == "003"})
+        posts.removeAll(where: {$0.id == "004"})
+        posts.removeAll(where: {$0.id == "005"})
+        posts.removeAll(where: {$0.id == "006"})
+        posts.removeAll(where: {$0.id == "007"})
     }
 }
 
@@ -170,7 +191,8 @@ extension ProfileViewModel{
 
 extension ProfileViewModel {
     func fetchAlbums() async throws {
-        let (newAlbums, latestDocument) = try await UserService.fetchUserAlbums(user.id, latestDocument: latestAlbumSnapshot)
+        loadingAlbums = true
+        let (newAlbums, latestDocument) = try await UserService.fetchUserAlbums(user, latestDocument: latestAlbumSnapshot)
         
         let filteredAlbums = newAlbums.filter { newAlbum in
                     !self.albums.contains(where: { $0.id == newAlbum.id })
@@ -178,5 +200,52 @@ extension ProfileViewModel {
         
         self.albums.append(contentsOf: filteredAlbums)
         self.latestAlbumSnapshot = latestDocument
+        
+        loadingAlbums = false
+        hasLoadedAlbum = true
+    }
+}
+
+//MARK: - BLOCK REPORT
+extension ProfileViewModel {
+    func block(currentUser: User) async throws {
+        try await UserService.blockUser(user: user, currentUser: currentUser)
+    }
+    
+    func report(reportText: String) async throws {
+        try await UserService.report(reportText: reportText, user: user)
+    }
+}
+
+//MARK: - FOLLOWING
+
+extension ProfileViewModel {
+    @MainActor
+     func checkIfUserIsFollowing(id: String) async throws {
+        self.user.isFollowed = try await UserService.checkIfUserIsFollowing(id)
+    }
+    @MainActor
+     func checkIfUserHasfriendRequest(id: String) async throws {
+        self.user.hasFriendRequests = try await UserService.checkIfUserHasFriendRequest(id)
+    }
+    @MainActor
+    func follow(userToFollow: User, userFollowing: User) async throws{
+            self.user.isFollowed = true
+            try await UserService.follow(userToFollow: userToFollow, userFollowing: userFollowing)
+    }
+    @MainActor
+    func unfollow(userToUnfollow: User, userUnfollowing: User) async throws {
+        self.user.isFollowed = false
+        try await UserService.unfollow(userToUnfollow: userToUnfollow, userUnfollowing: userUnfollowing)
+    }
+    @MainActor
+    func unsendFriendRequest(userToUnFriendRequest: User, userUnfriendrequesting: User) async throws{
+        self.user.hasFriendRequests = false
+        try await UserService.removeFriendRequest(userToRemoveFrom: userToUnFriendRequest, userRemoving: userUnfriendrequesting)
+    }
+    @MainActor
+    func sendFriendRequest(sendRequestTo: User, userSending: User) async throws{
+        self.user.hasFriendRequests = true
+        try await UserService.sendFriendRequest(userToSendFriendRequestTo: sendRequestTo, userSending: userSending)
     }
 }

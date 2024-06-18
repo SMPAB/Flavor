@@ -12,6 +12,7 @@ struct currentProfilveView: View {
     
     @StateObject var viewModel: ProfileViewModel
     @EnvironmentObject var homeVM: HomeViewModel
+    @EnvironmentObject var contentViewModel: ContentViewModel
     
     @State var offsetRectangle: CGFloat = 0
     
@@ -46,9 +47,12 @@ struct currentProfilveView: View {
                       /*  NavigationLink(destination: {
                             Text("Setting")
                         })*/
-                        Button(action: {
-                            AuthService.shared.signout()
-                        }){
+                        NavigationLink(destination:
+                        MainSettingsView()
+                            .environmentObject(viewModel)
+                            .environmentObject(contentViewModel)
+                            .navigationBarBackButtonHidden(true)
+                        ){
                             Iconoir.settings.asImage
                                 .foregroundStyle(.black)
                         }
@@ -100,7 +104,7 @@ struct currentProfilveView: View {
                                 .frame(width: 1, height: 45)
                             
                             VStack(spacing: 8){
-                                Text("\(user.stats?.flavorCount ?? 0)")
+                                Text("\(user.postIds?.count ?? 0)")
                                     .font(.primaryFont(.P1))
                                     .fontWeight(.semibold)
                                 
@@ -215,10 +219,11 @@ struct currentProfilveView: View {
                 if viewModel.album {
                     LandingAlbumView()
                         .environmentObject(viewModel)
+                        .environmentObject(homeVM)
                 }
                 LazyVStack{
                     if viewModel.grid {
-                        GridView(posts: $viewModel.posts, variableTitle: "Uploads", variableSubtitle: "\(user.userName)")
+                        GridView(posts: $viewModel.posts, variableTitle: "Uploads", variableSubtitle: "\(user.userName)", navigateFromMain: false)
                             .environmentObject(homeVM)
                             
                     }
@@ -231,9 +236,7 @@ struct currentProfilveView: View {
                         Task{
                             try await viewModel.fetchGridPosts()
                         }
-                        Task{
-                            try await viewModel.fetchCalenderStoryDays()
-                        }
+                        
                     }
                 }
                 
@@ -293,6 +296,10 @@ struct currentProfilveView: View {
             Task{
                //try await viewModel.fetchUserStats()
                 try await viewModel.fetchUserFollowingFollowersStats()
+            }
+            
+            Task{
+                try await viewModel.fetchCalenderStoryDays()
             }
             
             Task{

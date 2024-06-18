@@ -10,6 +10,9 @@ import Iconoir
 
 struct MainHomeView: View {
     @EnvironmentObject var viewModel: HomeViewModel
+    
+    @State var showSearch = false
+    @State var showNotifications = false
     var body: some View {
         ScrollView(showsIndicators: false){
             HStack{
@@ -29,15 +32,23 @@ struct MainHomeView: View {
                 Spacer()
                 
                 Button(action: {
-                    
+                   showNotifications = true
                 }){
-                    Iconoir.bell.asImage
-                        .foregroundStyle(.black)
+                    
+                    if viewModel.userHasNotification || viewModel.friendRequestUsernames.count != 0{
+                        Iconoir.bellNotification.asImage
+                            .foregroundStyle(.black)
+                    } else {
+                        Iconoir.bell.asImage
+                            .foregroundStyle(.black)
+                    }
+                    
                 }
                 
-                Button(action: {
-                    
-                }){
+                NavigationLink(destination: 
+                                MainSearchView()
+                    .environmentObject(viewModel)
+                ){
                     Iconoir.search.asImage
                         .foregroundStyle(.black)
                 }
@@ -51,6 +62,9 @@ struct MainHomeView: View {
             
             //MARK: FEED
             FeedView()
+                .environmentObject(viewModel)
+        }.fullScreenCover(isPresented: $showNotifications){
+            LandingNotificationView()
                 .environmentObject(viewModel)
         }
     }

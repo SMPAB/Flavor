@@ -20,7 +20,6 @@ struct Tabview: View {
     
     @EnvironmentObject var contentViewmodel: ContentViewModel
     
-    @State var showCamera = false
     
     @State var offsetFocusPost: CGFloat = 0
     
@@ -75,7 +74,7 @@ struct Tabview: View {
                                 
                                 Spacer()
                                     .onAppear{
-                                        showCamera.toggle()
+                                        homeViewModel.showCamera.toggle()
                                     }
                                 
                                 /*Text("MAP")
@@ -88,6 +87,7 @@ struct Tabview: View {
                                     .environmentObject(homeViewModel)*/
                                 currentProfilveView(user: user)
                                     .environmentObject(homeViewModel)
+                                    .environmentObject(contentViewmodel)
                                     .tabItem {
                                         Iconoir.user.asImage
                                             
@@ -100,7 +100,7 @@ struct Tabview: View {
                         
                         //Upload
                         Button(action: {
-                            showCamera.toggle()
+                            homeViewModel.showCamera.toggle()
                         }){
                             Iconoir.plus.asImage
                                 .foregroundColor(.black)
@@ -186,11 +186,18 @@ struct Tabview: View {
                         try await homeViewModel.fetchStoryUsers()
                     }
                     
+                    Task{
+                        try await homeViewModel.fetchFriendRequests()
+                        try await homeViewModel.checkIfUserHasANotification()
+                    }
+                    
                 }
             
         }
-            .fullScreenCover(isPresented: $showCamera){
+        .fullScreenCover(isPresented: $homeViewModel.showCamera){
                // MainCameraView(currentUser: user)
+                LandingCameraView(story: .constant(false) )
+                    .environmentObject(homeViewModel)
             }
         
     }

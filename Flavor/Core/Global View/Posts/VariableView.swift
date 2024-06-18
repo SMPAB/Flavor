@@ -9,6 +9,7 @@ import SwiftUI
 
 struct VariableView: View {
     @EnvironmentObject var homeVM: HomeViewModel
+    @Environment(\.dismiss) var dismiss
     @State private var scrollToSelected = false
 
     var body: some View {
@@ -16,6 +17,7 @@ struct VariableView: View {
             
             HStack{
                                Button(action: {
+                                   dismiss()
                                    homeVM.showVariableView = false
                                    homeVM.variablesTitle = ""
                                    homeVM.variableSubTitle = nil

@@ -64,7 +64,7 @@ struct LoginView: View {
                                 .font(.primaryFont(.P1))
                                 .fontWeight(.semibold)
                             
-                            CustomTextField(text: $email, textInfo: "Eg. emilio.martinez@flavor", secureField: false)
+                            CustomTextField(text: $email, textInfo: "Eg. emilio.martinez@flavor", secureField: false, multiRow: false)
                                 .focused($isfocused)
                             
                             Text("Password")
@@ -72,7 +72,7 @@ struct LoginView: View {
                                 .fontWeight(.semibold)
                                 
                             
-                            CustomTextField(text: $password, textInfo: "Eg. emilio.martinez@flavor", secureField: true)
+                            CustomTextField(text: $password, textInfo: "Eg. emilio.martinez@flavor", secureField: true, multiRow: false)
                                 .focused($isfocused)
                             
                             HStack{

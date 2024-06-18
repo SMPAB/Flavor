@@ -19,46 +19,65 @@ struct ListCell: View {
     var body: some View {
         ZStack{
             if let user = viewModel.user {
-                NavigationLink(destination: Text(user.userName)){
-                    HStack{
-                        ImageView(size: .small, imageUrl: user.profileImageUrl, background: true)
-                        
-                        Text("@\(user.userName)")
-                            .font(.primaryFont(.P1))
-                            .fontWeight(.semibold)
-                        
-                        Spacer()
-                        
-                        Button(action: {
-                            handleFollowTapped()
-                        }){
-                            if user.isFollowed == true {
-                                Text("Following")
-                                    .font(.primaryFont(.P2))
-                                    .foregroundStyle(.black)
-                                    .frame(width: 100, height: 32)
-                                    .background(
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .fill(Color(.systemGray6))
-                                    )
-                            } else if user.hasFriendRequests == true {
-                                Text("Request Sent")
-                                    .font(.primaryFont(.P2))
-                                    .foregroundStyle(.black)
-                                    .frame(width: 100, height: 32)
-                                    .background(
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .fill(Color(.systemGray6))
-                                    )
-                            } else {
-                                Text("Follow")
-                                    .font(.primaryFont(.P2))
-                                    .foregroundStyle(.colorWhite)
-                                    .frame(width: 100, height: 32)
-                                    .background(
-                                    RoundedRectangle(cornerRadius: 4)
-                                        .fill(.colorOrange)
-                                    )
+                if user.isCurrentUser{
+                    
+                        HStack{
+                            ImageView(size: .small, imageUrl: user.profileImageUrl, background: true)
+                            
+                            Text("@\(user.userName)")
+                                .font(.primaryFont(.P1))
+                                .fontWeight(.semibold)
+                            
+                            Spacer()
+                            
+                            
+                        }
+                    
+                } else {
+                    NavigationLink(destination:
+                                    ProfileView(user: user)
+                        .environmentObject(homeVM)
+                    ){
+                        HStack{
+                            ImageView(size: .small, imageUrl: user.profileImageUrl, background: true)
+                            
+                            Text("@\(user.userName)")
+                                .font(.primaryFont(.P1))
+                                .fontWeight(.semibold)
+                            
+                            Spacer()
+                            
+                            Button(action: {
+                                handleFollowTapped()
+                            }){
+                                if user.isFollowed == true {
+                                    Text("Following")
+                                        .font(.primaryFont(.P2))
+                                        .foregroundStyle(.black)
+                                        .frame(width: 100, height: 32)
+                                        .background(
+                                        RoundedRectangle(cornerRadius: 4)
+                                            .fill(Color(.systemGray6))
+                                        )
+                                } else if user.hasFriendRequests == true {
+                                    Text("Request Sent")
+                                        .font(.primaryFont(.P2))
+                                        .foregroundStyle(.black)
+                                        .frame(width: 100, height: 32)
+                                        .background(
+                                        RoundedRectangle(cornerRadius: 4)
+                                            .fill(Color(.systemGray6))
+                                        )
+                                } else {
+                                    Text("Follow")
+                                        .font(.primaryFont(.P2))
+                                        .foregroundStyle(.colorWhite)
+                                        .frame(width: 100, height: 32)
+                                        .background(
+                                        RoundedRectangle(cornerRadius: 4)
+                                            .fill(.colorOrange)
+                                        )
+                                }
                             }
                         }
                     }

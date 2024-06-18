@@ -19,6 +19,8 @@ struct CreateAlbumView: View {
         .init(.flexible(), spacing: 1)
     ]
     
+    @State var uploading = false
+    
     init(user: User, profileVM: ProfileViewModel){
         self._viewModel = StateObject(wrappedValue: CreateAlbumViewModel(user: user, profileVM: profileVM))
     }
@@ -26,10 +28,18 @@ struct CreateAlbumView: View {
         
         let width = UIScreen.main.bounds.width
         ZStack {
-            ScrollView {
-                LazyVStack(spacing: 16){
+            
+                VStack(spacing: 16){
                     HeaderMain( action: {
-                        dismiss()
+                        if !uploading {
+                            Task{
+                                uploading = true
+                                try await viewModel.createAlbum()
+                                dismiss()
+                                uploading = false
+                            }
+                        }
+                        
                     }, cancelText: "Cancel", title: "Create Album", actionText: "Create")
                     .padding(.horizontal, 16)
                     
@@ -57,7 +67,7 @@ struct CreateAlbumView: View {
                             .font(.primaryFont(.P1))
                             .fontWeight(.semibold)
                         
-                        CustomTextField(text: $viewModel.title, textInfo: "Write album name...", secureField: false)
+                        CustomTextField(text: $viewModel.title, textInfo: "Write album name...", secureField: false, multiRow: false)
                     }.padding(.horizontal, 16)
                     
                     LazyVStack(spacing: 0){
@@ -69,21 +79,30 @@ struct CreateAlbumView: View {
                             .fill(Color(.systemGray))
                             .frame(height: 1)
                             
+                        
+                        ScrollView {
+                            LazyVGrid(columns: gridItems, spacing: 1) {
+                                ForEach(viewModel.user.postIds ?? [], id: \.self){ postId in
+                                    CreateGridItemCell(postId: postId, mainVM: viewModel)
+                                }
+                            }
+                        }.frame(maxHeight: .infinity)
                     }
+                    Spacer()
+                 
                 }
-            }
+            
             
             if viewModel.showImagePicker{
                 ImagePickerOptions(image: $viewModel.image, uiimage: $viewModel.uiImage, showView: $viewModel.showImagePicker, imageType: .albumImage)
             }
             
-            LazyVGrid(columns: gridItems) {
-                ForEach(viewModel.user.postIds ?? [], id: \.self){ postId in
-                    
-                }
-            }
+           
             
+        }.onTapGesture {
+            UIApplication.shared.endEditing()
         }
+          
     }
 }
 

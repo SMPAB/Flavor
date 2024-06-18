@@ -19,7 +19,7 @@ struct Post: Identifiable, Hashable, Codable{
     var caption: String?
     var imageUrls: [String]?
     
-    let storyID: String?
+    var storyID: String?
     let recipeId: String?
     let timestamp: Timestamp
     let timestampDate: String

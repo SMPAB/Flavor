@@ -205,7 +205,51 @@ extension Array {
 extension PostService {
     static func fetchGridPosts(_ user: User, lastPostFetch: String?) async throws -> ([Post], String?) {
 
-        guard let postIdArray = user.postIds else { return ([], lastPostFetch)}
+        do {
+            guard let postIdArray = user.postIds else { return ([], lastPostFetch)}
+
+            // Determine where to start fetching based on lastPostFetch
+            let startIndex: Int
+            if let lastFetchId = lastPostFetch, let index = postIdArray.firstIndex(of: lastFetchId) {
+                startIndex = index + 1
+            } else {
+                startIndex = 0 // Start from the beginning if lastPostFetch is nil or not found
+            }
+
+            var fetchedPosts: [Post] = []
+            var nextFetchId: String? = nil
+
+            // Fetch 10 posts starting from startIndex
+            let endIndex = min(startIndex + 10, postIdArray.count)
+            for i in startIndex..<endIndex {
+                let postId = postIdArray[i]
+
+                // Assuming Firebase fetch logic (adjust this based on your actual Firebase setup)
+                if let post = try await fetchPost(postId){
+                    fetchedPosts.append(post)
+                }
+            }
+
+            // Determine nextFetchId for pagination
+            if endIndex < postIdArray.count {
+                nextFetchId = postIdArray[endIndex]
+            }
+
+            return (fetchedPosts, nextFetchId)
+        } catch {
+            return ([], lastPostFetch)
+        }
+        
+    }
+
+}
+
+//MARK: - Album
+
+extension PostService {
+    static func fetchAlbumPosts(_ album: Album, lastPostFetch: String?) async throws -> ([Post], String?) {
+
+        let postIdArray = album.uploadIds
 
         // Determine where to start fetching based on lastPostFetch
         let startIndex: Int
@@ -236,5 +280,80 @@ extension PostService {
 
         return (fetchedPosts, nextFetchId)
     }
+}
 
+//MARK: - Search
+
+extension PostService {
+    static func fetchTrendingPosts(lastDocument: DocumentSnapshot? = nil) async throws -> ([Post], DocumentSnapshot?) {
+        
+        do {
+            var query: Query = FirebaseConstants
+                .PostCollection
+                .order(by: "likes", descending: true)
+                .limit(to: 7)
+            
+            if let lastDocument = lastDocument {
+                query = query.start(afterDocument: lastDocument)
+            }
+            
+            let snapshot = try await query.getDocuments()
+            
+           
+            var posts = snapshot.documents.compactMap({ try? $0.data(as: Post.self)})
+            
+            
+            for i in 0..<posts.count{
+                let post = posts[i]
+                let ownerUid = post.ownerUid
+                let user = try await UserService.fetchUser(withUid: ownerUid)
+                posts[i].user = user
+            }
+            
+            let lastSnapshot = snapshot.documents.last
+            
+            let filterdPosts = posts.filter({$0.user?.publicAccount == true})
+            
+            return (filterdPosts, lastSnapshot)
+        } catch {
+            return ([], lastDocument)
+        }
+        
+    }
+    
+    static func fetchRecomendedPosts(lastDocument: DocumentSnapshot? = nil) async throws -> ([Post], DocumentSnapshot?) {
+        
+        do {
+            var query: Query = FirebaseConstants
+                .PostCollection
+                .limit(to: 7)
+                //.order(by: "likes", descending: true)
+            
+            if let lastDocument = lastDocument {
+                query = query.start(afterDocument: lastDocument)
+            }
+            
+            let snapshot = try await query.getDocuments()
+            
+           
+            var posts = snapshot.documents.compactMap({ try? $0.data(as: Post.self)})
+            
+            
+            for i in 0..<posts.count{
+                let post = posts[i]
+                let ownerUid = post.ownerUid
+                let user = try await UserService.fetchUser(withUid: ownerUid)
+                posts[i].user = user
+            }
+            
+            let filterdPosts = posts.filter({$0.user?.publicAccount == true})
+            
+            let lastSnapshot = snapshot.documents.last
+            
+            return (filterdPosts, lastSnapshot)
+        } catch {
+            return ([], lastDocument)
+        }
+        
+    }
 }

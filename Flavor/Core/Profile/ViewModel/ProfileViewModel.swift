@@ -38,6 +38,10 @@ class ProfileViewModel: ObservableObject {
     @Published var savedPostSnapshot: DocumentSnapshot?
     @Published var fetchingSavedPosts = false
     
+    @Published var savedRecipes: [Recipe] = []
+    @Published var savedRecipesSnapshot: DocumentSnapshot?
+    @Published var fetchingSavedRecipes = false
+    
     //MARK: GRID
     @Published var posts: [Post] = []
     private var lastPostFetched: String?
@@ -129,6 +133,21 @@ extension ProfileViewModel {
            self.savedPosts.append(contentsOf: newPosts)
            self.savedPostSnapshot = lastSnapshot
            fetchingSavedPosts = false
+       }
+    
+    @MainActor
+       func fetchSavedRecipes() async throws {
+           fetchingSavedRecipes = true
+           let (fetchedRecipes, lastSnapshot) = try await PostService.fetchSavedRecipesForUser(lastDocument: savedRecipesSnapshot)
+           
+           // Filter out duplicates
+           let newRecipe = fetchedRecipes.filter { fetchedRecipe in
+               !self.savedRecipes.contains(where: { $0.id == fetchedRecipe.id })
+           }
+           
+           self.savedRecipes.append(contentsOf: newRecipe)
+           self.savedRecipesSnapshot = lastSnapshot
+           fetchingSavedRecipes = false
        }
 }
 

@@ -11,6 +11,8 @@ import Iconoir
 struct CreateRecipeView: View {
     @EnvironmentObject var viewModel: UploadFlavorPostViewModel
     @Environment(\.dismiss) var dismiss
+    
+    @State var showAlert = false
 
     private var difficualty: Int {
         return viewModel.recipeDiff ?? 0
@@ -20,7 +22,7 @@ struct CreateRecipeView: View {
             VStack (spacing: 24){
                 HStack{
                     Button(action: {
-                        dismiss()
+                        showAlert.toggle()
                     }){
                         Image(systemName: "chevron.left")
                             .foregroundStyle(.black)
@@ -33,7 +35,17 @@ struct CreateRecipeView: View {
                         .fontWeight(.semibold)
                     Spacer()
                     
-                    Image(systemName: "chevron.left").opacity(0)
+                    Button(action: {
+                        viewModel.recipe = true
+                        viewModel.combineIngredientsAndUtensils()
+                        print("DEBUG APP RECIPE ING: \(viewModel.recipeIng)")
+                        print("DEBUG APP RECIPE UTT: \(viewModel.recipeUtt)")
+                        dismiss()
+                    }){
+                        Text("save")
+                            .font(.primaryFont(.P1))
+                            .foregroundStyle(.black)
+                    }
                     
                 }.padding(.horizontal, 16)
                     .padding(.top, 8)
@@ -278,7 +290,7 @@ struct CreateRecipeView: View {
                     Spacer()
                     
                     Button(action: {
-                        viewModel.recipeSteps.append(steps(stepNumber: viewModel.recipeSteps.count + 1, text: "", utensils: [], ingrediences: []))
+                        viewModel.recipeSteps.append(steps(stepNumber: viewModel.recipeSteps.count + 1, text: "", utensils: utensil(utensil: ""), ingrediences: [ingrediences(units: "0", ingredient: "", messurment: "")]))
                     }){
                         Iconoir.plusCircle.asImage
                             .foregroundStyle(.black)
@@ -286,7 +298,7 @@ struct CreateRecipeView: View {
                 }.padding(.horizontal, 16)
                 
                 
-                ForEach(Array(viewModel.recipeSteps.enumerated()), id: \.element) { index, step in
+                ForEach(Array(viewModel.recipeSteps.enumerated()), id: \.offset) { index, step in
                     VStack {
                         HStack{
                             Text("Step: \(index + 1)") // Display 1-based index
@@ -304,15 +316,171 @@ struct CreateRecipeView: View {
                             }
                             
                         }
+                        
+                        HStack{
+                            Text("Ingrediences")
+                                .font(.primaryFont(.P1))
+                            
+                            Spacer()
+                            
+                            Button(action: {
+                                viewModel.recipeSteps[index].ingrediences.append(ingrediences(units: "0", ingredient: "", messurment: ""))
+                            }){
+                                Iconoir.plusSquare.asImage
+                                    .resizable()
+                                    .frame(width: 16, height: 16)
+                                    .foregroundStyle(.black)
+                            }
+                        }
+                        
+                        HStack{
+                            VStack(alignment: .leading){
+                                Text("Quantity:")
+                                    .font(.primaryFont(.P2))
+                                   
+                            }.frame(maxWidth: .infinity, alignment: .leading)
+                            
+                            VStack(alignment: .leading){
+                                Text("Unit:")
+                                    .font(.primaryFont(.P2))
+                                    
+                            }.frame(maxWidth: .infinity, alignment: .leading)
+                            
+                            VStack(alignment: .leading){
+                                Text("Ingredient:")
+                                    .font(.primaryFont(.P2))
+                                    
+                            }.frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                        
+                        ForEach(Array(viewModel.recipeSteps[index].ingrediences.enumerated()), id: \.offset) { ind, step in
+                            HStack{
+                                VStack(alignment: .leading){
+                                    //Text("Quantity:")
+                                       // .font(.primaryFont(.P2))
+                                    
+                                    TextField("", text: $viewModel.recipeSteps[index].ingrediences[ind].units)
+                                        .font(.primaryFont(.P2))
+                                        .padding(4)
+                                        .frame(height: 20)
+                                        .frame(maxWidth: .infinity)
+                                        .background(
+                                        RoundedRectangle(cornerRadius: 4)
+                                            .fill(.white)
+                                            .stroke(Color(.systemGray))
+                                        )
+                                        .keyboardType(.numberPad)
+                                    
+                                    
+                                }
+                                
+                                
+                                VStack(alignment: .leading){
+                                    //Text("Units:")
+                                       // .font(.primaryFont(.P2))
+                                    
+                                    Menu{
+                                        Button(action: {
+                                            viewModel.recipeSteps[index].ingrediences[ind].messurment = "grams"
+                                        }){
+                                           Text("grams")
+                                                .font(.primaryFont(.P2))
+                                        }
+                                    } label: {
+                                        Text(viewModel.recipeSteps[index].ingrediences[ind].messurment.isEmpty ? "select unit" : viewModel.recipeSteps[index].ingrediences[ind].messurment)
+                                            .font(.primaryFont(.P2))
+                                            .padding(4)
+                                            .frame(height: 20)
+                                            .frame(maxWidth: .infinity)
+                                            .background(
+                                            RoundedRectangle(cornerRadius: 4)
+                                                .fill(.white)
+                                                .stroke(Color(.systemGray))
+                                            )
+                                            .foregroundStyle(.black)
+                                    }
+                                    
+                                    
+                                }
+                                
+                                
+                                VStack(alignment: .leading){
+                                   // Text("Ingretient:")
+                                        //.font(.primaryFont(.P2))
+                                    
+                                    TextField("Write Ingredient", text: $viewModel.recipeSteps[index].ingrediences[ind].ingredient)
+                                        .font(.primaryFont(.P2))
+                                        .padding(4)
+                                        .frame(height: 20)
+                                        .frame(maxWidth: .infinity)
+                                        .background(
+                                        RoundedRectangle(cornerRadius: 4)
+                                            .fill(.white)
+                                            .stroke(Color(.systemGray))
+                                        )
+                                    
+                                    
+                                }
+                            }
+                        }
+                        
+                        VStack(alignment: .leading){
+                            Text("Utensils")
+                                .font(.primaryFont(.P1))
+                            
+                            
+                            TextField("Write your utensils", text: $viewModel.recipeSteps[index].utensils.utensil)
+                                .font(.primaryFont(.P2))
+                                .padding(4)
+                                .frame(height: 24)
+                                .frame(maxWidth: .infinity)
+                                .background(
+                                RoundedRectangle(cornerRadius: 4)
+                                    .fill(.white)
+                                    .stroke(Color(.systemGray))
+                                )
+                        }
+                        
+                        
+                        VStack(alignment: .leading){
+                            Text("Instructions")
+                                .font(.primaryFont(.P1))
+                            
+                            
+                            TextField("Write your instructions", text: $viewModel.recipeSteps[index].text)
+                                .font(.primaryFont(.P2))
+                                .padding(4)
+                                .frame(height: 24)
+                                .frame(maxWidth: .infinity)
+                                .background(
+                                RoundedRectangle(cornerRadius: 4)
+                                    .fill(.white)
+                                    .stroke(Color(.systemGray))
+                                )
+                        }
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                     }.padding(.horizontal, 16)
                 }
                 
             }
-        }
+        }.customAlert(isPresented: $showAlert, message: "By going back your recipe wont be saved.", confirmAction: {
+            dismiss()
+            showAlert.toggle()
+        }, cancelAction: {
+            showAlert.toggle()
+        }, dismissText: "cancel", acceptText: "go back")
     }
 
+    
 }
 
 #Preview {
     CreateRecipeView()
+        .environmentObject(UploadFlavorPostViewModel())
 }

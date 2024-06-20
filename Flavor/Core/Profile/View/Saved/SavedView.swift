@@ -82,16 +82,48 @@ struct SavedView: View {
             
             
             LazyVGrid(columns: gridItems, spacing: 8){
-                ForEach(1...2, id: \.self){ post in
-                    RoundedRectangle(cornerRadius: 16)
-                        .frame(height: (width - 32)/3 )
+                ForEach(viewModel.savedRecipes){ recipe in
+                    NavigationLink(destination: 
+                                    MainRecipeView(recipeId: recipe.id)
+                        .navigationBarBackButtonHidden(true)
+                    ){
+                        ZStack{
+                            if let imageUrl = recipe.imageUrl{
+                                KFImage(URL(string: imageUrl))
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: (width - 48)/3, height: (width - 48)/3 )
+                                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                                    .contentShape(RoundedRectangle(cornerRadius: 16))
+                            } else {
+                                RoundedRectangle(cornerRadius: 16)
+                                    .frame(height: (width - 48)/3 )
+                            }
+                        }.onFirstAppear {
+                            if recipe.id == viewModel.savedRecipes.last?.id{
+                                Task{
+                                    try await viewModel.fetchSavedRecipes()
+                                }
+                            }
+                        }
+                    }
+                    
+                    
+                    
                 }
                 
-                
+                if viewModel.fetchingSavedRecipes{
+                    Loading()
+                }
             }.padding(.horizontal, 16)
         }.onFirstAppear {
             Task{
                 try await viewModel.fetchSavedPosts()
+                
+            }
+            
+            Task{
+                try await viewModel.fetchSavedRecipes()
             }
         }
     }

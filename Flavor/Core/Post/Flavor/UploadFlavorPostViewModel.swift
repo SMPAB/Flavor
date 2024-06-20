@@ -25,6 +25,16 @@ class UploadFlavorPostViewModel: ObservableObject {
     @Published var recipeUtt: [utensil] = []
     
     
+    func combineIngredientsAndUtensils() {
+           recipeIng = recipeSteps.flatMap { (step: steps) -> [ingrediences] in
+               step.ingrediences
+           }
+        recipeUtt = Array(Set(recipeSteps.compactMap { (step: steps) -> utensil in
+               step.utensils
+           }))
+       }
+    
+    
     func uploadFlavorPostViewModel(images: [UIImage], user: User) async throws {
     
         let dateFormatter = DateFormatter()
@@ -37,7 +47,7 @@ class UploadFlavorPostViewModel: ObservableObject {
             let storyId = FirebaseConstants.StoryCollection.document()
             let recipeId = Firestore.firestore().collection("recipe").document()
             
-            var post = Post(id: postId.documentID, ownerUid: user.id, ownerUsername: user.userName, likes: 0, title: title, caption: caption, imageUrls: nil, storyID: storyId.documentID, recipeId: nil, timestamp: Timestamp(date: Date()), timestampDate: todayString, hasLiked: nil, hasSaved: nil, user: nil)
+            var post = Post(id: postId.documentID, ownerUid: user.id, ownerUsername: user.userName, likes: 0, title: title, caption: caption, imageUrls: nil, storyID: storyId.documentID, recipeId: recipe ? recipeId.documentID : nil, timestamp: Timestamp(date: Date()), timestampDate: todayString, hasLiked: nil, hasSaved: nil, user: nil)
             
             var imageUrls: [String] = []
             
@@ -94,6 +104,8 @@ class UploadFlavorPostViewModel: ObservableObject {
             //MARK: RECIPE
             if recipe{
                 let recipe = Recipe(id: recipeId.documentID,
+                                    ownerUid: user.id,
+                                    publicRecipe: user.publicAccount,
                                     ownerPost: postId.documentID,
                                     name: recipeTitle,
                                     difficualty: recipeDiff ?? 3,
@@ -101,10 +113,12 @@ class UploadFlavorPostViewModel: ObservableObject {
                                     servings: recipeServings ?? 4,
                                     ingrediences: recipeIng,
                                     steps: recipeSteps,
-                                    utensils: recipeUtt)
+                                    utensils: recipeUtt,
+                                    imageUrl: imageUrls[0]
+                )
                 
                 guard let encodedRecipe = try? Firestore.Encoder().encode(recipe) else { return }
-                try await recipeId.setData(encodedPost)
+                try await recipeId.setData(encodedRecipe)
             }
             
         } catch {

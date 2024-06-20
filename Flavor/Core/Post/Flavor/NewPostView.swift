@@ -20,6 +20,8 @@ struct NewPostView: View {
 
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var homeVM: HomeViewModel
+    
+    @Binding var showOptions: Bool
 
     var body: some View {
         NavigationStack {
@@ -41,7 +43,7 @@ struct NewPostView: View {
                 }
                 
             }.navigationDestination(isPresented: $viewModel.goToUpload){
-                UploadPostView(images: $viewModel.Images)
+                UploadPostView(images: $viewModel.Images, showOption: $showOptions)
                     .environmentObject(homeVM)
             }
             //
@@ -55,7 +57,12 @@ struct NewPostView: View {
     @ViewBuilder
     private var headerView: some View {
         HStack {
-            Button(action: { dismiss() }) {
+            Button(action: { 
+                showOptions = true
+                dismiss()
+                
+            }) {
+                
                 Iconoir.xmark.asImage.foregroundStyle(Color(.systemGray))
             }
             Spacer()
@@ -66,6 +73,7 @@ struct NewPostView: View {
             Button(action: {
                 viewModel.fetchImages()
                 viewModel.goToUpload.toggle()
+                showOptions = false
             }) {
                 Text("Next")
                     .font(.custom("HankenGrotesk-Regular", size: .H4))
@@ -280,7 +288,8 @@ struct AssetImageView: View {
 
 
 
-
+/*
 #Preview {
     NewPostView()
 }
+*/

@@ -65,22 +65,23 @@ struct Tabview: View {
                                         Iconoir.homeSimpleDoor.asImage
                                     }
                                 
-                               /* MainGroupsView(currentUser: user)
+                                LandingCommunityView()
+                                    .environmentObject(homeViewModel)
                                     .tabItem {
                                         
                                             Iconoir.community.asImage
                                         
-                                    }*/
+                                    }
                                 
                                 Spacer()
                                     .onAppear{
                                         homeViewModel.showCamera.toggle()
                                     }
                                 
-                                /*Text("MAP")
+                                Text("MAP")
                                     .tabItem {
                                         Iconoir.map.asImage
-                                    }*/
+                                    }
                                 
                                 /*ProfilView(user: user)
                                     .environmentObject(contentViewmodel)

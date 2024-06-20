@@ -357,3 +357,116 @@ extension PostService {
         
     }
 }
+
+//MARK: - RECIPE
+
+extension PostService {
+    static func fetchRecipe(recipeId: String) async throws -> Recipe?{
+        do {
+            return try await FirebaseConstants.RecipeCollection.document(recipeId).getDocument().data(as: Recipe.self)
+        } catch {
+            return nil
+        }
+    }
+    
+    static func checkIfUserSavedRecipe(recipeId: String) async throws -> Bool {
+        
+        guard let currentUid = Auth.auth().currentUser?.uid else { return false}
+        do {
+            let snapshot = try await FirebaseConstants
+                .UserCollection
+                .document(currentUid)
+                .collection("saved-recipes")
+                .document(recipeId)
+                .getDocument()
+            
+            return snapshot.exists
+        } catch {
+            return false
+        }
+    }
+    
+    static func saveRecipe(recipeId: String) async throws {
+        
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        
+        do {
+           async let _ = try await FirebaseConstants
+                .UserCollection
+                .document(currentUid)
+                .collection("saved-recipes")
+                .document(recipeId)
+                .setData([:])
+        } catch {
+            return
+        }
+    }
+    
+    static func unSaveRecipe(recipeId: String) async throws {
+        
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        
+        do {
+           async let _ = try await FirebaseConstants
+                .UserCollection
+                .document(currentUid)
+                .collection("saved-recipes")
+                .document(recipeId)
+                .delete()
+        } catch {
+            return
+        }
+    }
+    
+    
+    static func fetchSavedRecipesForUser(lastDocument: DocumentSnapshot? = nil) async throws -> ([Recipe], DocumentSnapshot?){
+        guard let uid = Auth.auth().currentUser?.uid else { return ([], nil)}
+        
+       
+        
+        do {
+            var query: Query = FirebaseConstants
+                .UserCollection
+                .document(uid)
+                .collection("saved-recipes")
+                .limit(to: 6)
+            
+          
+            
+            if let lastDocument = lastDocument {
+                query = query.start(afterDocument: lastDocument)
+            }
+            
+            
+            
+            let snapshot = try await query.getDocuments()
+            
+            
+            let recipeIds = snapshot.documents.map { $0.documentID }
+            
+            var recipes: [Recipe] = []
+            
+            for i in 0..<recipeIds.count{
+                let recipeId = recipeIds[i]
+                if let recipe = try await PostService.fetchRecipe(recipeId: recipeId){
+                    recipes.append(recipe)
+                }
+            }
+            
+            
+            for i in 0..<recipes.count{
+                let recipe = recipes[i]
+                let ownerUid = recipe.ownerUid
+                let user = try await UserService.fetchUser(withUid: ownerUid)
+                recipes[i].user = user
+            }
+            
+            let lastSnapshot = snapshot.documents.last
+            
+            
+            return (recipes,lastSnapshot)
+        } catch {
+            return ([], nil)
+        }
+    }
+}

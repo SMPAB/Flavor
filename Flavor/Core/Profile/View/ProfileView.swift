@@ -341,7 +341,6 @@ struct ProfileView: View {
                 }
                 
                 Task{
-                   //try await viewModel.fetchUserStats()
                     try await viewModel.fetchUserFollowingFollowersStats()
                 }
                 

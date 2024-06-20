@@ -14,6 +14,9 @@ struct UploadPostView: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var homeVM: HomeViewModel
     @StateObject var viewMdeol = UploadFlavorPostViewModel()
+    @State var removeRecipeAlert = false
+    
+    @Binding var showOption: Bool
     
     var body: some View {
         ScrollView{
@@ -132,11 +135,55 @@ struct UploadPostView: View {
                             RoundedRectangle(cornerRadius: 8)
                                 .fill(Color.clear)
                                 .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [5]))
+                                .foregroundStyle(.black)
                             )
+                            .foregroundStyle(.black)
                             
                     }
                 } else {
-                    
+                    NavigationLink(destination:
+                                    CreateRecipeView()
+                        .environmentObject(viewMdeol)
+                        .navigationBarBackButtonHidden(true)
+                    ){
+                        
+                        HStack{
+                            
+                            Button(action: {
+                                removeRecipeAlert.toggle()
+                            }){
+                                Iconoir.trash.asImage
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 16, height: 16)
+                                    .foregroundStyle(Color(.systemRed))
+                            }
+                            Spacer()
+                            
+                            Text("Edit Recipe")
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 37)
+                                .foregroundStyle(.colorOrange)
+                                
+                            
+                            Spacer()
+                            
+                            Iconoir.trash.asImage
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 16, height: 16)
+                                .foregroundStyle(Color(.colorOrange))
+                                .opacity(0)
+                        }.padding(.horizontal, 8)
+                        .background(
+                            RoundedRectangle(cornerRadius: 8)
+                                .fill(Color.clear)
+                                .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [5]))
+                                .foregroundStyle(.colorOrange)
+                            )
+                        
+                            
+                    }
                 }
             }
             .padding(.horizontal, 16)
@@ -154,10 +201,22 @@ struct UploadPostView: View {
                     homeVM.showCamera.toggle()
                 }
             }).padding(.horizontal, 16)
-        }.navigationBarBackButtonHidden(true)
+        }
+        .navigationBarBackButtonHidden(true)
             .onTapGesture {
                 UIApplication.shared.endEditing()
             }
+            .customAlert(isPresented: $removeRecipeAlert, message: "Are you sure you want to delete your recipe?", confirmAction: {
+                viewMdeol.recipe = false
+                viewMdeol.recipeTime = nil
+                viewMdeol.recipeDiff = nil
+                viewMdeol.recipeServings = nil
+                viewMdeol.recipeSteps = []
+                viewMdeol.recipeIng = []
+                viewMdeol.recipeUtt = []
+            }, cancelAction: {
+                removeRecipeAlert.toggle()
+            }, dismissText: "Cancel", acceptText: "Remove")
     }
 }
 /*

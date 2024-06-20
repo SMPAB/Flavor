@@ -21,7 +21,7 @@ struct LandingCameraView: View {
                 camera(showOption: $showOptions)
                     .environmentObject(homeVM)
             } else {
-                NewPostView()
+                NewPostView(showOptions: $showOptions)
                     .environmentObject(homeVM)
             }
             

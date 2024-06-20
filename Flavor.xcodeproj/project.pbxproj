@@ -135,6 +135,14 @@
 		18C9545A2C1B3E8700B6439E /* FocusPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C954592C1B3E8700B6439E /* FocusPostView.swift */; };
 		18D91A862C21A6AB00CD1E6C /* UploadStoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D91A852C21A6AB00CD1E6C /* UploadStoryView.swift */; };
 		18D91A882C21A6BC00CD1E6C /* UploadStoryVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D91A872C21A6BC00CD1E6C /* UploadStoryVM.swift */; };
+		18D91A8B2C22E58500CD1E6C /* MainRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D91A8A2C22E58500CD1E6C /* MainRecipeView.swift */; };
+		18D91A8D2C22EB2900CD1E6C /* RecipeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D91A8C2C22EB2900CD1E6C /* RecipeViewModel.swift */; };
+		18D91A922C23281800CD1E6C /* LandingCommunityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D91A912C23281800CD1E6C /* LandingCommunityView.swift */; };
+		18D91A962C232AC200CD1E6C /* LandingCrewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D91A952C232AC200CD1E6C /* LandingCrewView.swift */; };
+		18D91A982C232ACC00CD1E6C /* LandingCrewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D91A972C232ACC00CD1E6C /* LandingCrewViewModel.swift */; };
+		18D91A9A2C232B7B00CD1E6C /* Crew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D91A992C232B7B00CD1E6C /* Crew.swift */; };
+		18D91A9C2C232BD300CD1E6C /* ratingUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D91A9B2C232BD300CD1E6C /* ratingUser.swift */; };
+		18D91A9E2C23317D00CD1E6C /* CrewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D91A9D2C23317D00CD1E6C /* CrewService.swift */; };
 		18DDBD082C18E34300E288DE /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DDBD072C18E34300E288DE /* AuthService.swift */; };
 		18DDBD0A2C18E3C700E288DE /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DDBD092C18E3C700E288DE /* LoginViewModel.swift */; };
 		18DDBD0D2C18E4A300E288DE /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 18DDBD0C2C18E4A300E288DE /* GoogleSignIn */; };
@@ -268,6 +276,14 @@
 		18C954592C1B3E8700B6439E /* FocusPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusPostView.swift; sourceTree = "<group>"; };
 		18D91A852C21A6AB00CD1E6C /* UploadStoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadStoryView.swift; sourceTree = "<group>"; };
 		18D91A872C21A6BC00CD1E6C /* UploadStoryVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadStoryVM.swift; sourceTree = "<group>"; };
+		18D91A8A2C22E58500CD1E6C /* MainRecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRecipeView.swift; sourceTree = "<group>"; };
+		18D91A8C2C22EB2900CD1E6C /* RecipeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewModel.swift; sourceTree = "<group>"; };
+		18D91A912C23281800CD1E6C /* LandingCommunityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingCommunityView.swift; sourceTree = "<group>"; };
+		18D91A952C232AC200CD1E6C /* LandingCrewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingCrewView.swift; sourceTree = "<group>"; };
+		18D91A972C232ACC00CD1E6C /* LandingCrewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingCrewViewModel.swift; sourceTree = "<group>"; };
+		18D91A992C232B7B00CD1E6C /* Crew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Crew.swift; sourceTree = "<group>"; };
+		18D91A9B2C232BD300CD1E6C /* ratingUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ratingUser.swift; sourceTree = "<group>"; };
+		18D91A9D2C23317D00CD1E6C /* CrewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewService.swift; sourceTree = "<group>"; };
 		18DDBD072C18E34300E288DE /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		18DDBD092C18E3C700E288DE /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		18DDBD112C18E60000E288DE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -363,6 +379,7 @@
 				18C954402C1B168200B6439E /* CommentService.swift */,
 				184060D72C1C94690002894C /* StoryService.swift */,
 				183C7CF52C2029EF00E00241 /* NotificationService.swift */,
+				18D91A9D2C23317D00CD1E6C /* CrewService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -769,6 +786,7 @@
 		1844C25C2C18D8B800243FAB /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				18D91A8E2C2327C600CD1E6C /* Community */,
 				183C7D1A2C2062BE00E00241 /* Post */,
 				183C7CFA2C20337800E00241 /* Notification */,
 				186E2B762C1AE554003E35D4 /* Home */,
@@ -1065,11 +1083,63 @@
 		18C954582C1B3E7900B6439E /* Posts */ = {
 			isa = PBXGroup;
 			children = (
+				18D91A892C22E57A00CD1E6C /* Recipe */,
 				18C954592C1B3E8700B6439E /* FocusPostView.swift */,
 				184060C92C1B99DD0002894C /* VariableView.swift */,
 				184060D02C1C30C00002894C /* GridView.swift */,
 			);
 			path = Posts;
+			sourceTree = "<group>";
+		};
+		18D91A892C22E57A00CD1E6C /* Recipe */ = {
+			isa = PBXGroup;
+			children = (
+				18D91A8A2C22E58500CD1E6C /* MainRecipeView.swift */,
+				18D91A8C2C22EB2900CD1E6C /* RecipeViewModel.swift */,
+			);
+			path = Recipe;
+			sourceTree = "<group>";
+		};
+		18D91A8E2C2327C600CD1E6C /* Community */ = {
+			isa = PBXGroup;
+			children = (
+				18D91A8F2C2327CB00CD1E6C /* Crew */,
+				18D91A912C23281800CD1E6C /* LandingCommunityView.swift */,
+			);
+			path = Community;
+			sourceTree = "<group>";
+		};
+		18D91A8F2C2327CB00CD1E6C /* Crew */ = {
+			isa = PBXGroup;
+			children = (
+				18D91A942C232AA500CD1E6C /* Main */,
+				18D91A932C232A9D00CD1E6C /* Landing */,
+			);
+			path = Crew;
+			sourceTree = "<group>";
+		};
+		18D91A902C23280000CD1E6C /* Create */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Create;
+			sourceTree = "<group>";
+		};
+		18D91A932C232A9D00CD1E6C /* Landing */ = {
+			isa = PBXGroup;
+			children = (
+				18D91A902C23280000CD1E6C /* Create */,
+				18D91A952C232AC200CD1E6C /* LandingCrewView.swift */,
+				18D91A972C232ACC00CD1E6C /* LandingCrewViewModel.swift */,
+			);
+			path = Landing;
+			sourceTree = "<group>";
+		};
+		18D91A942C232AA500CD1E6C /* Main */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Main;
 			sourceTree = "<group>";
 		};
 		18DDBD102C18E5F400E288DE /* Modules */ = {
@@ -1082,6 +1152,8 @@
 				184060E52C1DD05B0002894C /* Album.swift */,
 				183C7CEE2C2027F000E00241 /* Notification.swift */,
 				189D02232C20E06A00A93C4B /* Recipe.swift */,
+				18D91A992C232B7B00CD1E6C /* Crew.swift */,
+				18D91A9B2C232BD300CD1E6C /* ratingUser.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -1234,6 +1306,7 @@
 				185A6A732C1F9A070006E5B0 /* BlockView.swift in Sources */,
 				18332F242C19AAC6002E95F4 /* LandingView.swift in Sources */,
 				183C7D132C204F9000E00241 /* MainBlockView.swift in Sources */,
+				18D91A8B2C22E58500CD1E6C /* MainRecipeView.swift in Sources */,
 				183B221C2C1A4523008A3DCF /* ListCell.swift in Sources */,
 				18332F1F2C199745002E95F4 /* MainRegistrationView.swift in Sources */,
 				183C7D032C20385E00E00241 /* MainFriendRequestView.swift in Sources */,
@@ -1249,6 +1322,7 @@
 				18332F302C19B579002E95F4 /* UserService.swift in Sources */,
 				184060CF2C1B9D5D0002894C /* SavedView.swift in Sources */,
 				183C7D222C20687200E00241 /* NewPostViewModel.swift in Sources */,
+				18D91A8D2C22EB2900CD1E6C /* RecipeViewModel.swift in Sources */,
 				18332F322C19B666002E95F4 /* FirebaseConstants.swift in Sources */,
 				183B21FC2C19D701008A3DCF /* Post.swift in Sources */,
 				186E2B7D2C1AE6A4003E35D4 /* FeedView.swift in Sources */,
@@ -1281,6 +1355,7 @@
 				18C9544D2C1B1C0600B6439E /* PrimaryCommentCell.swift in Sources */,
 				186E2B852C1AE883003E35D4 /* TimeStamp.swift in Sources */,
 				183B22132C1A134F008A3DCF /* HeaderMain.swift in Sources */,
+				18D91A922C23281800CD1E6C /* LandingCommunityView.swift in Sources */,
 				185A6A642C1F79B70006E5B0 /* MainSearchView.swift in Sources */,
 				18332F1C2C1994A5002E95F4 /* CustomAlertModifier.swift in Sources */,
 				183C7D2A2C20782400E00241 /* UploadFlavorPostViewModel.swift in Sources */,
@@ -1299,6 +1374,7 @@
 				18DDBD0A2C18E3C700E288DE /* LoginViewModel.swift in Sources */,
 				184060E62C1DD05B0002894C /* Album.swift in Sources */,
 				18DDBD242C1916EA00E288DE /* ContentViewModel.swift in Sources */,
+				18D91A9E2C23317D00CD1E6C /* CrewService.swift in Sources */,
 				185A6A662C1F79FC0006E5B0 /* MainSearchViewModel.swift in Sources */,
 				185A6A5F2C1F3DAB0006E5B0 /* ProfileView.swift in Sources */,
 				183C7CFD2C20338E00E00241 /* LandingNotificationView.swift in Sources */,
@@ -1310,6 +1386,7 @@
 				183B22032C19D935008A3DCF /* currentProfilveView.swift in Sources */,
 				184060E42C1DCDC20002894C /* LandingAlbumView.swift in Sources */,
 				18332F262C19AC34002E95F4 /* MainAuthView.swift in Sources */,
+				18D91A962C232AC200CD1E6C /* LandingCrewView.swift in Sources */,
 				18DDBD1C2C19071800E288DE /* GIFrenderer.swift in Sources */,
 				185A6A442C1F04900006E5B0 /* GridItemCell.swift in Sources */,
 				185A6A752C1FA2EA0006E5B0 /* ReportView.swift in Sources */,
@@ -1330,9 +1407,12 @@
 				183C7CF12C20293600E00241 /* NotificationView.swift in Sources */,
 				183B221A2C1A2CBB008A3DCF /* ListView.swift in Sources */,
 				185A6A592C1F34AC0006E5B0 /* EditAlbumView.swift in Sources */,
+				18D91A9C2C232BD300CD1E6C /* ratingUser.swift in Sources */,
 				183B220B2C19E631008A3DCF /* ImagePickerOptions.swift in Sources */,
 				184060D82C1C94690002894C /* StoryService.swift in Sources */,
+				18D91A9A2C232B7B00CD1E6C /* Crew.swift in Sources */,
 				184060E02C1DB5830002894C /* CalenderStoryGrid.swift in Sources */,
+				18D91A982C232ACC00CD1E6C /* LandingCrewViewModel.swift in Sources */,
 				185A6A5D2C1F37810006E5B0 /* EditGridItemCellViewModel.swift in Sources */,
 				183C7D052C20390A00E00241 /* FriendRequestCell.swift in Sources */,
 				183B22152C1A1AA3008A3DCF /* ImageUploader.swift in Sources */,

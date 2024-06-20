@@ -55,6 +55,16 @@ struct FeedCell: View {
                         }
                         
                         Spacer()
+                        
+                        if user.isCurrentUser {
+                            Button(action: {
+                                
+                            }){
+                                Iconoir.moreHoriz.asImage
+                                    .foregroundStyle(.black)
+                            }
+                            
+                        }
                     }.foregroundStyle(.black)
                 }
             }
@@ -273,7 +283,10 @@ struct FeedCell: View {
                 Spacer()
                 
                 if let recipeId = post.recipeId {
-                    NavigationLink(destination: Text(recipeId)){
+                    NavigationLink(destination:
+                    MainRecipeView(recipeId: recipeId)
+                        .navigationBarBackButtonHidden(true)
+                    ){
                         Iconoir.pageStar.asImage
                             .foregroundStyle(.black)
                     }

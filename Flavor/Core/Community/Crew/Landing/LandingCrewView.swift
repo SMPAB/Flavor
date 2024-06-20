@@ -119,6 +119,9 @@ struct LandingCrewView: View {
                     try await viewModel.fetchCrews()
                 }
         }
+        }.fullScreenCover(isPresented: $createCrew){
+            CreateCrewView(currentUser: homeVM.user, landingVM: viewModel)
+                .environmentObject(homeVM)
         }
     }
 }

@@ -119,6 +119,12 @@
 		186E2B832C1AE733003E35D4 /* FeedCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E2B822C1AE733003E35D4 /* FeedCellViewModel.swift */; };
 		186E2B852C1AE883003E35D4 /* TimeStamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E2B842C1AE883003E35D4 /* TimeStamp.swift */; };
 		186E2B882C1B098E003E35D4 /* SkeletonPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E2B872C1B098E003E35D4 /* SkeletonPost.swift */; };
+		188E62D72C2418DC001D9FBB /* CreateCrewVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188E62D62C2418DC001D9FBB /* CreateCrewVM.swift */; };
+		188E62D92C241970001D9FBB /* CreateCrewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188E62D82C241970001D9FBB /* CreateCrewView.swift */; };
+		188E62DB2C242427001D9FBB /* CreateCrewUserList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188E62DA2C242427001D9FBB /* CreateCrewUserList.swift */; };
+		188E62DD2C242704001D9FBB /* CreatCrewUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188E62DC2C242704001D9FBB /* CreatCrewUserCell.swift */; };
+		188E62DF2C24270F001D9FBB /* CreateCrewUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188E62DE2C24270F001D9FBB /* CreateCrewUserCell.swift */; };
+		188E62E12C242B39001D9FBB /* CreateCrewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188E62E02C242B39001D9FBB /* CreateCrewCell.swift */; };
 		189D02222C20DE9C00A93C4B /* camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189D02212C20DE9C00A93C4B /* camera.swift */; };
 		189D02242C20E06A00A93C4B /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189D02232C20E06A00A93C4B /* Recipe.swift */; };
 		189D02262C20E2BD00A93C4B /* CreateRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189D02252C20E2BD00A93C4B /* CreateRecipeView.swift */; };
@@ -260,6 +266,12 @@
 		186E2B822C1AE733003E35D4 /* FeedCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCellViewModel.swift; sourceTree = "<group>"; };
 		186E2B842C1AE883003E35D4 /* TimeStamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeStamp.swift; sourceTree = "<group>"; };
 		186E2B872C1B098E003E35D4 /* SkeletonPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonPost.swift; sourceTree = "<group>"; };
+		188E62D62C2418DC001D9FBB /* CreateCrewVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCrewVM.swift; sourceTree = "<group>"; };
+		188E62D82C241970001D9FBB /* CreateCrewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCrewView.swift; sourceTree = "<group>"; };
+		188E62DA2C242427001D9FBB /* CreateCrewUserList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCrewUserList.swift; sourceTree = "<group>"; };
+		188E62DC2C242704001D9FBB /* CreatCrewUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatCrewUserCell.swift; sourceTree = "<group>"; };
+		188E62DE2C24270F001D9FBB /* CreateCrewUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCrewUserCell.swift; sourceTree = "<group>"; };
+		188E62E02C242B39001D9FBB /* CreateCrewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCrewCell.swift; sourceTree = "<group>"; };
 		189D02212C20DE9C00A93C4B /* camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = camera.swift; sourceTree = "<group>"; };
 		189D02232C20E06A00A93C4B /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		189D02252C20E2BD00A93C4B /* CreateRecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeView.swift; sourceTree = "<group>"; };
@@ -1051,6 +1063,26 @@
 			path = Skeleton;
 			sourceTree = "<group>";
 		};
+		188E62D42C2418C6001D9FBB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				188E62D82C241970001D9FBB /* CreateCrewView.swift */,
+				188E62DA2C242427001D9FBB /* CreateCrewUserList.swift */,
+				188E62E02C242B39001D9FBB /* CreateCrewCell.swift */,
+				188E62DC2C242704001D9FBB /* CreatCrewUserCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		188E62D52C2418CA001D9FBB /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				188E62D62C2418DC001D9FBB /* CreateCrewVM.swift */,
+				188E62DE2C24270F001D9FBB /* CreateCrewUserCell.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		18C954422C1B170C00B6439E /* Comments */ = {
 			isa = PBXGroup;
 			children = (
@@ -1121,6 +1153,8 @@
 		18D91A902C23280000CD1E6C /* Create */ = {
 			isa = PBXGroup;
 			children = (
+				188E62D52C2418CA001D9FBB /* ViewModel */,
+				188E62D42C2418C6001D9FBB /* View */,
 			);
 			path = Create;
 			sourceTree = "<group>";
@@ -1357,6 +1391,7 @@
 				183B22132C1A134F008A3DCF /* HeaderMain.swift in Sources */,
 				18D91A922C23281800CD1E6C /* LandingCommunityView.swift in Sources */,
 				185A6A642C1F79B70006E5B0 /* MainSearchView.swift in Sources */,
+				188E62DD2C242704001D9FBB /* CreatCrewUserCell.swift in Sources */,
 				18332F1C2C1994A5002E95F4 /* CustomAlertModifier.swift in Sources */,
 				183C7D2A2C20782400E00241 /* UploadFlavorPostViewModel.swift in Sources */,
 				183C7D172C2050FD00E00241 /* BlockCell.swift in Sources */,
@@ -1365,8 +1400,10 @@
 				183C7CED2C2027E400E00241 /* NotificationCell.swift in Sources */,
 				185A6A5B2C1F37530006E5B0 /* EditGridItemCell.swift in Sources */,
 				18332F292C19AD70002E95F4 /* HeaderRegisration.swift in Sources */,
+				188E62E12C242B39001D9FBB /* CreateCrewCell.swift in Sources */,
 				186E2B792C1AE567003E35D4 /* MainHomeView.swift in Sources */,
 				18DDBD222C19159200E288DE /* KeyboardDismiss.swift in Sources */,
+				188E62DB2C242427001D9FBB /* CreateCrewUserList.swift in Sources */,
 				1844C2292C18D13900243FAB /* FlavorApp.swift in Sources */,
 				183C7D192C20512D00E00241 /* BlockCellViewModel.swift in Sources */,
 				18C9544F2C1B1C1100B6439E /* PrimaryCommentCellViewModel.swift in Sources */,
@@ -1384,6 +1421,7 @@
 				18C954512C1B1DEA00B6439E /* Loading.swift in Sources */,
 				18C954472C1B172300B6439E /* CommentsViewModel.swift in Sources */,
 				183B22032C19D935008A3DCF /* currentProfilveView.swift in Sources */,
+				188E62D72C2418DC001D9FBB /* CreateCrewVM.swift in Sources */,
 				184060E42C1DCDC20002894C /* LandingAlbumView.swift in Sources */,
 				18332F262C19AC34002E95F4 /* MainAuthView.swift in Sources */,
 				18D91A962C232AC200CD1E6C /* LandingCrewView.swift in Sources */,
@@ -1404,8 +1442,10 @@
 				18332F1A2C198BA2002E95F4 /* ImageView.swift in Sources */,
 				18C954412C1B168200B6439E /* CommentService.swift in Sources */,
 				183B220D2C19E727008A3DCF /* CropView.swift in Sources */,
+				188E62D92C241970001D9FBB /* CreateCrewView.swift in Sources */,
 				183C7CF12C20293600E00241 /* NotificationView.swift in Sources */,
 				183B221A2C1A2CBB008A3DCF /* ListView.swift in Sources */,
+				188E62DF2C24270F001D9FBB /* CreateCrewUserCell.swift in Sources */,
 				185A6A592C1F34AC0006E5B0 /* EditAlbumView.swift in Sources */,
 				18D91A9C2C232BD300CD1E6C /* ratingUser.swift in Sources */,
 				183B220B2C19E631008A3DCF /* ImagePickerOptions.swift in Sources */,

@@ -33,3 +33,23 @@ class CrewService {
         }
     }
 }
+
+//MARK: - CHALLENGES
+
+extension CrewService {
+    static func fetchChallenges(crewId: String) async throws -> [Challenge] {
+        
+        do {
+            let snapshot = try await FirebaseConstants
+                .ChallengeCollection
+                .whereField("crewId", isEqualTo: crewId)
+                .getDocuments()
+            
+            var challenges = snapshot.documents.compactMap({try? $0.data(as: Challenge.self)})
+            
+            return challenges
+        } catch {
+            return []
+        }
+    }
+}

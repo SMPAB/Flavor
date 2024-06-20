@@ -42,59 +42,64 @@ struct LandingCrewView: View {
                 }.foregroundStyle(Color(.systemGray))
                 
                 ForEach(viewModel.crews){ crew in
-                    HStack(spacing: 16){
-                        ImageView(size: .medium, imageUrl: crew.imageUrl, background: false)
-                        
-                        VStack(alignment: .leading, spacing: 8){
-                            Text(crew.crewName)
-                                .font(.primaryFont(.H4))
-                                .fontWeight(.semibold)
+                    NavigationLink(destination:
+                    MainCrewView(crew: crew)
+                        .environmentObject(homeVM)
+                    ) {
+                        HStack(spacing: 16){
+                            ImageView(size: .medium, imageUrl: crew.imageUrl, background: false)
                             
-                            HStack{
+                            VStack(alignment: .leading, spacing: 8){
+                                Text(crew.crewName)
+                                    .font(.primaryFont(.H4))
+                                    .fontWeight(.semibold)
                                 
-                                HStack(spacing: 2){
-                                    Iconoir.community.asImage
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(width: 16, height: 16)
+                                HStack{
                                     
-                                    Text("\(crew.uids.count) members")
-                                }
-                                
-                                
-                                HStack(spacing: 2){
-                                    Iconoir.globe.asImage
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(width: 16, height: 16)
+                                    HStack(spacing: 2){
+                                        Iconoir.community.asImage
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 16, height: 16)
+                                        
+                                        Text("\(crew.uids.count) members")
+                                    }
                                     
-                                    Text("\(crew.publicCrew ? "Public" : "Private")")
-                                }
+                                    
+                                    HStack(spacing: 2){
+                                        Iconoir.globe.asImage
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 16, height: 16)
+                                        
+                                        Text("\(crew.publicCrew ? "Public" : "Private")")
+                                    }
+                                    
+                                    
+                                }.foregroundStyle(Color(.systemGray))
+                                    .font(.primaryFont(.P2))
                                 
                                 
-                            }.foregroundStyle(Color(.systemGray))
+                            }
+                            
+                            
+                            Spacer()
+                            
+                            Text("3")
                                 .font(.primaryFont(.P2))
-                            
-                            
-                        }
-                        
-                        
-                        Spacer()
-                        
-                        Text("3")
-                            .font(.primaryFont(.P2))
-                            .foregroundStyle(.colorWhite)
-                            .frame(width: 24, height: 24)
+                                .foregroundStyle(.colorWhite)
+                                .frame(width: 24, height: 24)
+                                .background(
+                                RoundedRectangle(cornerRadius: 4)
+                                    .fill(.colorOrange)
+                                )
+                        }.padding(16)
                             .background(
-                            RoundedRectangle(cornerRadius: 4)
-                                .fill(.colorOrange)
-                            )
-                    }.padding(16)
-                        .background(
-                        RoundedRectangle(cornerRadius: 8)
-                            .fill(Color.clear)
-                            .stroke(Color(.systemGray4))
+                            RoundedRectangle(cornerRadius: 8)
+                                .fill(Color.clear)
+                                .stroke(Color(.systemGray4))
                         )
+                    }
                 }
                 
                 RoundedRectangle(cornerRadius: 1)

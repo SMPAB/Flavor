@@ -56,7 +56,7 @@ class CreateCrewVM: ObservableObject {
                         for user in allUsers {
                             userRating[user.id] = [
                                 "id": user.userName,
-                                "posts": 0,
+                                "points": 0,
                                 "wins": []
                                 /*"seconds": [],
                                 "thirds": []*/
@@ -81,6 +81,17 @@ class CreateCrewVM: ObservableObject {
             ]
             
             try await crewRef.setData(data)
+            
+            let crewForDisplay = Crew(id: crewRef.documentID,
+                                      admin: currentUser.id,
+                                      crewName: crewName,
+                                      imageUrl: imageUrl,
+                                      creationDate: Timestamp(date: Date()),
+                                      publicCrew: false,
+                                      uids: allUsers.map({$0.id})
+            )
+            
+            landingVM.crews.append(crewForDisplay)
         } catch {
             
         }

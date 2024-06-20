@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1817617F2C24B3C000E52AB0 /* MainCrewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1817617E2C24B3C000E52AB0 /* MainCrewView.swift */; };
+		181761812C24B3C900E52AB0 /* MainCrewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181761802C24B3C900E52AB0 /* MainCrewViewModel.swift */; };
+		181761832C24D1EE00E52AB0 /* Challenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181761822C24D1EE00E52AB0 /* Challenge.swift */; };
+		181761852C24D2B900E52AB0 /* ChallengeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181761842C24D2B900E52AB0 /* ChallengeCell.swift */; };
 		18332F162C198A0B002E95F4 /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18332F152C198A0B002E95F4 /* CustomAlertView.swift */; };
 		18332F1A2C198BA2002E95F4 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18332F192C198BA2002E95F4 /* ImageView.swift */; };
 		18332F1C2C1994A5002E95F4 /* CustomAlertModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18332F1B2C1994A5002E95F4 /* CustomAlertModifier.swift */; };
@@ -164,6 +168,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1817617E2C24B3C000E52AB0 /* MainCrewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCrewView.swift; sourceTree = "<group>"; };
+		181761802C24B3C900E52AB0 /* MainCrewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCrewViewModel.swift; sourceTree = "<group>"; };
+		181761822C24D1EE00E52AB0 /* Challenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge.swift; sourceTree = "<group>"; };
+		181761842C24D2B900E52AB0 /* ChallengeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeCell.swift; sourceTree = "<group>"; };
 		18332F152C198A0B002E95F4 /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
 		18332F192C198BA2002E95F4 /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		18332F1B2C1994A5002E95F4 /* CustomAlertModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertModifier.swift; sourceTree = "<group>"; };
@@ -334,6 +342,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1817617C2C24B3AB00E52AB0 /* Crew */ = {
+			isa = PBXGroup;
+			children = (
+				1817617D2C24B3B300E52AB0 /* Challenges */,
+				1817617E2C24B3C000E52AB0 /* MainCrewView.swift */,
+				181761802C24B3C900E52AB0 /* MainCrewViewModel.swift */,
+			);
+			path = Crew;
+			sourceTree = "<group>";
+		};
+		1817617D2C24B3B300E52AB0 /* Challenges */ = {
+			isa = PBXGroup;
+			children = (
+				181761842C24D2B900E52AB0 /* ChallengeCell.swift */,
+			);
+			path = Challenges;
+			sourceTree = "<group>";
+		};
 		18332F132C1989F8002E95F4 /* Global View */ = {
 			isa = PBXGroup;
 			children = (
@@ -1162,6 +1188,7 @@
 		18D91A932C232A9D00CD1E6C /* Landing */ = {
 			isa = PBXGroup;
 			children = (
+				1817617C2C24B3AB00E52AB0 /* Crew */,
 				18D91A902C23280000CD1E6C /* Create */,
 				18D91A952C232AC200CD1E6C /* LandingCrewView.swift */,
 				18D91A972C232ACC00CD1E6C /* LandingCrewViewModel.swift */,
@@ -1188,6 +1215,7 @@
 				189D02232C20E06A00A93C4B /* Recipe.swift */,
 				18D91A992C232B7B00CD1E6C /* Crew.swift */,
 				18D91A9B2C232BD300CD1E6C /* ratingUser.swift */,
+				181761822C24D1EE00E52AB0 /* Challenge.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -1410,10 +1438,12 @@
 				18C954572C1B2B6100B6439E /* SubCommentViewModel.swift in Sources */,
 				18DDBD0A2C18E3C700E288DE /* LoginViewModel.swift in Sources */,
 				184060E62C1DD05B0002894C /* Album.swift in Sources */,
+				181761812C24B3C900E52AB0 /* MainCrewViewModel.swift in Sources */,
 				18DDBD242C1916EA00E288DE /* ContentViewModel.swift in Sources */,
 				18D91A9E2C23317D00CD1E6C /* CrewService.swift in Sources */,
 				185A6A662C1F79FC0006E5B0 /* MainSearchViewModel.swift in Sources */,
 				185A6A5F2C1F3DAB0006E5B0 /* ProfileView.swift in Sources */,
+				1817617F2C24B3C000E52AB0 /* MainCrewView.swift in Sources */,
 				183C7CFD2C20338E00E00241 /* LandingNotificationView.swift in Sources */,
 				184060E82C1DDF230002894C /* CreateAlbumView.swift in Sources */,
 				18D91A882C21A6BC00CD1E6C /* UploadStoryVM.swift in Sources */,
@@ -1423,6 +1453,7 @@
 				183B22032C19D935008A3DCF /* currentProfilveView.swift in Sources */,
 				188E62D72C2418DC001D9FBB /* CreateCrewVM.swift in Sources */,
 				184060E42C1DCDC20002894C /* LandingAlbumView.swift in Sources */,
+				181761852C24D2B900E52AB0 /* ChallengeCell.swift in Sources */,
 				18332F262C19AC34002E95F4 /* MainAuthView.swift in Sources */,
 				18D91A962C232AC200CD1E6C /* LandingCrewView.swift in Sources */,
 				18DDBD1C2C19071800E288DE /* GIFrenderer.swift in Sources */,
@@ -1435,6 +1466,7 @@
 				185A6A682C1F7D660006E5B0 /* SearchCell.swift in Sources */,
 				183C7CF62C2029EF00E00241 /* NotificationService.swift in Sources */,
 				183B22062C19DEDE008A3DCF /* CustomButton.swift in Sources */,
+				181761832C24D1EE00E52AB0 /* Challenge.swift in Sources */,
 				184060D62C1C89770002894C /* StoryIconView.swift in Sources */,
 				183B22112C1A12D2008A3DCF /* EditProfileView.swift in Sources */,
 				184060D12C1C30C00002894C /* GridView.swift in Sources */,

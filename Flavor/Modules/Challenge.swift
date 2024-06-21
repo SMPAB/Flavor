@@ -22,6 +22,10 @@ struct Challenge: Identifiable, Hashable, Codable {
     
     var votes: Int
     
+    var finished: Bool? = false
+    
     var users: [String]
     var completedUsers: [String]
+    
+    var crew: Crew?
 }

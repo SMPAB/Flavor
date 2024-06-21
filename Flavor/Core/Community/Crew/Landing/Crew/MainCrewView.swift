@@ -141,7 +141,12 @@ struct MainCrewView: View {
                             .fontWeight(.semibold)
                         
                         ForEach(activeChallenges){ challenge in
-                            ChallengeCell(challenge: challenge)
+                            NavigationLink(destination: MainChallengeView(challenge: challenge)){
+                                ChallengeCell(challenge: challenge)
+                                    .foregroundStyle(.black)
+                                    
+                            }
+                            
                         }
                     }.padding(.horizontal, 16)
                 }

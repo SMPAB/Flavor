@@ -15,6 +15,9 @@ class UploadFlavorPostViewModel: ObservableObject {
     
     
     @Published var recipe = false
+    
+    @Published var allChallenges: [Challenge] = []
+    @Published var challenge: Challenge?
 
     @Published var recipeTitle = ""
     @Published var recipeDiff: Int?
@@ -46,8 +49,9 @@ class UploadFlavorPostViewModel: ObservableObject {
             let postId = FirebaseConstants.PostCollection.document()
             let storyId = FirebaseConstants.StoryCollection.document()
             let recipeId = Firestore.firestore().collection("recipe").document()
+            let challengeUploadId = FirebaseConstants.ChallengeCollection.document(challenge?.id ?? "").collection("posts").document()
             
-            var post = Post(id: postId.documentID, ownerUid: user.id, ownerUsername: user.userName, likes: 0, title: title, caption: caption, imageUrls: nil, storyID: storyId.documentID, recipeId: recipe ? recipeId.documentID : nil, timestamp: Timestamp(date: Date()), timestampDate: todayString, hasLiked: nil, hasSaved: nil, user: nil)
+            var post = Post(id: postId.documentID, ownerUid: user.id, ownerUsername: user.userName, likes: 0, title: title, caption: caption, imageUrls: nil, storyID: storyId.documentID, recipeId: recipe ? recipeId.documentID : nil, challengeUploadId: challenge != nil ? challengeUploadId.documentID : nil, timestamp: Timestamp(date: Date()), timestampDate: todayString, hasLiked: nil, hasSaved: nil, user: nil)
             
             var imageUrls: [String] = []
             
@@ -64,7 +68,7 @@ class UploadFlavorPostViewModel: ObservableObject {
             
             //MARK: STORY
             
-            var story = Story(id: storyId.documentID, ownerUid: user.id, imageUrl: imageUrls[0], postID: postId.documentID, challengeUploadId: nil, timestamp: Timestamp(date: Date()), timestampDate: todayString, title: title)
+            var story = Story(id: storyId.documentID, ownerUid: user.id, imageUrl: imageUrls[0], postID: postId.documentID, challengeUploadId: challenge != nil ? challengeUploadId.documentID : nil, timestamp: Timestamp(date: Date()), timestampDate: todayString, title: title)
             
             guard let encodedPost = try? Firestore.Encoder().encode(post) else { return }
             guard let encodedStory = try? Firestore.Encoder().encode(story) else { return }
@@ -121,6 +125,36 @@ class UploadFlavorPostViewModel: ObservableObject {
                 try await recipeId.setData(encodedRecipe)
             }
             
+            //MARK: CHALLENGE
+            if let challenge = challenge {
+                let challengeUpload = ChallengeUpload(id: challengeUploadId.documentID,
+                                                      challengeId: challenge.id,
+                                                      ownerUid: user.id,
+                                                      storyId: storyId.documentID,
+                                                      postId: postId.documentID,
+                                                      imageUrl: imageUrls[0],
+                                                      timestamp: Timestamp(date: Date()),
+                                                      title: title,
+                                                      votes: 0)
+                
+                guard let encodedChallengePost = try? Firestore.Encoder().encode(challengeUpload) else { return }
+                try await challengeUploadId.setData(encodedChallengePost)
+                
+                let docRef = FirebaseConstants.ChallengeCollection.document(challenge.id)
+                
+                try await docRef.setData([
+                    "completedUsers": FieldValue.arrayUnion([user.id])
+                       ], merge: true)
+            }
+            
+        } catch {
+            return
+        }
+    }
+    
+    func fetchAllChallenges() async throws {
+        do {
+            self.allChallenges = try await CrewService.fetchUserChallenges()
         } catch {
             return
         }

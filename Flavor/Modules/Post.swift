@@ -21,6 +21,8 @@ struct Post: Identifiable, Hashable, Codable{
     
     var storyID: String?
     let recipeId: String?
+    var challengeUploadId: String?
+    
     let timestamp: Timestamp
     let timestampDate: String
     

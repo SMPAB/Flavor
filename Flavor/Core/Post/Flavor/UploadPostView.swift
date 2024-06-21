@@ -185,6 +185,66 @@ struct UploadPostView: View {
                             
                     }
                 }
+                
+                
+                Text("Connect challenge")
+                    .font(.primaryFont(.P1))
+                    .fontWeight(.semibold)
+                
+                if let challenge = viewMdeol.challenge {
+                    HStack{
+                        ImageView(size: .xsmall, imageUrl: challenge.imageUrl, background: true)
+                        
+                        Text(challenge.title)
+                            .font(.primaryFont(.P2))
+                            .fontWeight(.semibold)
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            viewMdeol.challenge = nil
+                        }){
+                            Iconoir.trash.asImage
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 16, height: 16)
+                                .foregroundStyle(.colorOrange)
+                        }
+                    }.padding(.horizontal, 8)
+                    .frame(maxWidth: .infinity)
+                        .frame(height: 48)
+                        .background(
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(Color.clear)
+                            .stroke(Color(.systemGray))
+                        )
+                } else {
+                    
+                    NavigationLink(destination: 
+                                   SelectChallengeView()
+                        .environmentObject(viewMdeol)
+                        .navigationBarBackButtonHidden(true)
+                    ){
+                        HStack{
+                            Text("Add challenge")
+                                .font(.primaryFont(.P2))
+                                .foregroundStyle(Color(.systemGray))
+                            
+                            Spacer()
+                            
+                            Iconoir.search.asImage
+                                .foregroundStyle(Color(.systemGray))
+                        }.padding(.horizontal, 8)
+                        .frame(maxWidth: .infinity)
+                            .frame(height: 48)
+                            .background(
+                            RoundedRectangle(cornerRadius: 8)
+                                .fill(Color.clear)
+                                .stroke(Color(.systemGray))
+                            )
+                    }
+                    
+                }
             }
             .padding(.horizontal, 16)
             

@@ -165,6 +165,10 @@
 		18DDBD202C190BBA00E288DE /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DDBD1F2C190BBA00E288DE /* TextField.swift */; };
 		18DDBD222C19159200E288DE /* KeyboardDismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DDBD212C19159200E288DE /* KeyboardDismiss.swift */; };
 		18DDBD242C1916EA00E288DE /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DDBD232C1916EA00E288DE /* ContentViewModel.swift */; };
+		18F5FE4D2C255CD700A94B57 /* MainChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F5FE4C2C255CD700A94B57 /* MainChallengeView.swift */; };
+		18F5FE4F2C255F7500A94B57 /* ChallengeUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F5FE4E2C255F7500A94B57 /* ChallengeUpload.swift */; };
+		18F5FE532C25604200A94B57 /* ChallengeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F5FE522C25604200A94B57 /* ChallengeViewModel.swift */; };
+		18F5FE562C25673100A94B57 /* SelectChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F5FE552C25673100A94B57 /* SelectChallengeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -314,6 +318,10 @@
 		18DDBD1F2C190BBA00E288DE /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		18DDBD212C19159200E288DE /* KeyboardDismiss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardDismiss.swift; sourceTree = "<group>"; };
 		18DDBD232C1916EA00E288DE /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		18F5FE4C2C255CD700A94B57 /* MainChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainChallengeView.swift; sourceTree = "<group>"; };
+		18F5FE4E2C255F7500A94B57 /* ChallengeUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeUpload.swift; sourceTree = "<group>"; };
+		18F5FE522C25604200A94B57 /* ChallengeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeViewModel.swift; sourceTree = "<group>"; };
+		18F5FE552C25673100A94B57 /* SelectChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectChallengeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -347,6 +355,7 @@
 			children = (
 				1817617D2C24B3B300E52AB0 /* Challenges */,
 				1817617E2C24B3C000E52AB0 /* MainCrewView.swift */,
+				181761842C24D2B900E52AB0 /* ChallengeCell.swift */,
 				181761802C24B3C900E52AB0 /* MainCrewViewModel.swift */,
 			);
 			path = Crew;
@@ -355,7 +364,8 @@
 		1817617D2C24B3B300E52AB0 /* Challenges */ = {
 			isa = PBXGroup;
 			children = (
-				181761842C24D2B900E52AB0 /* ChallengeCell.swift */,
+				18F5FE512C25601900A94B57 /* ViewModel */,
+				18F5FE502C25601200A94B57 /* View */,
 			);
 			path = Challenges;
 			sourceTree = "<group>";
@@ -672,6 +682,7 @@
 		183C7D232C2070A700E00241 /* Flavor */ = {
 			isa = PBXGroup;
 			children = (
+				18F5FE542C25672400A94B57 /* Challenge */,
 				183C7D1E2C20669500E00241 /* Controller */,
 				183C7D1C2C20635600E00241 /* NewPostView.swift */,
 				183C7D212C20687200E00241 /* NewPostViewModel.swift */,
@@ -1216,6 +1227,7 @@
 				18D91A992C232B7B00CD1E6C /* Crew.swift */,
 				18D91A9B2C232BD300CD1E6C /* ratingUser.swift */,
 				181761822C24D1EE00E52AB0 /* Challenge.swift */,
+				18F5FE4E2C255F7500A94B57 /* ChallengeUpload.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -1252,6 +1264,30 @@
 			children = (
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		18F5FE502C25601200A94B57 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				18F5FE4C2C255CD700A94B57 /* MainChallengeView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		18F5FE512C25601900A94B57 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				18F5FE522C25604200A94B57 /* ChallengeViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		18F5FE542C25672400A94B57 /* Challenge */ = {
+			isa = PBXGroup;
+			children = (
+				18F5FE552C25673100A94B57 /* SelectChallengeView.swift */,
+			);
+			path = Challenge;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1374,6 +1410,7 @@
 				183C7D032C20385E00E00241 /* MainFriendRequestView.swift in Sources */,
 				186E2B882C1B098E003E35D4 /* SkeletonPost.swift in Sources */,
 				18332F222C199753002E95F4 /* RegistrationViewModel.swift in Sources */,
+				18F5FE562C25673100A94B57 /* SelectChallengeView.swift in Sources */,
 				1844C22B2C18D13900243FAB /* ContentView.swift in Sources */,
 				18C9544B2C1B19D700B6439E /* MainCommentsView.swift in Sources */,
 				185A6A4E2C1F27410006E5B0 /* MainAlbumView.swift in Sources */,
@@ -1388,6 +1425,7 @@
 				18332F322C19B666002E95F4 /* FirebaseConstants.swift in Sources */,
 				183B21FC2C19D701008A3DCF /* Post.swift in Sources */,
 				186E2B7D2C1AE6A4003E35D4 /* FeedView.swift in Sources */,
+				18F5FE4D2C255CD700A94B57 /* MainChallengeView.swift in Sources */,
 				185A6A6A2C1F7D7C0006E5B0 /* SearchCellViewModel.swift in Sources */,
 				183C7D1D2C20635600E00241 /* NewPostView.swift in Sources */,
 				183B22092C19E5DD008A3DCF /* ImagePickerViewModel.swift in Sources */,
@@ -1409,6 +1447,7 @@
 				184060DC2C1CA6EB0002894C /* Story.swift in Sources */,
 				183C7D202C20669F00E00241 /* CameraController.swift in Sources */,
 				189D02222C20DE9C00A93C4B /* camera.swift in Sources */,
+				18F5FE4F2C255F7500A94B57 /* ChallengeUpload.swift in Sources */,
 				183B21EF2C19D105008A3DCF /* UserControllView.swift in Sources */,
 				184060EB2C1DDF3D0002894C /* CreateAlbumViewModel.swift in Sources */,
 				183B21F12C19D117008A3DCF /* UserControllViewModel.swift in Sources */,
@@ -1482,6 +1521,7 @@
 				18D91A9C2C232BD300CD1E6C /* ratingUser.swift in Sources */,
 				183B220B2C19E631008A3DCF /* ImagePickerOptions.swift in Sources */,
 				184060D82C1C94690002894C /* StoryService.swift in Sources */,
+				18F5FE532C25604200A94B57 /* ChallengeViewModel.swift in Sources */,
 				18D91A9A2C232B7B00CD1E6C /* Crew.swift in Sources */,
 				184060E02C1DB5830002894C /* CalenderStoryGrid.swift in Sources */,
 				18D91A982C232ACC00CD1E6C /* LandingCrewViewModel.swift in Sources */,

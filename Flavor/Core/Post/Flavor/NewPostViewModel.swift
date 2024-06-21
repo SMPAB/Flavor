@@ -25,6 +25,8 @@ class NewPostViewModel: ObservableObject {
     
     @Published var goToUpload = false
     
+    
+    
     func toggleMultiPhoto() {
         multiPhoto.toggle()
         selectedAsset = nil

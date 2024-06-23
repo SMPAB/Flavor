@@ -8,12 +8,15 @@
 import SwiftUI
 import Iconoir
 import Kingfisher
+import Firebase
 
 struct MainCrewView: View {
     
     @StateObject var viewModel: MainCrewViewModel
     @EnvironmentObject var homeVM: HomeViewModel
     @Environment(\.dismiss) var dismiss
+    
+    @State var showEdit = false
     
     init(crew: Crew){
         self._viewModel = StateObject(wrappedValue: MainCrewViewModel(crew: crew))
@@ -33,12 +36,16 @@ struct MainCrewView: View {
                     
                     
                     Spacer()
-                    Button(action: {
-                        
-                    }){
-                        Iconoir.settings.asImage
-                            .foregroundStyle(.black)
+                    
+                    if viewModel.crew.admin == Auth.auth().currentUser?.uid{
+                        Button(action: {
+                            showEdit.toggle()
+                        }){
+                            Iconoir.settings.asImage
+                                .foregroundStyle(.black)
+                        }
                     }
+                    
                 }.padding(.horizontal, 16)
                 
                 
@@ -168,6 +175,11 @@ struct MainCrewView: View {
                 Task{
                     try await viewModel.fetchChallenges()
                 }
+            }
+            .fullScreenCover(isPresented: $showEdit){
+                EditCrewView()
+                    .environmentObject(viewModel)
+                    .environmentObject(homeVM)
             }
     }
 }

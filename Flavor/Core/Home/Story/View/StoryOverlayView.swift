@@ -125,7 +125,7 @@ struct StoryOverlayView: View {
                                             .fontWeight(.semibold)
                                         
                                         ForEach(Array(storiesYesterday!.enumerated()), id: \.element.id) { index, story in
-                                            StoryCell(story: story, oddStory: index % 2 != 0)
+                                            StoryCell(story: story, oddStory: (((storiesToday?.count ?? 0) % 2) != 0) ? index % 2 == 0 : index % 2 != 0)
                                                 .padding(.horizontal, 16)
                                         }
                                     }

@@ -49,7 +49,10 @@ class UploadFlavorPostViewModel: ObservableObject {
             let postId = FirebaseConstants.PostCollection.document()
             let storyId = FirebaseConstants.StoryCollection.document()
             let recipeId = Firestore.firestore().collection("recipe").document()
-            let challengeUploadId = FirebaseConstants.ChallengeCollection.document(challenge?.id ?? "").collection("posts").document()
+            var challengeUploadId = FirebaseConstants.ChallengeUploadCollection.document()
+            if let challenge = challenge {
+                challengeUploadId = FirebaseConstants.ChallengeCollection.document(challenge.id).collection("posts").document()
+            }
             
             var post = Post(id: postId.documentID, ownerUid: user.id, ownerUsername: user.userName, likes: 0, title: title, caption: caption, imageUrls: nil, storyID: storyId.documentID, recipeId: recipe ? recipeId.documentID : nil, challengeUploadId: challenge != nil ? challengeUploadId.documentID : nil, timestamp: Timestamp(date: Date()), timestampDate: todayString, hasLiked: nil, hasSaved: nil, user: nil)
             

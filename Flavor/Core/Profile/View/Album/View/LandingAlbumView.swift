@@ -21,6 +21,7 @@ struct LandingAlbumView: View {
         .init(.flexible(), spacing: 8),
     ]
     
+    
     var body: some View {
         
         let width = UIScreen.main.bounds.width

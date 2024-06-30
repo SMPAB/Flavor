@@ -310,6 +310,15 @@ struct currentProfilveView: View {
             EditProfileView()
                 .environmentObject(viewModel)
         }
+        .onChange(of: homeVM.newPosts){ newValue in
+            for i in 0..<newValue.count{
+                let newPost = newValue[i]
+                if !viewModel.posts.contains(where: {$0.id == newPost.id}){
+                    viewModel.posts.insert(newPost, at: 0)
+                }
+            }
+            //viewModel.posts.insert(contentsOf: newValue, at: 0)
+        }
     }
 }
 

@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		180D88B82C2EBF0D0030322B /* CreateChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D88B72C2EBF0D0030322B /* CreateChallengeView.swift */; };
+		180D88BD2C2EDFEB0030322B /* MainVoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D88BC2C2EDFEB0030322B /* MainVoteView.swift */; };
+		180D88BF2C2EE2560030322B /* VoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D88BE2C2EE2560030322B /* VoteCell.swift */; };
+		180D88C42C3088F40030322B /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D88C32C3088F40030322B /* StatsView.swift */; };
+		180D88C62C30A5090030322B /* Uploading.json in Resources */ = {isa = PBXBuildFile; fileRef = 180D88C52C30A5090030322B /* Uploading.json */; };
+		180D88C92C30A55F0030322B /* Uploading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D88C82C30A55F0030322B /* Uploading.swift */; };
+		180D88CB2C317DD00030322B /* UploadAnimationModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D88CA2C317DD00030322B /* UploadAnimationModifier.swift */; };
+		180D88CD2C318C090030322B /* NamesSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D88CC2C318C090030322B /* NamesSpace.swift */; };
+		180D88CF2C319A910030322B /* SelectChallengeViewStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D88CE2C319A910030322B /* SelectChallengeViewStory.swift */; };
+		180D88D22C31BB800030322B /* EditChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D88D12C31BB800030322B /* EditChallengeView.swift */; };
 		1817617F2C24B3C000E52AB0 /* MainCrewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1817617E2C24B3C000E52AB0 /* MainCrewView.swift */; };
 		181761812C24B3C900E52AB0 /* MainCrewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181761802C24B3C900E52AB0 /* MainCrewViewModel.swift */; };
 		181761832C24D1EE00E52AB0 /* Challenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181761822C24D1EE00E52AB0 /* Challenge.swift */; };
@@ -175,6 +185,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		180D88B72C2EBF0D0030322B /* CreateChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChallengeView.swift; sourceTree = "<group>"; };
+		180D88BC2C2EDFEB0030322B /* MainVoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVoteView.swift; sourceTree = "<group>"; };
+		180D88BE2C2EE2560030322B /* VoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteCell.swift; sourceTree = "<group>"; };
+		180D88C32C3088F40030322B /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
+		180D88C52C30A5090030322B /* Uploading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Uploading.json; sourceTree = "<group>"; };
+		180D88C82C30A55F0030322B /* Uploading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Uploading.swift; sourceTree = "<group>"; };
+		180D88CA2C317DD00030322B /* UploadAnimationModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadAnimationModifier.swift; sourceTree = "<group>"; };
+		180D88CC2C318C090030322B /* NamesSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamesSpace.swift; sourceTree = "<group>"; };
+		180D88CE2C319A910030322B /* SelectChallengeViewStory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectChallengeViewStory.swift; sourceTree = "<group>"; };
+		180D88D12C31BB800030322B /* EditChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditChallengeView.swift; sourceTree = "<group>"; };
 		1817617E2C24B3C000E52AB0 /* MainCrewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCrewView.swift; sourceTree = "<group>"; };
 		181761802C24B3C900E52AB0 /* MainCrewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCrewViewModel.swift; sourceTree = "<group>"; };
 		181761822C24D1EE00E52AB0 /* Challenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge.swift; sourceTree = "<group>"; };
@@ -356,9 +376,84 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		180D88B32C2EBECC0030322B /* Create */ = {
+			isa = PBXGroup;
+			children = (
+				180D88B72C2EBF0D0030322B /* CreateChallengeView.swift */,
+			);
+			path = Create;
+			sourceTree = "<group>";
+		};
+		180D88B92C2EDF730030322B /* Vote */ = {
+			isa = PBXGroup;
+			children = (
+				180D88BB2C2EDF830030322B /* ViewModel */,
+				180D88BA2C2EDF7E0030322B /* View */,
+			);
+			path = Vote;
+			sourceTree = "<group>";
+		};
+		180D88BA2C2EDF7E0030322B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				180D88BC2C2EDFEB0030322B /* MainVoteView.swift */,
+				180D88BE2C2EE2560030322B /* VoteCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		180D88BB2C2EDF830030322B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		180D88C02C3088DB0030322B /* Stats */ = {
+			isa = PBXGroup;
+			children = (
+				180D88C22C3088E40030322B /* ViewModel */,
+				180D88C12C3088E00030322B /* View */,
+			);
+			path = Stats;
+			sourceTree = "<group>";
+		};
+		180D88C12C3088E00030322B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				180D88C32C3088F40030322B /* StatsView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		180D88C22C3088E40030322B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		180D88C72C30A5520030322B /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				180D88C82C30A55F0030322B /* Uploading.swift */,
+				180D88CA2C317DD00030322B /* UploadAnimationModifier.swift */,
+			);
+			path = Animations;
+			sourceTree = "<group>";
+		};
+		180D88D02C31BB780030322B /* Edit */ = {
+			isa = PBXGroup;
+			children = (
+				180D88D12C31BB800030322B /* EditChallengeView.swift */,
+			);
+			path = Edit;
+			sourceTree = "<group>";
+		};
 		1817617C2C24B3AB00E52AB0 /* Crew */ = {
 			isa = PBXGroup;
 			children = (
+				180D88C02C3088DB0030322B /* Stats */,
 				1817617D2C24B3B300E52AB0 /* Challenges */,
 				1817617E2C24B3C000E52AB0 /* MainCrewView.swift */,
 				181761842C24D2B900E52AB0 /* ChallengeCell.swift */,
@@ -370,6 +465,9 @@
 		1817617D2C24B3B300E52AB0 /* Challenges */ = {
 			isa = PBXGroup;
 			children = (
+				180D88D02C31BB780030322B /* Edit */,
+				180D88B92C2EDF730030322B /* Vote */,
+				180D88B32C2EBECC0030322B /* Create */,
 				18F5FE512C25601900A94B57 /* ViewModel */,
 				18F5FE502C25601200A94B57 /* View */,
 			);
@@ -379,6 +477,7 @@
 		18332F132C1989F8002E95F4 /* Global View */ = {
 			isa = PBXGroup;
 			children = (
+				180D88C72C30A5520030322B /* Animations */,
 				18C954582C1B3E7900B6439E /* Posts */,
 				186E2B862C1B0985003E35D4 /* Skeleton */,
 				183B22072C19E5CC008A3DCF /* ImagePicker */,
@@ -441,6 +540,7 @@
 		18332F352C19BF0B002E95F4 /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
+				180D88C52C30A5090030322B /* Uploading.json */,
 				18C954522C1B279500B6439E /* LoadingAnimation.json */,
 				18332F362C19BF3E002E95F4 /* Checkmark.json */,
 				18C954502C1B1DEA00B6439E /* Loading.swift */,
@@ -705,6 +805,7 @@
 				189D02212C20DE9C00A93C4B /* camera.swift */,
 				18D91A852C21A6AB00CD1E6C /* UploadStoryView.swift */,
 				18D91A872C21A6BC00CD1E6C /* UploadStoryVM.swift */,
+				180D88CE2C319A910030322B /* SelectChallengeViewStory.swift */,
 			);
 			path = Story;
 			sourceTree = "<group>";
@@ -834,6 +935,7 @@
 				18332F312C19B666002E95F4 /* FirebaseConstants.swift */,
 				183B22142C1A1AA3008A3DCF /* ImageUploader.swift */,
 				186E2B842C1AE883003E35D4 /* TimeStamp.swift */,
+				180D88CC2C318C090030322B /* NamesSpace.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -1411,6 +1513,7 @@
 				1844C2302C18D13B00243FAB /* Preview Assets.xcassets in Resources */,
 				18DDBD1E2C19077400E288DE /* background.gif in Resources */,
 				18332F372C19BF3E002E95F4 /* Checkmark.json in Resources */,
+				180D88C62C30A5090030322B /* Uploading.json in Resources */,
 				18C954532C1B279500B6439E /* LoadingAnimation.json in Resources */,
 				1844C23C2C18D5C300243FAB /* Font1.ttf in Resources */,
 				1844C22D2C18D13B00243FAB /* Assets.xcassets in Resources */,
@@ -1463,6 +1566,7 @@
 				183C7D1D2C20635600E00241 /* NewPostView.swift in Sources */,
 				183B22092C19E5DD008A3DCF /* ImagePickerViewModel.swift in Sources */,
 				18DDBD122C18E60000E288DE /* User.swift in Sources */,
+				180D88BD2C2EDFEB0030322B /* MainVoteView.swift in Sources */,
 				18C9545A2C1B3E8700B6439E /* FocusPostView.swift in Sources */,
 				185A6A712C1F95620006E5B0 /* ProfileOptionsSheet.swift in Sources */,
 				183B221E2C1A452E008A3DCF /* ListCellViewModel.swift in Sources */,
@@ -1473,6 +1577,7 @@
 				1894196F2C283F0B006BECDA /* EditCrewUserCell.swift in Sources */,
 				184060DE2C1CA97E0002894C /* StoryCell.swift in Sources */,
 				183C7D152C204FF500E00241 /* MainBlockedViewModel.swift in Sources */,
+				180D88CD2C318C090030322B /* NamesSpace.swift in Sources */,
 				183B21F62C19D2C7008A3DCF /* Tabview.swift in Sources */,
 				183B22002C19D8EF008A3DCF /* ProfileViewModel.swift in Sources */,
 				185A6A4A2C1F05030006E5B0 /* CreateGridItemCellViewModel.swift in Sources */,
@@ -1491,6 +1596,7 @@
 				186E2B852C1AE883003E35D4 /* TimeStamp.swift in Sources */,
 				183B22132C1A134F008A3DCF /* HeaderMain.swift in Sources */,
 				18D91A922C23281800CD1E6C /* LandingCommunityView.swift in Sources */,
+				180D88CB2C317DD00030322B /* UploadAnimationModifier.swift in Sources */,
 				185A6A642C1F79B70006E5B0 /* MainSearchView.swift in Sources */,
 				188E62DD2C242704001D9FBB /* CreatCrewUserCell.swift in Sources */,
 				18332F1C2C1994A5002E95F4 /* CustomAlertModifier.swift in Sources */,
@@ -1508,10 +1614,13 @@
 				188E62DB2C242427001D9FBB /* CreateCrewUserList.swift in Sources */,
 				1844C2292C18D13900243FAB /* FlavorApp.swift in Sources */,
 				183C7D192C20512D00E00241 /* BlockCellViewModel.swift in Sources */,
+				180D88D22C31BB800030322B /* EditChallengeView.swift in Sources */,
 				18C9544F2C1B1C1100B6439E /* PrimaryCommentCellViewModel.swift in Sources */,
 				18C954572C1B2B6100B6439E /* SubCommentViewModel.swift in Sources */,
 				18DDBD0A2C18E3C700E288DE /* LoginViewModel.swift in Sources */,
+				180D88BF2C2EE2560030322B /* VoteCell.swift in Sources */,
 				184060E62C1DD05B0002894C /* Album.swift in Sources */,
+				180D88CF2C319A910030322B /* SelectChallengeViewStory.swift in Sources */,
 				181761812C24B3C900E52AB0 /* MainCrewViewModel.swift in Sources */,
 				18DDBD242C1916EA00E288DE /* ContentViewModel.swift in Sources */,
 				18D91A9E2C23317D00CD1E6C /* CrewService.swift in Sources */,
@@ -1540,9 +1649,11 @@
 				18DDBD1A2C1906EB00E288DE /* LoginView.swift in Sources */,
 				185A6A682C1F7D660006E5B0 /* SearchCell.swift in Sources */,
 				183C7CF62C2029EF00E00241 /* NotificationService.swift in Sources */,
+				180D88C92C30A55F0030322B /* Uploading.swift in Sources */,
 				183B22062C19DEDE008A3DCF /* CustomButton.swift in Sources */,
 				181761832C24D1EE00E52AB0 /* Challenge.swift in Sources */,
 				184060D62C1C89770002894C /* StoryIconView.swift in Sources */,
+				180D88B82C2EBF0D0030322B /* CreateChallengeView.swift in Sources */,
 				183B22112C1A12D2008A3DCF /* EditProfileView.swift in Sources */,
 				184060D12C1C30C00002894C /* GridView.swift in Sources */,
 				18C954552C1B2B5100B6439E /* SubCommentCell.swift in Sources */,
@@ -1553,6 +1664,7 @@
 				183C7CF12C20293600E00241 /* NotificationView.swift in Sources */,
 				183B221A2C1A2CBB008A3DCF /* ListView.swift in Sources */,
 				188E62DF2C24270F001D9FBB /* CreateCrewUserCell.swift in Sources */,
+				180D88C42C3088F40030322B /* StatsView.swift in Sources */,
 				185A6A592C1F34AC0006E5B0 /* EditAlbumView.swift in Sources */,
 				18D91A9C2C232BD300CD1E6C /* ratingUser.swift in Sources */,
 				183B220B2C19E631008A3DCF /* ImagePickerOptions.swift in Sources */,

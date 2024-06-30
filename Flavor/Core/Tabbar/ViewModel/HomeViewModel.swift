@@ -52,6 +52,16 @@ class HomeViewModel: ObservableObject{
     //UPLOAD
     @Published var showCamera = false
     
+    
+    //NAMESPACE
+    
+    @Published var selectedStoryImage: UIImage?
+    @Published var showSelectedStory = false
+    
+    
+    //LOCAL UPDATES
+    @Published var newPosts: [Post] = []
+    @Published var newStorys: [Story] = []
     init(user: User) {
         self.user = user
     }

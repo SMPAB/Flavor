@@ -67,6 +67,8 @@ struct StoryOverlayView: View {
 
                             let storiesToday = user.storys?.filter { Calendar.current.isDate($0.timestamp.dateValue(), inSameDayAs: Date()) }
                             let storiesYesterday = user.storys?.filter { Calendar.current.isDate($0.timestamp.dateValue(), inSameDayAs: yesterday) }
+                            
+                            
                            
                             if storyVM.fetchinStory {
                                 VStack(spacing: 16){
@@ -111,7 +113,7 @@ struct StoryOverlayView: View {
                                             .font(.primaryFont(.P1))
                                             .fontWeight(.semibold)
                                         
-                                        ForEach(Array(storiesToday!.enumerated()), id: \.element.id) { index, story in
+                                        ForEach(Array(storiesToday!.sorted(by: {$0.timestamp.dateValue() > $1.timestamp.dateValue()}).enumerated()), id: \.element.id) { index, story in
                                             StoryCell(story: story, oddStory: index % 2 != 0)
                                                 .padding(.horizontal, 16)
                                         }
@@ -124,7 +126,7 @@ struct StoryOverlayView: View {
                                             .font(.primaryFont(.P1))
                                             .fontWeight(.semibold)
                                         
-                                        ForEach(Array(storiesYesterday!.enumerated()), id: \.element.id) { index, story in
+                                        ForEach(Array(storiesYesterday!.sorted(by: {$0.timestamp.dateValue() > $1.timestamp.dateValue()}).enumerated()), id: \.element.id) { index, story in
                                             StoryCell(story: story, oddStory: (((storiesToday?.count ?? 0) % 2) != 0) ? index % 2 == 0 : index % 2 != 0)
                                                 .padding(.horizontal, 16)
                                         }

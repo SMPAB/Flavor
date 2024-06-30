@@ -23,8 +23,11 @@ struct Tabview: View {
     
     @State var offsetFocusPost: CGFloat = 0
     
+    @Environment(\.namespace) var namespace
+    
     
     //OFFSETS
+    
     
     //@State var offsetvariableFeed
     
@@ -176,7 +179,29 @@ struct Tabview: View {
                     }
                     
                     
-                }.onFirstAppear {
+                    if homeViewModel.showSelectedStory {
+                        ZStack{
+                            if let image = homeViewModel.selectedStoryImage {
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 200)
+                                    .matchedGeometryEffect(id: "storyImage", in: namespace)
+                                    .onTapGesture {
+                                        withAnimation{
+                                            homeViewModel.showSelectedStory.toggle()
+                                        }
+                                    }
+                                    .background(.red)
+                            }
+                        }.frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .background(.blue)
+                       
+                    }
+                    
+                }
+                
+                .onFirstAppear {
                     
                     homeViewModel.chechIfCurrentUserSeenStory()
                     
@@ -252,4 +277,5 @@ extension EnvironmentValues {
 }
 #Preview {
     Tabview(user: User.mockUsers[0], authService: AuthService())
+        .environmentObject(ContentViewModel(service: AuthService()))
 }

@@ -20,7 +20,7 @@ extension Timestamp{
     func timestampHourlyString() -> String {
             let date = self.dateValue()
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "hh:mm a"
+            dateFormatter.dateFormat = "HH:mm a"
             dateFormatter.amSymbol = "AM"
             dateFormatter.pmSymbol = "PM"
             return dateFormatter.string(from: date)

@@ -23,6 +23,20 @@ class PostService {
                 return nil
             }
         }
+    
+    static func fetchPostKnownUser(_ postId: String, user: User) async throws -> Post? {
+        do {
+            let document = try await FirebaseConstants.PostCollection.document(postId).getDocument()
+            var post = try document.data(as: Post.self)
+            
+            post.user = user
+            return post
+        } catch {
+            // Handle any errors appropriately (e.g., log the error)
+            print("Failed to fetch post with error: \(error)")
+            return nil
+        }
+    }
     static func fetchFeedPosts(userFollowingUsernames: [String], seenPosts: [String], lastDocument: DocumentSnapshot? = nil) async throws -> ([Post], DocumentSnapshot?){
         
         let dateFormatter = DateFormatter()
@@ -225,7 +239,7 @@ extension PostService {
                 let postId = postIdArray[i]
 
                 // Assuming Firebase fetch logic (adjust this based on your actual Firebase setup)
-                if let post = try await fetchPost(postId){
+                if let post = try await fetchPostKnownUser(postId, user: user){
                     fetchedPosts.append(post)
                 }
             }

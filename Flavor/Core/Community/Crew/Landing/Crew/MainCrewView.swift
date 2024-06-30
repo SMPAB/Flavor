@@ -17,6 +17,7 @@ struct MainCrewView: View {
     @Environment(\.dismiss) var dismiss
     
     @State var showEdit = false
+    @State var showCreateChallenge = false
     
     init(crew: Crew){
         self._viewModel = StateObject(wrappedValue: MainCrewViewModel(crew: crew))
@@ -93,7 +94,7 @@ struct MainCrewView: View {
                     Spacer()
                     
                     Button(action: {
-                        
+                        showCreateChallenge.toggle()
                     }){
                         Iconoir.plus.asImage
                             .foregroundStyle(.colorWhite)
@@ -105,9 +106,10 @@ struct MainCrewView: View {
                             )
                     }
                     
-                    Button(action: {
-                        
-                    }){
+                    NavigationLink(destination:
+                    StatsView()
+                        .environmentObject(viewModel)
+                    ){
                         Iconoir.statsReport.asImage
                             .foregroundStyle(.colorOrange)
                             .frame(width: 40, height: 40)
@@ -148,7 +150,10 @@ struct MainCrewView: View {
                             .fontWeight(.semibold)
                         
                         ForEach(activeChallenges){ challenge in
-                            NavigationLink(destination: MainChallengeView(challenge: challenge)){
+                            NavigationLink(destination: 
+                                            MainChallengeView(challenge: challenge)
+                                .environmentObject(homeVM)
+                            ){
                                 ChallengeCell(challenge: challenge)
                                     .foregroundStyle(.black)
                                     
@@ -181,7 +186,13 @@ struct MainCrewView: View {
                     .environmentObject(viewModel)
                     .environmentObject(homeVM)
             }
+        
+            .fullScreenCover(isPresented: $showCreateChallenge){
+                CreateChallengeView()
+                    .environmentObject(viewModel)
+            }
     }
+    
 }
 /*
 #Preview {

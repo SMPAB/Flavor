@@ -13,6 +13,7 @@ class LandingCrewViewModel: ObservableObject {
     @Published var fetchingCrews = false
     private var latestCrewSnapshot: DocumentSnapshot?
     
+    @MainActor
     func fetchCrews() async throws {
         do {
             fetchingCrews = true

@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 import Firebase
 
+@MainActor
 class MainCrewViewModel: ObservableObject {
     
     @Published var crew: Crew
@@ -27,6 +28,18 @@ class MainCrewViewModel: ObservableObject {
     @Published var name = ""
     @Published var selectedUser: [User] = []
     @Published var allUsernames: [String] = []
+    
+    //CREATE CHALLENGE
+    @Published var challengeImage: Image?
+    @Published var challengeUiImage: UIImage?
+    
+    @Published var challengeTitle = ""
+    @Published var challengeDescription = ""
+    @Published var challengeStart = Date()
+    @Published var challengeEnd = Date()
+    
+    
+    @Published var ratingUsers: [UserRating] = []
     
     init(crew: Crew) {
         self.crew = crew
@@ -105,7 +118,44 @@ class MainCrewViewModel: ObservableObject {
                 // Update the local crew object
                 crew.userRating = updatedUserRating
                 crew.uids = updatedUids
+        selectedUser = []
     }
+    
+    
+    func createChallenge() async throws {
+        do {
+            let challengeRef = FirebaseConstants.ChallengeCollection.document()
+            
+            var challenge = Challenge(id: challengeRef.documentID, crewId: crew.id, title: challengeTitle, description: challengeDescription, imageUrl: nil, startDate: Timestamp(date: challengeStart), endDate: Timestamp(date: challengeEnd), votes: 1, finished: false, users: crew.uids, completedUsers: [])
+            
+            if let image = challengeUiImage {
+                let imageUrl = try await ImageUploader.uploadImage(image: image)
+                challenge.imageUrl = imageUrl
+            }
+            
+            
+            guard let encodedChallenge = try? Firestore.Encoder().encode(challenge) else { return }
+            try await challengeRef.setData(encodedChallenge)
+            
+            let challengeForDisplay = Challenge(id: challengeRef.documentID, crewId: crew.id, title: challengeTitle, description: challengeDescription, imageUrl: challenge.imageUrl, startDate: Timestamp(date: challengeStart), endDate: Timestamp(date: challengeEnd), votes: 1, finished: false, users: crew.uids, completedUsers: [], crew: crew)
+            
+            challenges.append(challengeForDisplay)
+        } catch {
+            return
+        }
+    }
+    
+    func fetchRatingUsers() async throws {
+            guard let userRatingDict = crew.userRating else { return }
+            var userRatings = Array(userRatingDict.values).sorted { $0.points > $1.points }
+            
+            for i in 0..<userRatings.count {
+                let user = try await UserService.fetchUser(withUid: userRatings[i].id)
+                userRatings[i].user = user
+            }
+            
+            self.ratingUsers = userRatings
+        }
     
     
 }

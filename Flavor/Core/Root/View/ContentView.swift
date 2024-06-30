@@ -17,6 +17,9 @@ struct ContentView: View {
         self.authService = authService
         self._viewModel = StateObject(wrappedValue: ContentViewModel(service: authService))
     }
+    
+    @Namespace private var namespace
+    
     var body: some View {
         Group{
             if viewModel.userSession == nil {
@@ -24,6 +27,7 @@ struct ContentView: View {
             } else {
                 UserControllView(authservice: authService)
                     .environmentObject(viewModel)
+                    .namespace(namespace)
             }
         }
     }

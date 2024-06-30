@@ -16,6 +16,7 @@ struct UploadPostView: View {
     @StateObject var viewMdeol = UploadFlavorPostViewModel()
     @State var removeRecipeAlert = false
     
+    
     @Binding var showOption: Bool
     
     var body: some View {
@@ -257,8 +258,14 @@ struct UploadPostView: View {
             
             CustomButton(text: "Publish", textColor: .colorWhite, backgroundColor: .colorOrange, strokeColor: .colorOrange, action: {
                 Task{
-                    try await viewMdeol.uploadFlavorPostViewModel(images: images, user: homeVM.user)
-                    homeVM.showCamera.toggle()
+                    viewMdeol.showUploadAnimation = true
+                    try await viewMdeol.uploadFlavorPostViewModel(images: images, user: homeVM.user, homeVM: homeVM)
+                    viewMdeol.finishedUploading = true
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.8){
+                        viewMdeol.showUploadAnimation = false
+                        homeVM.showCamera.toggle()
+                    }
                 }
             }).padding(.horizontal, 16)
         }
@@ -277,6 +284,9 @@ struct UploadPostView: View {
             }, cancelAction: {
                 removeRecipeAlert.toggle()
             }, dismissText: "Cancel", acceptText: "Remove")
+            .uploadAnimation(isPresented: $viewMdeol.showUploadAnimation, finished: $viewMdeol.finishedUploading, image: nil, finishedAction: {
+                
+            })
     }
 }
 /*

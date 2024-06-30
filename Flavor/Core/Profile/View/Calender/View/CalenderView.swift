@@ -127,7 +127,7 @@ struct CalendarView: View {
                                 .padding(.horizontal, 16)
                                 
                             
-                            ForEach(Array(profileViewModel.calenderStorys.filter{ isSameDay(date1: $0.timestamp.dateValue(), date2: currentDate) }.enumerated()), id: \.element.id) { index, story in
+                            ForEach(Array(profileViewModel.calenderStorys.filter{ isSameDay(date1: $0.timestamp.dateValue(), date2: currentDate) }.sorted(by: {$0.timestamp.dateValue() > $1.timestamp.dateValue()}).enumerated()), id: \.element.id) { index, story in
                                 
                                
                                 StoryCell(story: story, oddStory: index % 2 != 0)

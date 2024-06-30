@@ -46,6 +46,9 @@ class CrewService {
             return ([], latestSnapshot)
         }
     }
+    
+    
+    
 }
 
 //MARK: - CHALLENGES
@@ -123,4 +126,28 @@ extension CrewService {
             return ([], latestDocument)
         }
     }
+    
+    static func fetchVotes(_ challenge: Challenge) async throws -> [String]{
+        guard let uid = Auth.auth().currentUser?.uid else { return []}
+        
+        do {
+            let snapshot = try await FirebaseConstants
+                .ChallengeCollection
+                .document(challenge.id)
+                .collection("votes")
+                .document(uid)
+                .getDocument()
+            
+            if let votes = snapshot.data()?["votes"] as? [String] {
+                return votes
+            } else {
+                return []
+            }
+        } catch {
+            return []
+        }
+    }
+    
+    
+       
 }

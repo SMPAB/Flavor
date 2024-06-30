@@ -27,6 +27,8 @@ struct UserRating: Identifiable, Codable, Hashable {
     var id: String  // This can be the username
     var points: Int
     var wins: [String]
+    var user: User?
     // Conform to Identifiable protocol
     //var uuid: UUID { UUID() }
 }
+

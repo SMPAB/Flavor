@@ -15,7 +15,7 @@ class UploadFlavorPostViewModel: ObservableObject {
     
     
     @Published var recipe = false
-    
+
     @Published var allChallenges: [Challenge] = []
     @Published var challenge: Challenge?
 
@@ -27,7 +27,8 @@ class UploadFlavorPostViewModel: ObservableObject {
     @Published var recipeSteps: [steps] = []
     @Published var recipeUtt: [utensil] = []
     
-    
+    @Published var showUploadAnimation = false
+    @Published var finishedUploading = false
     func combineIngredientsAndUtensils() {
            recipeIng = recipeSteps.flatMap { (step: steps) -> [ingrediences] in
                step.ingrediences
@@ -38,7 +39,7 @@ class UploadFlavorPostViewModel: ObservableObject {
        }
     
     
-    func uploadFlavorPostViewModel(images: [UIImage], user: User) async throws {
+    func uploadFlavorPostViewModel(images: [UIImage], user: User, homeVM: HomeViewModel) async throws {
     
         let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MMMdd"
@@ -149,6 +150,29 @@ class UploadFlavorPostViewModel: ObservableObject {
                     "completedUsers": FieldValue.arrayUnion([user.id])
                        ], merge: true)
             }
+            
+            
+            
+            //MARK: HOMEVIEWMODEL!
+            var localPost = post
+            localPost.user = user
+            homeVM.newPosts.append(localPost)
+            
+            
+            var localStory = story
+            homeVM.currentUserHasStory = true
+            
+            if let index = homeVM.storyUsers.firstIndex(where: { $0.id == user.id }) {
+                homeVM.storyUsers[index].storys?.insert(localStory, at: 0)
+                
+                
+            } else {
+                var localUser = user
+                localUser.storys?.append(localStory)
+                homeVM.storyUsers.insert(localUser, at: 0)
+                
+            }
+
             
         } catch {
             return

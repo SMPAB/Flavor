@@ -55,8 +55,11 @@ class HomeViewModel: ObservableObject{
     
     //NAMESPACE
     
-    @Published var selectedStoryImage: UIImage?
+    @Published var selectedStory: Story?
     @Published var showSelectedStory = false
+    
+    
+    
     
     
     //LOCAL UPDATES

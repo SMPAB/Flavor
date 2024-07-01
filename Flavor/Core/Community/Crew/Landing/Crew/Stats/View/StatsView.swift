@@ -188,8 +188,8 @@ struct StatsView: View {
 }
 
 
-
+/*
 #Preview {
     StatsView()
         .environmentObject(MainCrewViewModel(crew: Crew(id: "", admin: "", crewName: "", creationDate: Timestamp(date: Date()), publicCrew: true, uids: [])))
-}
+}*/

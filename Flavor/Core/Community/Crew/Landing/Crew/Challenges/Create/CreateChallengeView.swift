@@ -143,8 +143,8 @@ struct CreateChallengeView: View {
         }
     }
 }
-
+/*
 #Preview {
     CreateChallengeView()
         .environmentObject(MainCrewViewModel(crew: Crew(id: "", admin: "", crewName: "", creationDate: Timestamp(date: Date()), publicCrew: true, uids: [])))
-}
+}*/

@@ -13,6 +13,8 @@ struct ChallengeCell: View {
     
     let challenge: Challenge
     
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
         if challenge.startDate.dateValue() > Date() {
             VStack(spacing: 0){

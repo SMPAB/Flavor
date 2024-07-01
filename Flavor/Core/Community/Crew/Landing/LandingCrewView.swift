@@ -43,7 +43,7 @@ struct LandingCrewView: View {
                 
                 ForEach(viewModel.crews){ crew in
                     NavigationLink(destination:
-                    MainCrewView(crew: crew)
+                                    MainCrewView(crew: crew, landingVM: viewModel)
                         .environmentObject(homeVM)
                     ) {
                         HStack(spacing: 16){

@@ -46,7 +46,7 @@ class ChallengeViewModel: ObservableObject {
         self.newName = challenge.title
         self.newDescription = challenge.description
         self.newStart = challenge.startDate.dateValue()
-        self.newEnd = challenge.startDate.dateValue()
+        self.newEnd = challenge.endDate.dateValue()
     }
     
     @MainActor

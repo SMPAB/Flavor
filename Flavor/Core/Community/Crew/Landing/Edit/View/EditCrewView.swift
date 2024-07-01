@@ -176,8 +176,8 @@ struct EditCrewView: View {
         }
     }
 }
-
+/*
 #Preview {
     EditCrewView()
         .environmentObject(MainCrewViewModel(crew: Crew(id: "", admin: "", crewName: "Helo", creationDate: Timestamp(date: Date()), publicCrew: false, uids: [])))
-}
+}*/

@@ -17,6 +17,11 @@
 		180D88CD2C318C090030322B /* NamesSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D88CC2C318C090030322B /* NamesSpace.swift */; };
 		180D88CF2C319A910030322B /* SelectChallengeViewStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D88CE2C319A910030322B /* SelectChallengeViewStory.swift */; };
 		180D88D22C31BB800030322B /* EditChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D88D12C31BB800030322B /* EditChallengeView.swift */; };
+		180D88D62C3201E20030322B /* ForumMessageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D88D52C3201E20030322B /* ForumMessageType.swift */; };
+		180D88D92C32027C0030322B /* Forum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D88D82C32027C0030322B /* Forum.swift */; };
+		180D88DB2C32B4FD0030322B /* TestGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D88DA2C32B4FD0030322B /* TestGrid.swift */; };
+		180D88DD2C32CDFD0030322B /* GridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D88DC2C32CDFD0030322B /* GridCell.swift */; };
+		180D88E02C32CE220030322B /* GridCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D88DF2C32CE220030322B /* GridCellViewModel.swift */; };
 		1817617F2C24B3C000E52AB0 /* MainCrewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1817617E2C24B3C000E52AB0 /* MainCrewView.swift */; };
 		181761812C24B3C900E52AB0 /* MainCrewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181761802C24B3C900E52AB0 /* MainCrewViewModel.swift */; };
 		181761832C24D1EE00E52AB0 /* Challenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181761822C24D1EE00E52AB0 /* Challenge.swift */; };
@@ -195,6 +200,11 @@
 		180D88CC2C318C090030322B /* NamesSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamesSpace.swift; sourceTree = "<group>"; };
 		180D88CE2C319A910030322B /* SelectChallengeViewStory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectChallengeViewStory.swift; sourceTree = "<group>"; };
 		180D88D12C31BB800030322B /* EditChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditChallengeView.swift; sourceTree = "<group>"; };
+		180D88D52C3201E20030322B /* ForumMessageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForumMessageType.swift; sourceTree = "<group>"; };
+		180D88D82C32027C0030322B /* Forum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forum.swift; sourceTree = "<group>"; };
+		180D88DA2C32B4FD0030322B /* TestGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestGrid.swift; sourceTree = "<group>"; };
+		180D88DC2C32CDFD0030322B /* GridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridCell.swift; sourceTree = "<group>"; };
+		180D88DF2C32CE220030322B /* GridCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridCellViewModel.swift; sourceTree = "<group>"; };
 		1817617E2C24B3C000E52AB0 /* MainCrewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCrewView.swift; sourceTree = "<group>"; };
 		181761802C24B3C900E52AB0 /* MainCrewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCrewViewModel.swift; sourceTree = "<group>"; };
 		181761822C24D1EE00E52AB0 /* Challenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge.swift; sourceTree = "<group>"; };
@@ -450,9 +460,44 @@
 			path = Edit;
 			sourceTree = "<group>";
 		};
+		180D88D32C3201A30030322B /* Forum */ = {
+			isa = PBXGroup;
+			children = (
+				180D88D72C32026C0030322B /* View */,
+				180D88D42C3201A90030322B /* Module */,
+			);
+			path = Forum;
+			sourceTree = "<group>";
+		};
+		180D88D42C3201A90030322B /* Module */ = {
+			isa = PBXGroup;
+			children = (
+				180D88D52C3201E20030322B /* ForumMessageType.swift */,
+			);
+			path = Module;
+			sourceTree = "<group>";
+		};
+		180D88D72C32026C0030322B /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		180D88DE2C32CE0A0030322B /* Grid */ = {
+			isa = PBXGroup;
+			children = (
+				180D88DA2C32B4FD0030322B /* TestGrid.swift */,
+				180D88DC2C32CDFD0030322B /* GridCell.swift */,
+				180D88DF2C32CE220030322B /* GridCellViewModel.swift */,
+			);
+			path = Grid;
+			sourceTree = "<group>";
+		};
 		1817617C2C24B3AB00E52AB0 /* Crew */ = {
 			isa = PBXGroup;
 			children = (
+				180D88D32C3201A30030322B /* Forum */,
 				180D88C02C3088DB0030322B /* Stats */,
 				1817617D2C24B3B300E52AB0 /* Challenges */,
 				1817617E2C24B3C000E52AB0 /* MainCrewView.swift */,
@@ -1286,6 +1331,7 @@
 		18C954582C1B3E7900B6439E /* Posts */ = {
 			isa = PBXGroup;
 			children = (
+				180D88DE2C32CE0A0030322B /* Grid */,
 				18D91A892C22E57A00CD1E6C /* Recipe */,
 				18C954592C1B3E8700B6439E /* FocusPostView.swift */,
 				184060C92C1B99DD0002894C /* VariableView.swift */,
@@ -1363,6 +1409,7 @@
 				18D91A9B2C232BD300CD1E6C /* ratingUser.swift */,
 				181761822C24D1EE00E52AB0 /* Challenge.swift */,
 				18F5FE4E2C255F7500A94B57 /* ChallengeUpload.swift */,
+				180D88D82C32027C0030322B /* Forum.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -1532,6 +1579,7 @@
 				18332F2D2C19B4E7002E95F4 /* OnFirstAppear.swift in Sources */,
 				183C7CF42C20298900E00241 /* NotificationCellViewModel.swift in Sources */,
 				183B220F2C1A1157008A3DCF /* TestView.swift in Sources */,
+				180D88DB2C32B4FD0030322B /* TestGrid.swift in Sources */,
 				185A6A572C1F329D0006E5B0 /* EditAlbumViewModel.swift in Sources */,
 				18D91A862C21A6AB00CD1E6C /* UploadStoryView.swift in Sources */,
 				186E2B832C1AE733003E35D4 /* FeedCellViewModel.swift in Sources */,
@@ -1586,6 +1634,7 @@
 				184060DC2C1CA6EB0002894C /* Story.swift in Sources */,
 				183C7D202C20669F00E00241 /* CameraController.swift in Sources */,
 				189D02222C20DE9C00A93C4B /* camera.swift in Sources */,
+				180D88DD2C32CDFD0030322B /* GridCell.swift in Sources */,
 				18F5FE4F2C255F7500A94B57 /* ChallengeUpload.swift in Sources */,
 				183B21EF2C19D105008A3DCF /* UserControllView.swift in Sources */,
 				184060EB2C1DDF3D0002894C /* CreateAlbumViewModel.swift in Sources */,
@@ -1593,6 +1642,7 @@
 				183B21F82C19D5A2008A3DCF /* HomeViewModel.swift in Sources */,
 				184060CA2C1B99DD0002894C /* VariableView.swift in Sources */,
 				18C9544D2C1B1C0600B6439E /* PrimaryCommentCell.swift in Sources */,
+				180D88D92C32027C0030322B /* Forum.swift in Sources */,
 				186E2B852C1AE883003E35D4 /* TimeStamp.swift in Sources */,
 				183B22132C1A134F008A3DCF /* HeaderMain.swift in Sources */,
 				18D91A922C23281800CD1E6C /* LandingCommunityView.swift in Sources */,
@@ -1622,6 +1672,7 @@
 				184060E62C1DD05B0002894C /* Album.swift in Sources */,
 				180D88CF2C319A910030322B /* SelectChallengeViewStory.swift in Sources */,
 				181761812C24B3C900E52AB0 /* MainCrewViewModel.swift in Sources */,
+				180D88E02C32CE220030322B /* GridCellViewModel.swift in Sources */,
 				18DDBD242C1916EA00E288DE /* ContentViewModel.swift in Sources */,
 				18D91A9E2C23317D00CD1E6C /* CrewService.swift in Sources */,
 				185A6A662C1F79FC0006E5B0 /* MainSearchViewModel.swift in Sources */,
@@ -1678,6 +1729,7 @@
 				183B22152C1A1AA3008A3DCF /* ImageUploader.swift in Sources */,
 				183C7D0B2C2045C500E00241 /* NotificationsManager.swift in Sources */,
 				18332F2B2C19B280002E95F4 /* AddUserName.swift in Sources */,
+				180D88D62C3201E20030322B /* ForumMessageType.swift in Sources */,
 				186E2B7F2C1AE714003E35D4 /* FeedCell.swift in Sources */,
 				18DDBD082C18E34300E288DE /* AuthService.swift in Sources */,
 			);

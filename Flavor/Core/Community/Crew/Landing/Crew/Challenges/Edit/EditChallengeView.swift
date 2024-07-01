@@ -14,7 +14,7 @@ struct EditChallengeView: View {
     @State var showImagePicker = false
     var body: some View {
         ZStack {
-            VStack{
+            VStack(spacing: 32){
                 HeaderMain(action: {
                     Task{
                         try await viewModel.saveChanges()
@@ -68,10 +68,12 @@ struct EditChallengeView: View {
                         // overrides tap gesture to fix ios 17.1 bug
                     })
                 }
-                
-            }
+              Spacer()
+            }.padding(.horizontal, 16)
             
            
+        }.onTapGesture {
+            UIApplication.shared.endEditing()
         }
     }
 }

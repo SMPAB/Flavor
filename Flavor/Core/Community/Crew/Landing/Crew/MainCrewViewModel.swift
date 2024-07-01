@@ -41,11 +41,14 @@ class MainCrewViewModel: ObservableObject {
     
     @Published var ratingUsers: [UserRating] = []
     
-    init(crew: Crew) {
+    private var landingVM: LandingCrewViewModel
+    
+    init(crew: Crew, landingVM: LandingCrewViewModel) {
         self.crew = crew
         self.name = crew.crewName
         self.originalUids = crew.uids
         self.originalUsers = crew.userRating
+        self.landingVM = landingVM
         
     }
     
@@ -73,12 +76,18 @@ class MainCrewViewModel: ObservableObject {
             let imageUrl = try await ImageUploader.uploadImage(image: uiImage)
             data["imageUrl"] = imageUrl
             crew.imageUrl = imageUrl
+            if let index = landingVM.crews.firstIndex(where: {$0.id == crew.id}){
+                landingVM.crews[index].imageUrl = imageUrl
+            }
         }
         
         //CHANGE IN USERNAME
         if name != crew.crewName && name != ""{
             crew.crewName = name
             data["crewName"] = name
+            if let index = landingVM.crews.firstIndex(where: {$0.id == crew.id}){
+                landingVM.crews[index].crewName = name
+            }
         }
         
         // CHANGE IN SELECTED USERS
@@ -90,9 +99,9 @@ class MainCrewViewModel: ObservableObject {
                     if updatedUserRating[user.id] == nil {
                         updatedUserRating[user.id] = UserRating(id: user.id, points: 0, wins: [])
                     }
-                    if !updatedUids.contains(user.id) {
+                    /*if !updatedUids.contains(user.id) {
                         updatedUids.append(user.id)
-                    }
+                    }*/
                 }
                 
                 // Remove users not in the selectedUser list from userRating and uids
@@ -116,8 +125,15 @@ class MainCrewViewModel: ObservableObject {
                 try await db.collection("crews").document(crew.id).updateData(data)
                 
                 // Update the local crew object
+        
                 crew.userRating = updatedUserRating
                 crew.uids = updatedUids
+        
+        
+        if let index = landingVM.crews.firstIndex(where: {$0.id == crew.id}){
+            landingVM.crews[index].uids = updatedUids
+            landingVM.crews[index].userRating = updatedUserRating
+        }
         selectedUser = []
     }
     

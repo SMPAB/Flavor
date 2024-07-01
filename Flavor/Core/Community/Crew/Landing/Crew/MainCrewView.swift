@@ -19,8 +19,8 @@ struct MainCrewView: View {
     @State var showEdit = false
     @State var showCreateChallenge = false
     
-    init(crew: Crew){
-        self._viewModel = StateObject(wrappedValue: MainCrewViewModel(crew: crew))
+    init(crew: Crew, landingVM: LandingCrewViewModel){
+        self._viewModel = StateObject(wrappedValue: MainCrewViewModel(crew: crew, landingVM: landingVM))
     }
     var body: some View {
         ScrollView{
@@ -174,6 +174,20 @@ struct MainCrewView: View {
                         }
                     }.padding(.horizontal, 16)
                 }
+                
+                
+                HStack{
+                    Text("Forum")
+                        .font(.primaryFont(.H4))
+                        .fontWeight(.semibold)
+                    
+                    Spacer()
+                    
+                    NavigationLink(destination: Text("Chat")){
+                        Iconoir.chatBubbleEmpty.asImage
+                            .foregroundStyle(.black)
+                    }
+                }.padding(.horizontal, 16)
             }
         }.navigationBarBackButtonHidden(true)
             .onFirstAppear {
@@ -194,7 +208,7 @@ struct MainCrewView: View {
     }
     
 }
-/*
+
 #Preview {
-    MainCrewView()
-}*/
+    MainCrewView(crew: Crew(id: "", admin: "", crewName: "SMP", creationDate: Timestamp(date: Date()), publicCrew: false, uids: []), landingVM: LandingCrewViewModel())
+}

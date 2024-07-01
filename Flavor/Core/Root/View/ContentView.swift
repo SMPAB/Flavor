@@ -24,10 +24,12 @@ struct ContentView: View {
         Group{
             if viewModel.userSession == nil {
                 MainAuthView(authService: authService)
+                
             } else {
                 UserControllView(authservice: authService)
+                    .environment(\.namespace, namespace)
                     .environmentObject(viewModel)
-                    .namespace(namespace)
+                   
             }
         }
     }

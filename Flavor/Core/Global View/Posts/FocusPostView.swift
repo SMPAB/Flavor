@@ -39,7 +39,7 @@ struct FocusPostView: View {
                 }.padding(.top, 100)
                 
                
-                TabView(){
+                TabView(selection: $selectedTab){
                         ForEach(post.imageUrls!, id: \.self){ imageUrl in
                             KFImage(URL(string: imageUrl))
                                 .resizable()

@@ -234,7 +234,7 @@ extension PostService {
             var nextFetchId: String? = nil
 
             // Fetch 10 posts starting from startIndex
-            let endIndex = min(startIndex + 10, postIdArray.count)
+            let endIndex = min(startIndex + 14, postIdArray.count)
             for i in startIndex..<endIndex {
                 let postId = postIdArray[i]
 

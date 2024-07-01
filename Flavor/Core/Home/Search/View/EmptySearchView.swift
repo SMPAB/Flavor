@@ -72,7 +72,7 @@ struct EmptySearchView: View {
                             .fill(Color(.systemGray6))
                             .frame(width: 180, height: 170)
                     }
-                }.padding(.horizontal, 8)
+                }.padding(.horizontal, 16)
             }
             
             Rectangle()
@@ -138,7 +138,7 @@ struct EmptySearchView: View {
                             .fill(Color(.systemGray6))
                             .frame(width: 180, height: 170)
                     }
-                }.padding(.horizontal, 8)
+                }.padding(.horizontal, 16)
             }
         }
     }

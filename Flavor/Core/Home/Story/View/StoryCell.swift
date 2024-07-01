@@ -14,6 +14,8 @@ struct StoryCell: View {
     let story: Story
     let oddStory: Bool
     
+    @Environment(\.namespace) var namespace
+    
     var body: some View {
         if !oddStory {
             ZStack(alignment: .topTrailing){
@@ -22,6 +24,16 @@ struct StoryCell: View {
                         KFImage(URL(string: imageUrl))
                             .resizable()
                             .scaledToFill()
+                            .matchedGeometryEffect(id: story.id, in: namespace)
+                            .onTapGesture {
+                               
+                                
+                                print("DEBUG APP ID: \(homeVM.selectedStory?.id)")
+                                withAnimation(.spring(duration: 0.3, bounce: 0.2)){
+                                    homeVM.selectedStory = story
+                                    homeVM.showSelectedStory.toggle()
+                                }
+                            }
                             .frame(width: 120, height: 120)
                             .clipShape(RoundedRectangle(cornerRadius: 16))
                             .contentShape(RoundedRectangle(cornerRadius: 16))
@@ -73,6 +85,14 @@ struct StoryCell: View {
                         KFImage(URL(string: imageUrl))
                             .resizable()
                             .scaledToFill()
+                            .matchedGeometryEffect(id: story.id, in: namespace)
+                            .onTapGesture {
+                                
+                                withAnimation(.spring(duration: 0.3, bounce: 0.2)){
+                                    homeVM.selectedStory = story
+                                    homeVM.showSelectedStory.toggle()
+                                }
+                            }
                             .frame(width: 120, height: 120)
                             .clipShape(RoundedRectangle(cornerRadius: 16))
                             .contentShape(RoundedRectangle(cornerRadius: 16))
@@ -88,6 +108,7 @@ struct StoryCell: View {
                 
                 
             }
+
         }
     }
 }

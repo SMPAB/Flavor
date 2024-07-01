@@ -19,6 +19,7 @@ class GridCellViewModel: ObservableObject {
         self.profileVM = profileVM
     }
     
+    @MainActor
     func fetchPost() async throws{
         
         

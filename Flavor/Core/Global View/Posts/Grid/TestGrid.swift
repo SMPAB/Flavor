@@ -9,7 +9,8 @@ import SwiftUI
 
 struct TestGrid: View {
     
-    let posts: [String] = ["dfg", "abc", "post3", "post4", "post5", "post6", "post7", "post8", "post9", "post10", "post11", "post12", "post13", "a3c", "po2t3", "p2st4", "podst5", "posat6", "posat7", "pocst8", "poasst9", "posdwt10", "pos123t11", "posdat12"]
+    let posts: [String]
+   
     
     @State var width = UIScreen.main.bounds.width
     
@@ -18,71 +19,76 @@ struct TestGrid: View {
     @State var paddingBottom: CGFloat = 0
     
     @EnvironmentObject var profileVM: ProfileViewModel
+    @EnvironmentObject var homeVM: HomeViewModel
+    
+    let variableTitle: String
+    let variableSubtitle: String?
     
     var body: some View {
        
         
-        let gridItems = [GridItem(.fixed(width * 120/390), spacing: width * 10/390, alignment: .leading),
-                         GridItem(.fixed(width * 120/390), spacing: width * 10/390, alignment: .leading),
-                         GridItem(.fixed(width * 120/390), spacing: width * 10/390, alignment: .leading)]
+        let gridItems = [GridItem(.fixed(width * 120/390), spacing: width * 10/390/1.2, alignment: .leading),
+                         GridItem(.fixed(width * 120/390), spacing: width * 10/390/1.2, alignment: .leading),
+                         GridItem(.fixed(width * 120/390), spacing: width * 10/390/1.2, alignment: .leading)]
         
         
         
         
         ScrollView {
-            LazyVGrid(columns: gridItems, spacing: width * 10/390) {
+            LazyVGrid(columns: gridItems, spacing: width * 10/390/1.2) {
                 ForEach(Array(posts.enumerated()), id: \.element) { index, postId in
                     
                     let modIndex = index % 14
                     
                     if modIndex == 0 {
-                        GridCell(user: profileVM.user, postId: postId, profileVM: profileVM, widthMultiplier: 250, heightMultiplier: 250, cornerRadius: cornerRadius)
+                        GridCell(user: profileVM.user, postId: postId, profileVM: profileVM, widthMultiplier: 250, heightMultiplier: 250, cornerRadius: cornerRadius, variableTitle: variableTitle, variableSubtitle: variableSubtitle)
+                            .environmentObject(homeVM)
                             .frame(width: width * 250/390, height: width * 250/390)
-                            .background(Color.red)
                             .cornerRadius(cornerRadius)
                             .frame(height: width * 120/390, alignment: .top)
                             
+                            
                     } else if modIndex == 3 {
-                        Text("\(postId)")
+                        GridCell(user: profileVM.user, postId: postId, profileVM: profileVM, widthMultiplier: 120, heightMultiplier: 250, cornerRadius: cornerRadius, variableTitle: variableTitle, variableSubtitle: variableSubtitle)
+                            .environmentObject(homeVM)
                             .frame(width: width * 120/390, height: width * 250/390)
-                            .background(Color.red)
                             .cornerRadius(cornerRadius)
                             .frame(height: width * 120/390, alignment: .top)
                             
                     } else if modIndex == 6{
                         
-                        Text("\(postId)")
-                            .frame(width: width * 250/390, height: 120)
-                            .background(Color.red)
+                        GridCell(user: profileVM.user, postId: postId, profileVM: profileVM, widthMultiplier: 250, heightMultiplier: 120, cornerRadius: cornerRadius, variableTitle: variableTitle, variableSubtitle: variableSubtitle)
+                            .environmentObject(homeVM)
+                            .frame(width: width * 250/390, height: width * 120/390)
                             .cornerRadius(cornerRadius)
                             .frame(width: width * 120/390, alignment: .trailing)
                             
                         
                     } else if modIndex == 8 {
-                        Text("\(postId)")
+                        GridCell(user: profileVM.user, postId: postId, profileVM: profileVM, widthMultiplier: 250, heightMultiplier: 250, cornerRadius: cornerRadius, variableTitle: variableTitle, variableSubtitle: variableSubtitle)
+                            .environmentObject(homeVM)
                             .frame(width: width * 250/390, height: width * 250/390)
-                            .background(Color.red)
                             .cornerRadius(cornerRadius)
                             .frame(height: width * 120/390, alignment: .top)
                             
                     } else if modIndex == 12 {
-                        Text("\(postId)")
+                        GridCell(user: profileVM.user, postId: postId, profileVM: profileVM, widthMultiplier: 120, heightMultiplier: 250, cornerRadius: cornerRadius, variableTitle: variableTitle, variableSubtitle: variableSubtitle)
+                            .environmentObject(homeVM)
                             .frame(width: width * 120/390, height: width * 250/390)
-                            .background(Color.red)
                             .cornerRadius(cornerRadius)
                             .frame(height: width * 120/390, alignment: .top)
                            
                     } else if modIndex == 13 {
-                        Text("\(postId)")
-                            .frame(width: width * 250/390, height: 120)
-                            .background(Color.red)
+                        GridCell(user: profileVM.user, postId: postId, profileVM: profileVM, widthMultiplier: 250, heightMultiplier: 120, cornerRadius: cornerRadius, variableTitle: variableTitle, variableSubtitle: variableSubtitle)
+                            .environmentObject(homeVM)
+                            .frame(width: width * 250/390, height: width * 120/390)
                             .cornerRadius(cornerRadius)
                             .frame(width: width * 120/390, alignment: .leading)
                             
                     } else {
-                        Text("\(postId)")
+                        GridCell(user: profileVM.user, postId: postId, profileVM: profileVM, widthMultiplier: 120, heightMultiplier: 120, cornerRadius: cornerRadius, variableTitle: variableTitle, variableSubtitle: variableSubtitle)
+                            .environmentObject(homeVM)
                             .frame(width: width * 120/390, height: width * 120/390)
-                            .background(Color.red)
                             .cornerRadius(cornerRadius)
                             .frame(height: width * 120/390, alignment: .top)
                             
@@ -116,7 +122,7 @@ struct TestGrid: View {
         
     }
 }
-
+/*
 #Preview {
     TestGrid()
-}
+}*/

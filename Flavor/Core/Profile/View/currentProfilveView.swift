@@ -221,7 +221,7 @@ struct currentProfilveView: View {
                         .environmentObject(viewModel)
                         .environmentObject(homeVM)
                 }
-                LazyVStack{
+                /*LazyVStack{
                     if viewModel.grid {
                         GridView(posts: $viewModel.posts, variableTitle: "Uploads", variableSubtitle: "\(user.userName)", navigateFromMain: false)
                             .environmentObject(homeVM)
@@ -235,6 +235,22 @@ struct currentProfilveView: View {
                         print("DEBUG APP LOADER APPEAR")
                         Task{
                             try await viewModel.fetchGridPosts()
+                        }
+                        
+                    }
+                }*/
+                
+                LazyVStack {
+                    if viewModel.grid {
+                        
+                        if user.isCurrentUser{
+                            TestGrid(posts: homeVM.user.postIds ?? [], variableTitle: "Flavors", variableSubtitle: "\(user.userName)")
+                                .environmentObject(viewModel)
+                                .environmentObject(homeVM)
+                        } else {
+                            TestGrid(posts: viewModel.user.postIds ?? [], variableTitle: "Flavors", variableSubtitle: "\(user.userName)")
+                                .environmentObject(viewModel)
+                                .environmentObject(homeVM)
                         }
                         
                     }
@@ -296,15 +312,11 @@ struct currentProfilveView: View {
             Task{
                //try await viewModel.fetchUserStats()
                 try await viewModel.fetchUserFollowingFollowersStats()
-            }
-            
-            Task{
                 try await viewModel.fetchCalenderStoryDays()
             }
+        
             
-            Task{
-                try await viewModel.fetchGridPosts()
-            }
+            
         }
         .fullScreenCover(isPresented: $viewModel.showEditProfile){
             EditProfileView()

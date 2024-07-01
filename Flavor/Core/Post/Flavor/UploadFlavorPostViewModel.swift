@@ -82,11 +82,12 @@ class UploadFlavorPostViewModel: ObservableObject {
             
             //MARK: UPDATE USER
             //update postIds and latest story
-            var postsIds = user.postIds
+            var postsIds = homeVM.user.postIds
             postsIds?.insert(postId.documentID, at: 0)
             var userData = [String:Any]()
             userData["postIds"] = postsIds
             userData["latestStory"] = todayString
+            homeVM.user.postIds?.insert(postId.documentID, at: 0)
             try await FirebaseConstants.UserCollection.document(user.id).updateData(userData)
             
             //add date to uploaddays

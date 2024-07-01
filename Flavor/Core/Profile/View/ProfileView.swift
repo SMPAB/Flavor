@@ -223,22 +223,11 @@ struct ProfileView: View {
                                 .environmentObject(viewModel)
                                 .environmentObject(homeVM)
                         }
-                        LazyVStack{
+                        LazyVStack {
                             if viewModel.grid {
-                                GridView(posts: $viewModel.posts, variableTitle: "Uploads", variableSubtitle: "\(user.userName)", navigateFromMain: false)
+                                TestGrid(posts: viewModel.user.postIds ?? [], variableTitle: "Flavors", variableSubtitle: "\(user.userName)")
+                                    .environmentObject(viewModel)
                                     .environmentObject(homeVM)
-                                    
-                            }
-                            
-                            VStack{
-                                Text("")
-                                    .padding(.top, viewModel.grid ? 120 : 0)
-                            }.onAppear{
-                                print("DEBUG APP LOADER APPEAR")
-                                Task{
-                                    try await viewModel.fetchGridPosts()
-                                }
-                                
                             }
                         }
                     } else {
@@ -334,22 +323,9 @@ struct ProfileView: View {
                 
                 Task{
                     try await viewModel.checkIfUserIsFollowing(id: user.id)
-                }
-                
-                Task{
                     try await viewModel.checkIfUserHasfriendRequest(id: user.id)
-                }
-                
-                Task{
                     try await viewModel.fetchUserFollowingFollowersStats()
-                }
-                
-                Task{
                     try await viewModel.fetchCalenderStoryDays()
-                }
-                
-                Task{
-                    try await viewModel.fetchGridPosts()
                 }
                 
                

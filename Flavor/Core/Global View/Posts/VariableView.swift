@@ -63,7 +63,7 @@ struct VariableView: View {
 
                         // List of uploads
                         LazyVStack(spacing: 32) {
-                            ForEach(homeVM.variableUplaods.indices, id: \.self) { index in
+                            ForEach(homeVM.variableUplaods.sorted(by: {$0.timestamp.dateValue() > $1.timestamp.dateValue()}).indices, id: \.self) { index in
                                 FeedCell(post: homeVM.variableUplaods[index])
                                     .frame(width: UIScreen.main.bounds.width - 32)
                                     .environmentObject(homeVM)

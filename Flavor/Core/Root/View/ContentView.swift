@@ -21,15 +21,19 @@ struct ContentView: View {
     @Namespace private var namespace
     
     var body: some View {
-        Group{
-            if viewModel.userSession == nil {
-                MainAuthView(authService: authService)
-                
-            } else {
-                UserControllView(authservice: authService)
-                    .environment(\.namespace, namespace)
-                    .environmentObject(viewModel)
-                   
+        ZStack {
+            
+            Color.colorOrange
+            Group{
+                if viewModel.userSession == nil {
+                    MainAuthView(authService: authService)
+                    
+                } else {
+                    UserControllView(authservice: authService)
+                        .environment(\.namespace, namespace)
+                        .environmentObject(viewModel)
+                       
+                }
             }
         }
     }

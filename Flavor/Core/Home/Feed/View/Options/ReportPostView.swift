@@ -1,18 +1,18 @@
 //
-//  ReportView.swift
+//  ReportPostView.swift
 //  Flavor
 //
-//  Created by Emilio Martinez on 2024-06-17.
+//  Created by Emilio Martinez on 2024-07-02.
 //
 
 import SwiftUI
 
-struct ReportView: View {
+struct ReportPostView: View {
     
-    @EnvironmentObject var viewModel: ProfileViewModel
+    @EnvironmentObject var cellVM: FeedCellViewModel
     @Environment(\.dismiss) var dismiss
-    
     @State var reportText = ""
+    
     var body: some View {
         VStack{
             
@@ -27,7 +27,7 @@ struct ReportView: View {
                 
                 Spacer()
                 
-                Text("Report @\(viewModel.user.userName)")
+                Text("Report post")
                     .font(.primaryFont(.H4))
                     .fontWeight(.semibold)
                 
@@ -61,7 +61,7 @@ struct ReportView: View {
                 
             CustomButton(text: "Report", textColor: .colorWhite, backgroundColor: .colorOrange, strokeColor: .colorOrange, action: {
                 Task{
-                    try await viewModel.report(reportText: reportText)
+                    try await cellVM.report(reportText: reportText)
                     dismiss()
                 }
                 
@@ -74,6 +74,5 @@ struct ReportView: View {
 }
 
 #Preview {
-    ReportView()
-        .environmentObject(ProfileViewModel(user: User.mockUsers[0]))
+    ReportPostView()
 }

@@ -23,6 +23,8 @@ struct Post: Identifiable, Hashable, Codable{
     let recipeId: String?
     var challengeUploadId: String?
     
+    var pinned: Bool? = false
+    
     let timestamp: Timestamp
     let timestampDate: String
     

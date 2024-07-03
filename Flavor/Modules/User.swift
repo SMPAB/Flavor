@@ -29,6 +29,8 @@ struct User: Identifiable, Hashable, Codable {
     var streak: Int? = 0
     var storys: [Story]?
     
+    var pinnedPostId: String?
+    
     
     var postIds: [String]?
     

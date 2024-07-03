@@ -21,14 +21,14 @@ struct VoteCell: View {
             HStack{
                 Text("Viewing:")
                     .font(.primaryFont(.H4))
-                    .foregroundStyle(.colorWhite)
+                    .foregroundStyle(.black)
                     .fontWeight(.semibold)
                 
                 Spacer()
                 
                 Text("@\(challengePost.user?.userName ?? "")")
                     .font(.primaryFont(.H4))
-                    .foregroundStyle(.colorWhite)
+                    .foregroundStyle(.black)
                     .fontWeight(.semibold)
             }
             
@@ -48,61 +48,95 @@ struct VoteCell: View {
             
             
             VStack(alignment: .leading){
-                Text("\(challengePost.votes)")
-                    .font(.primaryFont(.H4))
-                    .foregroundStyle(.colorWhite)
-                    .fontWeight(.semibold)
+                
                 
                 Text(challengePost.title)
                     .font(.primaryFont(.H4))
-                    .foregroundStyle(.colorWhite)
+                    .foregroundStyle(.black)
                     .fontWeight(.semibold)
                 
                 
-                HStack(spacing: 8){
-                    Button(action: {
-                        withAnimation(.spring(duration: 0.2, bounce: 0.4)){
-                            challengeVM.votePost = challengePost
-                            challengeVM.showVote = true
+                Text("votes: \(challengeVM.challengePosts.first(where: {$0.id == challengePost.id})?.votes ?? 0)")
+                    .font(.primaryFont(.P1))
+                    .foregroundStyle(Color(.systemGray))
+                    //.fontWeight(.semibold)
+                
+                
+                if challengeVM.challenge.votes - challengeVM.votes.count  > 0{
+                    HStack(spacing: 8){
+                        Button(action: {
+                            withAnimation(.spring(duration: 0.2, bounce: 0.4)){
+                                challengeVM.votePost = challengePost
+                                challengeVM.showVote = true
+                            }
+                            
+                        }){
+                            Text("Vote")
+                                .font(.primaryFont(.H4))
+                                .foregroundStyle(.colorWhite)
+                                .fontWeight(.semibold)
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 58)
+                                .background(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .fill(.colorOrange)
+                                    .stroke(.colorOrange)
+                                )
                         }
                         
-                    }){
-                        Text("Vote")
-                            .font(.primaryFont(.H4))
-                            .foregroundStyle(.black)
-                            .fontWeight(.semibold)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 58)
-                            .background(
-                            RoundedRectangle(cornerRadius: 8)
-                                .fill(.colorWhite)
-                                .stroke(.colorWhite)
-                            )
+                        Spacer()
+                        Button(action: {
+                            
+                        }){
+                            Text("Next")
+                                .font(.primaryFont(.H4))
+                                .foregroundStyle(.colorOrange)
+                                .fontWeight(.semibold)
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 58)
+                                .background(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .fill(.colorWhite)
+                                    .stroke(.colorOrange)
+                                )
+                        }
                     }
-                    
-                    Spacer()
-                    Button(action: {
-                        
-                    }){
-                        Text("Next")
-                            .font(.primaryFont(.H4))
-                            .foregroundStyle(.colorWhite)
-                            .fontWeight(.semibold)
+                } else {
+                    VStack{
+                        Text("You have voted for @\(challengeVM.voteUploads.first?.user?.userName ?? "")")
+                            .font(.primaryFont(.P1))
+                            .foregroundStyle(.colorOrange)
                             .frame(maxWidth: .infinity)
-                            .frame(height: 58)
+                            .frame(height: 42)
                             .background(
                             RoundedRectangle(cornerRadius: 8)
-                                .fill(.colorOrange)
-                                .stroke(.colorWhite)
+                                .fill(Color.clear)
+                                .stroke(.colorOrange)
                             )
+                        
+                        
+                        Button(action: {
+                            withAnimation(.spring(duration: 0.2, bounce: 0.4)){
+                                challengeVM.unVotePost = challengePost
+                                challengeVM.showUnvote = true
+                            }
+                        }){
+                            Text("unvote for @\(challengeVM.voteUploads.first?.user?.userName ?? "")")
+                                .font(.primaryFont(.P1))
+                                .foregroundStyle(Color(.systemGray))
+                                .underline()
+                        }
                     }
                 }
+                
+               
             }
         }.padding(16)
         .background(
         
             RoundedRectangle(cornerRadius: 16)
-                .fill(.colorOrange)
+                .fill(.colorWhite)
+                .shadow(color: .colorOrange, radius: 8).opacity(0.2)
         )
     }
 }

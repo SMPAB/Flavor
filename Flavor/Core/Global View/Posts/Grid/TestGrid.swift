@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import Iconoir
 
 struct TestGrid: View {
     
     let posts: [String]
+
+    @State var albumPosts: [Post] = []
    
     
     @State var width = UIScreen.main.bounds.width
@@ -23,6 +26,8 @@ struct TestGrid: View {
     
     let variableTitle: String
     let variableSubtitle: String?
+    
+   
     
     var body: some View {
        
@@ -41,11 +46,21 @@ struct TestGrid: View {
                     let modIndex = index % 14
                     
                     if modIndex == 0 {
-                        GridCell(user: profileVM.user, postId: postId, profileVM: profileVM, widthMultiplier: 250, heightMultiplier: 250, cornerRadius: cornerRadius, variableTitle: variableTitle, variableSubtitle: variableSubtitle)
-                            .environmentObject(homeVM)
-                            .frame(width: width * 250/390, height: width * 250/390)
-                            .cornerRadius(cornerRadius)
-                            .frame(height: width * 120/390, alignment: .top)
+                        ZStack(alignment: .topTrailing){
+                            GridCell(user: profileVM.user, postId: postId, profileVM: profileVM, widthMultiplier: 250, heightMultiplier: 250, cornerRadius: cornerRadius, variableTitle: variableTitle, variableSubtitle: variableSubtitle)
+                                .environmentObject(homeVM)
+                                .frame(width: width * 250/390, height: width * 250/390)
+                                .cornerRadius(cornerRadius)
+                                .frame(height: width * 120/390, alignment: .top)
+                            
+                            if !profileVM.album  && postId == homeVM.currentlyPinnedPost{
+                                Iconoir.pinSolid.asImage
+                                    .foregroundStyle(.colorWhite)
+                                    .padding(4)
+                                    
+                            }
+                        }
+                        
                             
                             
                     } else if modIndex == 3 {

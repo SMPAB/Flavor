@@ -127,6 +127,14 @@ struct Tabview: View {
                             VariableView()
                                 .environmentObject(homeViewModel)
                         }
+                        .navigationDestination(isPresented: $homeViewModel.navigateToUser){
+                            if let user = homeViewModel.navigationUser{
+                                ProfileView(user: user)
+                                    .environmentObject(homeViewModel)
+                            }
+                            
+                        }
+                        
                 }
                 
                 
@@ -228,7 +236,26 @@ struct Tabview: View {
                     
                 }
                 
-            }
+                
+                if homeViewModel.showQRCode {
+                    QRCode(name: homeViewModel.QRuserName, whatWasSaved: homeViewModel.whatWasSaved, showView: $homeViewModel.showQRCode, LINK: homeViewModel.QRCODELINK)
+                }
+                
+            }.customAlert(isPresented: $homeViewModel.showDeletePostAlert, title: nil, message: "Are you sure you want to delete your post", boldMessage: nil, afterBold: nil, confirmAction: {
+                
+                Task {
+                    try await homeViewModel.deletePost()
+                    homeViewModel.showDeletePostAlert = false
+                    homeViewModel.deletePost = nil
+                }
+                
+            }, cancelAction: {
+                withAnimation(.spring(duration: 0.2, bounce: 0.4)){
+                    homeViewModel.showDeletePostAlert = false
+                    homeViewModel.deletePost = nil
+                }
+                
+            }, imageUrl: homeViewModel.deletePost?.imageUrls?[0], dismissText: "Cancel", acceptText: "Delete")
                 
                 .onFirstAppear {
                     
@@ -254,6 +281,8 @@ struct Tabview: View {
                 LandingCameraView(story: .constant(false) )
                     .environmentObject(homeViewModel)
             }
+        
+        
         
     }
 }

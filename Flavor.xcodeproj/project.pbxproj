@@ -22,6 +22,14 @@
 		180D88DB2C32B4FD0030322B /* TestGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D88DA2C32B4FD0030322B /* TestGrid.swift */; };
 		180D88DD2C32CDFD0030322B /* GridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D88DC2C32CDFD0030322B /* GridCell.swift */; };
 		180D88E02C32CE220030322B /* GridCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D88DF2C32CE220030322B /* GridCellViewModel.swift */; };
+		180D88E22C3313320030322B /* challenges.json in Resources */ = {isa = PBXBuildFile; fileRef = 180D88E12C3313320030322B /* challenges.json */; };
+		180D88E42C3313510030322B /* challengelaoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D88E32C3313510030322B /* challengelaoder.swift */; };
+		180D88E62C334D9E0030322B /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 180D88E52C334D9E0030322B /* Launch Screen.storyboard */; };
+		180D88E92C34383C0030322B /* OptionsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D88E82C34383C0030322B /* OptionsSheet.swift */; };
+		180D88EB2C3444740030322B /* ReportPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D88EA2C3444740030322B /* ReportPostView.swift */; };
+		180D88ED2C3448B80030322B /* QR-code.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D88EC2C3448B80030322B /* QR-code.swift */; };
+		180D88EF2C34507E0030322B /* PlayGround.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D88EE2C34507E0030322B /* PlayGround.swift */; };
+		180D88F32C3456150030322B /* QRCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D88F22C3456150030322B /* QRCode.swift */; };
 		1817617F2C24B3C000E52AB0 /* MainCrewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1817617E2C24B3C000E52AB0 /* MainCrewView.swift */; };
 		181761812C24B3C900E52AB0 /* MainCrewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181761802C24B3C900E52AB0 /* MainCrewViewModel.swift */; };
 		181761832C24D1EE00E52AB0 /* Challenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181761822C24D1EE00E52AB0 /* Challenge.swift */; };
@@ -40,6 +48,7 @@
 		18332F322C19B666002E95F4 /* FirebaseConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18332F312C19B666002E95F4 /* FirebaseConstants.swift */; };
 		18332F342C19BC09002E95F4 /* ForgottPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18332F332C19BC09002E95F4 /* ForgottPassword.swift */; };
 		18332F372C19BF3E002E95F4 /* Checkmark.json in Resources */ = {isa = PBXBuildFile; fileRef = 18332F362C19BF3E002E95F4 /* Checkmark.json */; };
+		183963822C3566750030278E /* EditPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183963812C3566750030278E /* EditPostView.swift */; };
 		183B21EF2C19D105008A3DCF /* UserControllView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183B21EE2C19D105008A3DCF /* UserControllView.swift */; };
 		183B21F12C19D117008A3DCF /* UserControllViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183B21F02C19D117008A3DCF /* UserControllViewModel.swift */; };
 		183B21F62C19D2C7008A3DCF /* Tabview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183B21F52C19D2C7008A3DCF /* Tabview.swift */; };
@@ -205,6 +214,14 @@
 		180D88DA2C32B4FD0030322B /* TestGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestGrid.swift; sourceTree = "<group>"; };
 		180D88DC2C32CDFD0030322B /* GridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridCell.swift; sourceTree = "<group>"; };
 		180D88DF2C32CE220030322B /* GridCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridCellViewModel.swift; sourceTree = "<group>"; };
+		180D88E12C3313320030322B /* challenges.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = challenges.json; sourceTree = "<group>"; };
+		180D88E32C3313510030322B /* challengelaoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = challengelaoder.swift; sourceTree = "<group>"; };
+		180D88E52C334D9E0030322B /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		180D88E82C34383C0030322B /* OptionsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsSheet.swift; sourceTree = "<group>"; };
+		180D88EA2C3444740030322B /* ReportPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportPostView.swift; sourceTree = "<group>"; };
+		180D88EC2C3448B80030322B /* QR-code.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QR-code.swift"; sourceTree = "<group>"; };
+		180D88EE2C34507E0030322B /* PlayGround.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayGround.swift; sourceTree = "<group>"; };
+		180D88F22C3456150030322B /* QRCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCode.swift; sourceTree = "<group>"; };
 		1817617E2C24B3C000E52AB0 /* MainCrewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCrewView.swift; sourceTree = "<group>"; };
 		181761802C24B3C900E52AB0 /* MainCrewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCrewViewModel.swift; sourceTree = "<group>"; };
 		181761822C24D1EE00E52AB0 /* Challenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge.swift; sourceTree = "<group>"; };
@@ -223,6 +240,7 @@
 		18332F312C19B666002E95F4 /* FirebaseConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConstants.swift; sourceTree = "<group>"; };
 		18332F332C19BC09002E95F4 /* ForgottPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgottPassword.swift; sourceTree = "<group>"; };
 		18332F362C19BF3E002E95F4 /* Checkmark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Checkmark.json; sourceTree = "<group>"; };
+		183963812C3566750030278E /* EditPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPostView.swift; sourceTree = "<group>"; };
 		183B21EE2C19D105008A3DCF /* UserControllView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserControllView.swift; sourceTree = "<group>"; };
 		183B21F02C19D117008A3DCF /* UserControllViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserControllViewModel.swift; sourceTree = "<group>"; };
 		183B21F52C19D2C7008A3DCF /* Tabview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabview.swift; sourceTree = "<group>"; };
@@ -494,6 +512,17 @@
 			path = Grid;
 			sourceTree = "<group>";
 		};
+		180D88E72C3438290030322B /* Options */ = {
+			isa = PBXGroup;
+			children = (
+				180D88E82C34383C0030322B /* OptionsSheet.swift */,
+				180D88EA2C3444740030322B /* ReportPostView.swift */,
+				180D88F22C3456150030322B /* QRCode.swift */,
+				183963812C3566750030278E /* EditPostView.swift */,
+			);
+			path = Options;
+			sourceTree = "<group>";
+		};
 		1817617C2C24B3AB00E52AB0 /* Crew */ = {
 			isa = PBXGroup;
 			children = (
@@ -588,7 +617,11 @@
 				180D88C52C30A5090030322B /* Uploading.json */,
 				18C954522C1B279500B6439E /* LoadingAnimation.json */,
 				18332F362C19BF3E002E95F4 /* Checkmark.json */,
+				180D88E12C3313320030322B /* challenges.json */,
 				18C954502C1B1DEA00B6439E /* Loading.swift */,
+				180D88E32C3313510030322B /* challengelaoder.swift */,
+				180D88E52C334D9E0030322B /* Launch Screen.storyboard */,
+				180D88EE2C34507E0030322B /* PlayGround.swift */,
 			);
 			path = Lottie;
 			sourceTree = "<group>";
@@ -981,6 +1014,7 @@
 				183B22142C1A1AA3008A3DCF /* ImageUploader.swift */,
 				186E2B842C1AE883003E35D4 /* TimeStamp.swift */,
 				180D88CC2C318C090030322B /* NamesSpace.swift */,
+				180D88EC2C3448B80030322B /* QR-code.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -1231,6 +1265,7 @@
 		186E2B802C1AE71C003E35D4 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				180D88E72C3438290030322B /* Options */,
 				186E2B7C2C1AE6A4003E35D4 /* FeedView.swift */,
 				186E2B7E2C1AE714003E35D4 /* FeedCell.swift */,
 			);
@@ -1564,6 +1599,8 @@
 				18C954532C1B279500B6439E /* LoadingAnimation.json in Resources */,
 				1844C23C2C18D5C300243FAB /* Font1.ttf in Resources */,
 				1844C22D2C18D13B00243FAB /* Assets.xcassets in Resources */,
+				180D88E22C3313320030322B /* challenges.json in Resources */,
+				180D88E62C334D9E0030322B /* Launch Screen.storyboard in Resources */,
 				185A6A792C1FB57A0006E5B0 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1575,6 +1612,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				180D88ED2C3448B80030322B /* QR-code.swift in Sources */,
 				189D02262C20E2BD00A93C4B /* CreateRecipeView.swift in Sources */,
 				18332F2D2C19B4E7002E95F4 /* OnFirstAppear.swift in Sources */,
 				183C7CF42C20298900E00241 /* NotificationCellViewModel.swift in Sources */,
@@ -1603,6 +1641,7 @@
 				1844C23F2C18D65300243FAB /* FontSize.swift in Sources */,
 				183C7D262C2070C300E00241 /* LandingCameraView.swift in Sources */,
 				18332F302C19B579002E95F4 /* UserService.swift in Sources */,
+				180D88F32C3456150030322B /* QRCode.swift in Sources */,
 				184060CF2C1B9D5D0002894C /* SavedView.swift in Sources */,
 				183C7D222C20687200E00241 /* NewPostViewModel.swift in Sources */,
 				18D91A8D2C22EB2900CD1E6C /* RecipeViewModel.swift in Sources */,
@@ -1633,6 +1672,7 @@
 				18DDBD182C18E66100E288DE /* CalenderView.swift in Sources */,
 				184060DC2C1CA6EB0002894C /* Story.swift in Sources */,
 				183C7D202C20669F00E00241 /* CameraController.swift in Sources */,
+				183963822C3566750030278E /* EditPostView.swift in Sources */,
 				189D02222C20DE9C00A93C4B /* camera.swift in Sources */,
 				180D88DD2C32CDFD0030322B /* GridCell.swift in Sources */,
 				18F5FE4F2C255F7500A94B57 /* ChallengeUpload.swift in Sources */,
@@ -1662,7 +1702,9 @@
 				1894196B2C28346F006BECDA /* EditCrewView.swift in Sources */,
 				18DDBD222C19159200E288DE /* KeyboardDismiss.swift in Sources */,
 				188E62DB2C242427001D9FBB /* CreateCrewUserList.swift in Sources */,
+				180D88E92C34383C0030322B /* OptionsSheet.swift in Sources */,
 				1844C2292C18D13900243FAB /* FlavorApp.swift in Sources */,
+				180D88EF2C34507E0030322B /* PlayGround.swift in Sources */,
 				183C7D192C20512D00E00241 /* BlockCellViewModel.swift in Sources */,
 				180D88D22C31BB800030322B /* EditChallengeView.swift in Sources */,
 				18C9544F2C1B1C1100B6439E /* PrimaryCommentCellViewModel.swift in Sources */,
@@ -1701,6 +1743,7 @@
 				185A6A682C1F7D660006E5B0 /* SearchCell.swift in Sources */,
 				183C7CF62C2029EF00E00241 /* NotificationService.swift in Sources */,
 				180D88C92C30A55F0030322B /* Uploading.swift in Sources */,
+				180D88E42C3313510030322B /* challengelaoder.swift in Sources */,
 				183B22062C19DEDE008A3DCF /* CustomButton.swift in Sources */,
 				181761832C24D1EE00E52AB0 /* Challenge.swift in Sources */,
 				184060D62C1C89770002894C /* StoryIconView.swift in Sources */,
@@ -1713,6 +1756,7 @@
 				183B220D2C19E727008A3DCF /* CropView.swift in Sources */,
 				188E62D92C241970001D9FBB /* CreateCrewView.swift in Sources */,
 				183C7CF12C20293600E00241 /* NotificationView.swift in Sources */,
+				180D88EB2C3444740030322B /* ReportPostView.swift in Sources */,
 				183B221A2C1A2CBB008A3DCF /* ListView.swift in Sources */,
 				188E62DF2C24270F001D9FBB /* CreateCrewUserCell.swift in Sources */,
 				180D88C42C3088F40030322B /* StatsView.swift in Sources */,
@@ -1874,6 +1918,7 @@
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow access to your library to be able to publish photos";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1906,6 +1951,7 @@
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow access to your library to be able to publish photos";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

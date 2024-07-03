@@ -225,7 +225,7 @@ struct ProfileView: View {
                         }
                         LazyVStack {
                             if viewModel.grid {
-                                TestGrid(posts: viewModel.user.postIds ?? [], variableTitle: "Flavors", variableSubtitle: "\(user.userName)")
+                                TestGrid(posts: viewModel.postIds, variableTitle: "Flavors", variableSubtitle: "\(user.userName)")
                                     .environmentObject(viewModel)
                                     .environmentObject(homeVM)
                             }

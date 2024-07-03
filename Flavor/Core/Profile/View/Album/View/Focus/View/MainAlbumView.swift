@@ -13,12 +13,14 @@ import Kingfisher
 struct MainAlbumView: View {
     
     @EnvironmentObject var homeVM: HomeViewModel
+    private var profileVM: ProfileViewModel
     @StateObject var viewModel: MainAlbumViewModel
     @Environment(\.dismiss) var dismiss
     @State var showEdit = false
     
     init(album: Album, profileVM: ProfileViewModel){
         self._viewModel = StateObject(wrappedValue: MainAlbumViewModel(album: album, profileVM: profileVM))
+        self.profileVM = profileVM
     }
     var body: some View {
         ScrollView {
@@ -80,7 +82,7 @@ struct MainAlbumView: View {
                     .fill(Color(.systemGray))
                     .frame(height: 1)
                     .padding(.horizontal, 16)
-                LazyVStack{
+                /*LazyVStack{
                     GridView(posts: $viewModel.posts, variableTitle: viewModel.album.title, variableSubtitle: nil, navigateFromMain: false)
                     
                     VStack{
@@ -93,12 +95,20 @@ struct MainAlbumView: View {
                         }
                         
                     }
+                }*/
+                
+                LazyVStack{
+                    TestGrid(posts: viewModel.album.uploadIds, variableTitle: viewModel.album.title, variableSubtitle: profileVM.user.userName)
+                        .environmentObject(homeVM)
+                        .environmentObject(profileVM)
+                        .padding(.bottom)
                 }
             }.navigationBarBackButtonHidden(true)
             
             .onFirstAppear {
+                profileVM.albumPosts = []
                 Task{
-                   try await viewModel.fetchAlbumPosts()
+                   //try await viewModel.fetchAlbumPosts()
                 }
         }
             .fullScreenCover(isPresented: $showEdit){

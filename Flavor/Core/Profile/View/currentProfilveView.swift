@@ -243,12 +243,13 @@ struct currentProfilveView: View {
                 LazyVStack {
                     if viewModel.grid {
                         
+                        
                         if user.isCurrentUser{
-                            TestGrid(posts: homeVM.user.postIds ?? [], variableTitle: "Flavors", variableSubtitle: "\(user.userName)")
+                            TestGrid(posts: viewModel.postIds, variableTitle: "Flavors", variableSubtitle: "\(user.userName)")
                                 .environmentObject(viewModel)
                                 .environmentObject(homeVM)
                         } else {
-                            TestGrid(posts: viewModel.user.postIds ?? [], variableTitle: "Flavors", variableSubtitle: "\(user.userName)")
+                            TestGrid(posts: viewModel.postIds, variableTitle: "Flavors", variableSubtitle: "\(user.userName)")
                                 .environmentObject(viewModel)
                                 .environmentObject(homeVM)
                         }
@@ -322,14 +323,84 @@ struct currentProfilveView: View {
             EditProfileView()
                 .environmentObject(viewModel)
         }
+        
+        .fullScreenCover(isPresented: $homeVM.showEditPost){
+            EditPostView()
+                .environmentObject(homeVM)
+                .environmentObject(viewModel)
+        }
         .onChange(of: homeVM.newPosts){ newValue in
             for i in 0..<newValue.count{
                 let newPost = newValue[i]
                 if !viewModel.posts.contains(where: {$0.id == newPost.id}){
-                    viewModel.posts.insert(newPost, at: 0)
+                    if homeVM.currentlyPinnedPost != nil && homeVM.currentlyPinnedPost != "" {
+                        viewModel.postIds.insert(newPost.id, at: 1)
+                    } else {
+                        viewModel.postIds.insert(newPost.id, at: 0)
+                    }
+                    
                 }
             }
             //viewModel.posts.insert(contentsOf: newValue, at: 0)
+        }
+        
+        .onChange(of: homeVM.newPinPost){ newValue in
+            
+            if let newPostId = homeVM.newPinPost{
+                
+                var postIds = viewModel.user.postIds ?? []
+                 postIds.removeAll(where: {$0 == newPostId})
+                postIds.insert(newPostId, at: 0)
+                viewModel.postIds = postIds
+                
+                
+               if let index = viewModel.posts.firstIndex(where: {$0.id == newPostId}){
+                   viewModel.posts[index].pinned = true
+                }
+                
+                for i in 0..<viewModel.posts.count {
+                    if viewModel.posts[i].id != newPostId {
+                        viewModel.posts[i].pinned = false
+                    }
+                }
+            }
+            
+            
+            
+            homeVM.newPinPost = nil
+           
+        }
+        .onChange(of: homeVM.newUnpinPost){ newValue in
+            
+            if let newPostId = homeVM.newUnpinPost{
+                viewModel.postIds = viewModel.user.postIds ?? []
+                
+                if let index = viewModel.posts.firstIndex(where: {$0.id == newPostId}){
+                    viewModel.posts[index].pinned = false
+                 }
+            }
+            
+            homeVM.newUnpinPost = nil
+           
+        }
+        
+        .onChange(of: homeVM.deletedPost) { newValue in
+            if let postId = homeVM.deletedPost {
+                viewModel.posts.removeAll(where: {$0.id == postId})
+                viewModel.postIds.removeAll(where: {$0 == postId})
+                homeVM.variableUplaods.removeAll(where: {$0.id == postId})
+                
+                if homeVM.newPosts.contains(where: {$0.id == postId}){
+                    homeVM.newPosts.removeAll(where: {$0.id == postId})
+                }
+                
+                if homeVM.user.postIds!.contains(where: {$0 == postId}){
+                    homeVM.user.postIds?.removeAll(where: {$0 == postId})
+                }
+                
+                
+                
+            }
         }
     }
 }

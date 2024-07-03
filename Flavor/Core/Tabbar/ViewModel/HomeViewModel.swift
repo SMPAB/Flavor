@@ -18,6 +18,8 @@ class HomeViewModel: ObservableObject{
     @Published var showStory: Bool = false
     @Published var fetchinStory = false
     
+    @Published var currentlyPinnedPost: String?
+    
     //@Published var storys = [Story]()
     
     @Published var userFollowingUsernames = [String]()
@@ -49,6 +51,12 @@ class HomeViewModel: ObservableObject{
     @Published var friendRequestUsernames: [String] = []
     
     
+    //QR CODE
+    @Published var whatWasSaved = ""
+    @Published var QRuserName = ""
+    @Published var showQRCode = false
+    @Published var QRCODELINK = ""
+    
     //UPLOAD
     @Published var showCamera = false
     
@@ -59,14 +67,39 @@ class HomeViewModel: ObservableObject{
     @Published var showSelectedStory = false
     
     
+    //NAVGATIONS
+    @Published var navigationUser: User?
+    @Published var navigateToUser = false
     
     
     
     //LOCAL UPDATES
     @Published var newPosts: [Post] = []
     @Published var newStorys: [Story] = []
+    
+    @Published var newPinPost: String?
+    @Published var newUnpinPost: String?
+    
+    @Published var deletedPost: String?
+    
+    //Edit
+    @Published var showEditPost = false
+    @Published var editPost: Post? = Post.mockPosts[0]
+    @Published var newUrls: [String] = []
+    @Published var newTitle = ""
+    @Published var newDescription = ""
+    
+    @Published var newEditPost: Post?
+    
+    //DELETE
+    @Published var deletePost: Post?
+    @Published var showDeletePostAlert = false
+    
+    
+    
     init(user: User) {
         self.user = user
+        self.currentlyPinnedPost = user.pinnedPostId
     }
     
     @MainActor
@@ -236,3 +269,37 @@ extension HomeViewModel {
         self.userHasNotification = try await NotificationService.fetchOneNotification()
     }
 }
+
+//MARK: - DELETE
+extension HomeViewModel {
+    func deletePost() async throws {
+        do {
+            if let post = deletePost {
+                
+                
+                if currentlyPinnedPost == post.id {
+                    try await PostService.unpin(postId: post.id)
+                }
+                
+                try await PostService.deletePost(post)
+                deletedPost = post.id
+                
+                /*
+                if let postIds = user.postIds {
+                    if postIds.contains(where: {$0 == post.id}){
+                        self.user.postIds?.removeAll(where: {$0 == post.id})
+                    }
+                }*/
+                
+                
+                
+                
+            }
+            
+        } catch {
+            return
+        }
+    }
+}
+
+

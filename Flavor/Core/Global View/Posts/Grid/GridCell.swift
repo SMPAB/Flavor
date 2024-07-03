@@ -18,6 +18,7 @@ struct GridCell: View {
     
     
     
+    
     @State var width = UIScreen.main.bounds.width
     
     @StateObject var viewModel: GridCellViewModel
@@ -27,6 +28,8 @@ struct GridCell: View {
     
     let variableTitle: String
     let variableSubTitle: String?
+    
+    //let albumViewModel: MainAlbumViewModel?
     
     init(user: User, postId: String, profileVM: ProfileViewModel, widthMultiplier: Int, heightMultiplier: Int, cornerRadius: CGFloat, variableTitle: String, variableSubtitle: String?) {
         self._viewModel = StateObject(wrappedValue: GridCellViewModel(postId: postId, user: user, profileVM: profileVM))
@@ -39,7 +42,7 @@ struct GridCell: View {
     }
     var body: some View {
         ZStack{
-            if let post = viewModel.post {
+            if var post = viewModel.post {
                 
                 
                 if let imageUrls = post.imageUrls {
@@ -49,7 +52,12 @@ struct GridCell: View {
                                     .environmentObject(homeVM)
                                     .onAppear{
                                         homeVM.selectedVariableUploadId = post.id
-                                        homeVM.variableUplaods = profileVM.posts.sorted(by: {$0.timestamp.dateValue() > $1.timestamp.dateValue()})
+                                        if profileVM.album {
+                                            homeVM.variableUplaods = profileVM.albumPosts.sorted(by: {$0.timestamp.dateValue() > $1.timestamp.dateValue()})
+                                        } else {
+                                            homeVM.variableUplaods = profileVM.posts.sorted(by: {$0.timestamp.dateValue() > $1.timestamp.dateValue()})
+                                        }
+                                       
                                         homeVM.variablesTitle = variableTitle
                                         homeVM.variableSubTitle = variableSubTitle
                                     }
@@ -61,6 +69,29 @@ struct GridCell: View {
                             .contentShape(RoundedRectangle(cornerRadius: cornerRadius))
                             .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
                             .background(.red)
+                    }.onChange(of: homeVM.newEditPost){
+                        if let newPost = homeVM.newEditPost {
+                            if post.id == newPost.id {
+                                post = newPost
+                                
+                                if profileVM.album {
+                                    if let index = profileVM.albumPosts.firstIndex(where: {$0.id == newPost.id}){
+                                        profileVM.albumPosts[index] = newPost
+                                    }
+                                } else {
+                                    if let index = profileVM.posts.firstIndex(where: {$0.id == newPost.id}){
+                                        profileVM.posts[index] = newPost
+                                    }
+                                }
+                                    
+                                    
+                                    
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
+                                    homeVM.newEditPost = nil
+                                }
+                                
+                            }
+                        }
                     }
                     
                     
@@ -78,6 +109,7 @@ struct GridCell: View {
                 try await viewModel.fetchPost()
             }
         }
+        
         
     }
 }

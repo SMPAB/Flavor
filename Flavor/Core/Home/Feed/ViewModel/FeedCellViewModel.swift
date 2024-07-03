@@ -12,6 +12,8 @@ class FeedCellViewModel: ObservableObject {
     @Published var post: Post 
     @Published var topComment: Comment?
     
+    @Published var showOptionsSheet = false
+    @Published var showReportSheet = false
     init(post: Post) {
         self.post = post
     }
@@ -77,5 +79,39 @@ class FeedCellViewModel: ObservableObject {
         } catch {
             return
         }
+    }
+    
+    func pin(homeVM: HomeViewModel) async throws {
+        do {
+            let postCopy = post
+            post.pinned = true
+            
+            if let pinnedPostid = homeVM.currentlyPinnedPost {
+                
+                if pinnedPostid != ""{
+                    try await PostService.unpin(postId: pinnedPostid)
+                }
+               
+            }
+            
+            try await PostService.pin(postId: postCopy.id)
+            homeVM.currentlyPinnedPost = postCopy.id
+        } catch {
+            return
+        }
+    }
+    
+    func unpin() async throws {
+        do {
+            let postCopy = post
+            post.pinned = false
+            try await PostService.unpin(postId: postCopy.id)
+        } catch {
+            return
+        }
+    }
+    
+    func report(reportText: String) async throws {
+        try await PostService.reportPost(reportText: reportText, post: post)
     }
 }

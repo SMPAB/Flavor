@@ -22,7 +22,7 @@ class NotificationService {
                 .document(currentUid)
                 .collection("notifications")
                 .order(by: "timestamp", descending: true)
-                .limit(to: 10)
+                .limit(to: 8)
             
             if let lastDocument = latestFetch {
                 query = query.start(afterDocument: lastDocument)

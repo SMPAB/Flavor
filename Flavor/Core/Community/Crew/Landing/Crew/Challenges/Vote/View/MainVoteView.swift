@@ -38,7 +38,7 @@ struct MainVoteView: View {
                 }.padding(.horizontal, 16)
                 
                 
-                HStack{
+               /* HStack{
                     Text("Votes left")
                         .font(.primaryFont(.P1))
                         .fontWeight(.semibold)
@@ -50,17 +50,23 @@ struct MainVoteView: View {
                         .fontWeight(.semibold)
                     
                     
-                }.padding(.horizontal, 16)
+                }.padding(.horizontal, 16)*/
                 TabView(selection: $currentPostId) {
                     ForEach(viewModel.challengePosts.indices, id: \.self) { index in
                         VoteCell(challengePost: viewModel.challengePosts[index])
                             .padding(.horizontal, 16)
+                            .background(
+                            RoundedRectangle(cornerRadius: 16)
+                                .fill(Color.clear)
+                                .shadow(color: .colorOrange, radius: 8).opacity(0.5)
+                            
+                            )
                             .tag(index)
                     }
                 }
                     .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                    .indexViewStyle(.page(backgroundDisplayMode: .always))
-                    .frame(height: width + 170)
+                    .frame(height: width + 185)
                 
                 HStack{
                     Button(action: {
@@ -85,7 +91,7 @@ struct MainVoteView: View {
                     Text("\(viewModel.selectedPostId + 1)/\(viewModel.challengePosts.count) contribution")
                         .font(.primaryFont(.P1))
                         .foregroundStyle(.colorOrange)
-                        .padding(.horizontal, 8)
+                        .padding(.horizontal, 16)
                     
                     Button(action: {
                         withAnimation{
@@ -105,6 +111,10 @@ struct MainVoteView: View {
                             )
                     }
                 }
+                
+                Text("You have \(viewModel.challenge.votes - viewModel.votes.count) votes left")
+                    .font(.primaryFont(.P1))
+                    .foregroundStyle(Color(.systemGray))
                 Spacer()
             }
             
@@ -119,6 +129,15 @@ struct MainVoteView: View {
             viewModel.showVote.toggle()
             viewModel.votePost = nil
         }, imageUrl: viewModel.votePost?.user?.profileImageUrl, dismissText: "Cancel", acceptText: "Vote")
+        
+        .customAlert(isPresented: $viewModel.showUnvote, title: nil, message: "Are you sure you want to remove your vote on ", boldMessage: "\(viewModel.unVotePost?.user?.userName ?? "")", afterBold: nil, confirmAction: {
+            Task {
+                try await viewModel.unVote(currentUser: homeVM.user)
+            }
+        }, cancelAction: {
+            viewModel.showUnvote.toggle()
+            viewModel.unVotePost = nil
+        }, imageUrl: viewModel.unVotePost?.user?.profileImageUrl, dismissText: "Cancel", acceptText: "Remove")
         .onAppear {
             if let selectedPostId = viewModel.selectedPost,
                            let index = viewModel.challengePosts.firstIndex(where: { $0.id == selectedPostId }) {

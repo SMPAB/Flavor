@@ -56,15 +56,15 @@ struct FeedCell: View {
                         
                         Spacer()
                         
-                        if user.isCurrentUser {
+                       
                             Button(action: {
-                                
+                                viewModel.showOptionsSheet.toggle()
                             }){
                                 Iconoir.moreHoriz.asImage
                                     .foregroundStyle(.black)
                             }
-                            
-                        }
+                        
+                        
                     }.foregroundStyle(.black)
                 }
             }
@@ -343,6 +343,16 @@ struct FeedCell: View {
             
            
         }.padding(8)
+            .onChange(of: homeVM.newEditPost){
+                if let post = homeVM.newEditPost {
+                    if viewModel.post.id == post.id {
+                        viewModel.post = post
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5){
+                            homeVM.newEditPost = nil
+                        }
+                    }
+                }
+            }
         .onFirstAppear {
             Task{
                 try await viewModel.checkIfuserHasSavedPost()
@@ -357,7 +367,20 @@ struct FeedCell: View {
         }
         .sheet(isPresented: $showComments){
             MainCommentsView(post: post)
+                .environmentObject(homeVM)
         }
+        .sheet(isPresented: $viewModel.showOptionsSheet, content: {
+            OptionsSheet()
+                .padding(.top, 16)
+                .environmentObject(viewModel)
+                .environmentObject(homeVM)
+                .presentationDragIndicator(.visible)
+                .presentationDetents([homeVM.user.id == post.user?.id ? .height(250) : .height(200)])
+        })
+        .fullScreenCover(isPresented: $viewModel.showReportSheet, content: {
+            ReportPostView()
+                .environmentObject(viewModel)
+        })
     }
     
     func handleLikedTapped() {

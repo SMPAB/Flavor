@@ -98,6 +98,8 @@ struct VariableView: View {
                     }
                 }
             }
+        }.onChange(of: homeVM.deletedPost){ newValue in
+            dismiss()
         }
     }
 }

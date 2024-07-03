@@ -148,6 +148,30 @@ extension CrewService {
         }
     }
     
+    static func fetchVotePosts(_ votes: [String], challenge: Challenge) async throws -> [ChallengeUpload] {
+        do {
+            let snapshot = try await FirebaseConstants
+                .ChallengeCollection
+                .document(challenge.id)
+                .collection("posts")
+                .whereField("id", in: votes)
+                .getDocuments()
+            
+            var posts = snapshot.documents.compactMap({try? $0.data(as: ChallengeUpload.self)})
+            
+            for i in 0..<posts.count {
+                let post = posts[i]
+                let ownerUid = post.ownerUid
+                let user = try await UserService.fetchUser(withUid: ownerUid)
+                posts[i].user = user
+            }
+            
+            return posts
+        } catch {
+            return []
+        }
+    }
+    
     
        
 }

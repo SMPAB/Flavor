@@ -7,6 +7,7 @@
 
 import Foundation
 import Firebase
+import FirebaseStorage
 
 class PostService {
     
@@ -84,6 +85,26 @@ class PostService {
         }
         
         
+    }
+    
+    static func reportPost(reportText: String, post: Post) async throws {
+        do {
+            var data: [String:Any] = [
+                "reportText": reportText,
+                "postId": post.id,
+                "ownerId": post.ownerUid,
+                "timestamp:": Timestamp(date: Date())
+            ]
+            
+            try await FirebaseConstants
+                .ReportsCollection
+                .document("posts")
+                .collection("posts")
+                .document()
+                .setData(data)
+        } catch {
+            return
+        }
     }
 }
 //MARK: LIKE SAVE
@@ -482,5 +503,134 @@ extension PostService {
         } catch {
             return ([], nil)
         }
+    }
+}
+//MARK: - Options
+extension PostService {
+    static func pin(postId: String) async throws {
+        
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        do {
+            var Userdata: [String:Any] = [
+                "pinnedPostId": postId
+            ]
+            
+            try await FirebaseConstants.UserCollection.document(currentUid).updateData(Userdata)
+            
+            
+            var PostData: [String:Any] = [
+                "pinned": true
+            ]
+            
+            try await FirebaseConstants.PostCollection.document(postId).updateData(PostData)
+        } catch {
+            return
+        }
+    }
+    
+    
+    static func unpin(postId: String) async throws {
+        
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        
+        do {
+            var Userdata: [String:Any] = [
+                "pinnedPostId": ""
+            ]
+            
+            try await FirebaseConstants.UserCollection.document(currentUid).updateData(Userdata)
+            
+            
+            var PostData: [String:Any] = [
+                "pinned": false
+            ]
+            
+            try await FirebaseConstants.PostCollection.document(postId).updateData(PostData)
+        } catch {
+            return
+        }
+    }
+}
+
+//MARK: - DELETE
+extension PostService {
+    static func deletePost(_ post: Post) async throws {
+        
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        
+        
+        do {
+            
+            let user = try await UserService.fetchUser(withUid: currentUid)
+            
+            
+            
+            //MARK: DELETE POST FROM USER ARRAY AND PINNED
+            var postIds = user.postIds
+            postIds?.removeAll(where: {$0 == post.id})
+            
+            var Userdata: [String:Any] = [
+                "postIds": postIds
+            ]
+            
+            try await FirebaseConstants.UserCollection.document(user.id).updateData(Userdata)
+            
+            
+            
+            //MARK: DELETE STORY FROM POST (IF THERE IS ONE)
+            
+            if let storyId = post.storyID {
+                try await FirebaseConstants.StoryCollection.document(storyId).delete()
+            }
+            
+            
+            //MARK: DELETE IMAGE FROM POST
+            if let imageUrls = post.imageUrls {
+                for i in 0..<imageUrls.count {
+                    let imageUrl = imageUrls[i]
+                    let storageRef = Storage.storage().reference(forURL: imageUrl)
+                    try await storageRef.delete()
+                }
+            }
+            
+            
+            //MARK: DELETE POST
+            try await FirebaseConstants.PostCollection.document(post.id).delete()
+            
+            //MARK: CHECK IF IT WAS THE LATEST STORY...
+            
+            let dateString = post.timestampDate
+            
+            let snapshot = try await FirebaseConstants
+                .StoryCollection
+                .whereField("timestampDate", isEqualTo: dateString)
+                .whereField("ownerUid", isEqualTo: post.ownerUid)
+                .limit(to: 1)
+                .getDocuments()
+            
+            if snapshot.isEmpty {
+                /*async let _ = try await FirebaseConstants
+                    .UserCollection
+                    .document(post.ownerUid)
+                    .collection("story-days")
+                    .document("batch1")
+                    .updateData(["storyDays": FieldValue.arrayRemove([dateString])])*/
+                
+                let lastLatestStory = try await FirebaseConstants.UserCollection.document(post.ownerUid).collection("story-days").document("batch1").getDocument()
+                
+                if var days = lastLatestStory.data()?["storyDays"] as? [String] {
+                    days.removeAll(where: {$0 == dateString})
+                    
+                    try await FirebaseConstants.UserCollection.document(post.ownerUid).collection("story-days").document("batch1").updateData(["storyDays": days])
+                    
+                    try await FirebaseConstants.UserCollection.document(post.ownerUid).updateData(["latestStory": days.last])
+                }
+            }
+        } catch {
+            
+        }
+
+        
+        
     }
 }

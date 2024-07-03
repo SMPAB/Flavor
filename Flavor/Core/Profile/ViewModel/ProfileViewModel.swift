@@ -22,6 +22,8 @@ class ProfileViewModel: ObservableObject {
     @Published var userFollowing: [String] = []
     @Published var userFollowers: [String] = []
     
+    @Published var postIds: [String]
+    
     
     //MARK: EDIT
     //@Published var userName = ""
@@ -60,10 +62,14 @@ class ProfileViewModel: ObservableObject {
     
     @Published var showCreateAlbum = false
     
+        //GRID
+    @Published var albumPosts: [Post] = []
+    
     //MARK: OPTIONS FOR NOT CURRENT USER
     @Published var showOptions = false
     @Published var showBlock = false
     @Published var showReport = false
+    
     
     
     init(user: User) {
@@ -71,6 +77,14 @@ class ProfileViewModel: ObservableObject {
         self.imageurl = user.profileImageUrl ?? ""
         self.caption = user.biography ?? ""
         self.PublicAccount = user.publicAccount
+        
+        
+        var postIDS = user.postIds ?? []
+        if user.pinnedPostId != nil && user.pinnedPostId != "" {
+            postIDS.removeAll(where: {$0 == user.pinnedPostId})
+            postIDS.insert(user.pinnedPostId ?? "", at: 0)
+        }
+        self.postIds = postIDS
     }
 }
 
@@ -266,5 +280,48 @@ extension ProfileViewModel {
     func sendFriendRequest(sendRequestTo: User, userSending: User) async throws{
         self.user.hasFriendRequests = true
         try await UserService.sendFriendRequest(userToSendFriendRequestTo: sendRequestTo, userSending: userSending)
+    }
+}
+
+//MARK: EDIT POST
+extension ProfileViewModel {
+    func editPost(_ post: Post, newTitle: String, newDescription: String, newUrls: [String], homeVM: HomeViewModel) async throws {
+        do {
+            
+            var newPost = post
+            
+            var data: [String:Any] = [:]
+            
+            if post.title != newTitle {
+                data["title"] = newTitle
+                newPost.title = newTitle
+                
+            }
+            
+            if post.caption != newDescription {
+                data["caption"] = newDescription
+                newPost.caption = newDescription
+            }
+            
+            if post.imageUrls != newUrls {
+                
+                if newUrls.count > 0 {
+                    data["imageUrls"] = newUrls
+                    newPost.imageUrls = newUrls
+                }
+            }
+            
+            /*if let index = postIds.firstIndex(where: {$0 == post.id}){
+                postIds.removeAll(where: {$0 == post.id})
+                postIds.insert(newPost.id, at: index)
+            }*/
+            
+            homeVM.newEditPost = newPost
+            
+            try await FirebaseConstants.PostCollection.document(post.id).updateData(data)
+            
+        } catch {
+            return
+        }
     }
 }

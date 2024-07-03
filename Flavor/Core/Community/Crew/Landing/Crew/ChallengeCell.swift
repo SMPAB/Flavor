@@ -48,6 +48,7 @@ struct ChallengeCell: View {
                         Text(challenge.description)
                             .font(.primaryFont(.P2))
                             .foregroundStyle(.colorWhite)
+                            .multilineTextAlignment(.leading)
                     }
                     Spacer()
     
@@ -92,6 +93,7 @@ struct ChallengeCell: View {
                         Text(challenge.description)
                             .font(.primaryFont(.P2))
                             .foregroundStyle(.black)
+                            .multilineTextAlignment(.leading)
                     }
                     Spacer()
     
@@ -164,6 +166,7 @@ struct ChallengeCell: View {
                         Text(challenge.description)
                             .font(.primaryFont(.P2))
                             .foregroundStyle(.colorWhite)
+                            .multilineTextAlignment(.leading)
                     }
                     Spacer()
     

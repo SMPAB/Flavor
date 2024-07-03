@@ -21,15 +21,20 @@ class ChallengeViewModel: ObservableObject {
     
     
     @Published var votes: [String] = []
+    @Published var voteUploads: [ChallengeUpload] = []
     
     
     @Published var showVoteView = false
     
     
+    // VOTE UNVOTE
     @Published var votePost: ChallengeUpload?
     @Published var showVote = false
     
+    @Published var unVotePost: ChallengeUpload?
+    @Published var showUnvote = false
     
+
     //Edit
     
     @Published var image: Image?
@@ -72,13 +77,17 @@ class ChallengeViewModel: ObservableObject {
         do {
             if let post = votePost{
                 votes.append(post.id)
+                voteUploads.append(post)
                 
-                let _ = try await FirebaseConstants.ChallengeCollection.document(challenge.id).collection("posts").document(post.id).updateData(["votes": post.votes + 1])
                 
                 if let index = challengePosts.firstIndex(where: { $0.id == post.id }) {
                                 // Update the votes count locally
                                 challengePosts[index].votes += 1
                             }
+                
+                let _ = try await FirebaseConstants.ChallengeCollection.document(challenge.id).collection("posts").document(post.id).updateData(["votes": post.votes + 1])
+                
+               
                 
                 let _ = try await FirebaseConstants.ChallengeCollection.document(challenge.id).collection("votes").document(currentUser.id).setData([
                                 "votes": FieldValue.arrayUnion([post.id])
@@ -89,11 +98,41 @@ class ChallengeViewModel: ObservableObject {
             return
         }
     }
+    
+    func unVote(currentUser: User) async throws {
+        do {
+            if let post = unVotePost {
+                votes.removeAll(where: {$0 == post.id})
+                voteUploads.removeAll(where: {$0.id == post.id})
+                
+                if let index = challengePosts.firstIndex(where: {$0.id == post.id}){
+                    challengePosts[index].votes -= 1
+                }
+                
+                let _ = try await FirebaseConstants.ChallengeCollection.document(challenge.id).collection("posts").document(post.id).updateData(["votes": post.votes - 1])
+                
+                
+                
+                
+                
+                let _ = try await FirebaseConstants.ChallengeCollection.document(challenge.id).collection("votes").document(currentUser.id).setData([
+                                "votes": FieldValue.arrayRemove([post.id])
+                            ], merge: true)
+            }
+        } catch {
+            return
+        }
+    }
     @MainActor
     func fetchVotes() async throws {
         self.votes = try await CrewService.fetchVotes(challenge)
+        if !votes.isEmpty {
+            self.voteUploads = try await CrewService.fetchVotePosts(votes, challenge: challenge)
+        }
         print("DEBUG APP VOTES: \(votes)")
     }
+    
+
     
     func saveChanges() async throws {
         do {

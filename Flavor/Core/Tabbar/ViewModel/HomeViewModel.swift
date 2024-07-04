@@ -80,7 +80,7 @@ class HomeViewModel: ObservableObject{
     @Published var newPinPost: String?
     @Published var newUnpinPost: String?
     
-    @Published var deletedPost: String?
+    
     
     //Edit
     @Published var showEditPost = false
@@ -94,6 +94,11 @@ class HomeViewModel: ObservableObject{
     //DELETE
     @Published var deletePost: Post?
     @Published var showDeletePostAlert = false
+    @Published var deletedPost: String?
+    
+    @Published var deleteStory: Story?
+    @Published var showDeleteStoryAlert = false
+    @Published var deletedStorys: [String] = []
     
     
     
@@ -283,16 +288,19 @@ extension HomeViewModel {
                 
                 try await PostService.deletePost(post)
                 deletedPost = post.id
+            }
+            
+        } catch {
+            return
+        }
+    }
+    
+    func deleteStory() async throws {
+        do {
+            if let story = deleteStory {
                 
-                /*
-                if let postIds = user.postIds {
-                    if postIds.contains(where: {$0 == post.id}){
-                        self.user.postIds?.removeAll(where: {$0 == post.id})
-                    }
-                }*/
-                
-                
-                
+                try await PostService.deleteStory(story)
+                deletedStorys.append(story.id)
                 
             }
             
@@ -300,6 +308,28 @@ extension HomeViewModel {
             return
         }
     }
+}
+
+//MARK: - REPORT
+
+extension HomeViewModel {
+    func reportStory(_ story: Story, text: String) async throws {
+        do {
+            var data: [String:Any] = [
+                "StoryId": story.id,
+                "OwnerUid": story.ownerUid,
+                "text": text,
+                "timestamp": Timestamp(date: Date())
+                
+            ]
+            
+            try await FirebaseConstants.ReportsCollection.document("posts").collection("storys").document().setData(data)
+        } catch {
+            return
+        }
+    }
+    
+   
 }
 
 

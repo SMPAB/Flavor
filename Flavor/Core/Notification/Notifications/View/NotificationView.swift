@@ -144,6 +144,11 @@ struct NotificationView: View {
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
+            
+            
+            if viewModel.fetchingNotifications {
+                Loading()
+            }
         }.padding(.horizontal, 16)
         .onFirstAppear {
             Task {

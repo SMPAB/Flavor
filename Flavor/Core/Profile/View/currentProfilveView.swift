@@ -319,6 +319,16 @@ struct currentProfilveView: View {
             
             
         }
+        .onChange(of: homeVM.deletedStorys) {
+            Task {
+                try await viewModel.fetchCalenderStoryDays()
+            }
+        }
+        .onChange(of: homeVM.deletePost){
+            Task {
+                try await viewModel.fetchCalenderStoryDays()
+            }
+        }
         .fullScreenCover(isPresented: $viewModel.showEditProfile){
             EditProfileView()
                 .environmentObject(viewModel)

@@ -11,6 +11,7 @@ enum ForumType: Int, Codable {
     case newChallenge
     case newMember
     case voting
+    case Announcement
     
     /*var notidicationMessage: String {
         switch self {

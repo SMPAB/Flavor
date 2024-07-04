@@ -256,6 +256,22 @@ struct Tabview: View {
                 }
                 
             }, imageUrl: homeViewModel.deletePost?.imageUrls?[0], dismissText: "Cancel", acceptText: "Delete")
+            
+            .customAlert(isPresented: $homeViewModel.showDeleteStoryAlert, title: nil, message: "Are you sure you want to delete your story", boldMessage: nil, afterBold: nil, confirmAction: {
+                
+                Task {
+                   try await homeViewModel.deleteStory()
+                    homeViewModel.showDeleteStoryAlert = false
+                    homeViewModel.deleteStory = nil
+                }
+                
+            }, cancelAction: {
+                withAnimation(.spring(duration: 0.2, bounce: 0.4)){
+                    homeViewModel.showDeleteStoryAlert = false
+                    homeViewModel.deleteStory = nil
+                }
+                
+            }, imageUrl: homeViewModel.deleteStory?.imageUrl, dismissText: "Cancel", acceptText: "Delete")
                 
                 .onFirstAppear {
                     
@@ -274,6 +290,8 @@ struct Tabview: View {
                     }
                     
                 }
+            
+                
             
         }
         .fullScreenCover(isPresented: $homeViewModel.showCamera){

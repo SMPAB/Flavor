@@ -49,6 +49,10 @@
 		18332F342C19BC09002E95F4 /* ForgottPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18332F332C19BC09002E95F4 /* ForgottPassword.swift */; };
 		18332F372C19BF3E002E95F4 /* Checkmark.json in Resources */ = {isa = PBXBuildFile; fileRef = 18332F362C19BF3E002E95F4 /* Checkmark.json */; };
 		183963822C3566750030278E /* EditPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183963812C3566750030278E /* EditPostView.swift */; };
+		183963842C35B1B00030278E /* ForumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183963832C35B1B00030278E /* ForumCell.swift */; };
+		183963862C35E8DB0030278E /* NewAnnouncementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183963852C35E8DB0030278E /* NewAnnouncementView.swift */; };
+		1839638A2C3600620030278E /* ForumCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183963892C3600620030278E /* ForumCellViewModel.swift */; };
+		1839638C2C361C1A0030278E /* ReportStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1839638B2C361C1A0030278E /* ReportStory.swift */; };
 		183B21EF2C19D105008A3DCF /* UserControllView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183B21EE2C19D105008A3DCF /* UserControllView.swift */; };
 		183B21F12C19D117008A3DCF /* UserControllViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183B21F02C19D117008A3DCF /* UserControllViewModel.swift */; };
 		183B21F62C19D2C7008A3DCF /* Tabview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183B21F52C19D2C7008A3DCF /* Tabview.swift */; };
@@ -241,6 +245,10 @@
 		18332F332C19BC09002E95F4 /* ForgottPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgottPassword.swift; sourceTree = "<group>"; };
 		18332F362C19BF3E002E95F4 /* Checkmark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Checkmark.json; sourceTree = "<group>"; };
 		183963812C3566750030278E /* EditPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPostView.swift; sourceTree = "<group>"; };
+		183963832C35B1B00030278E /* ForumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForumCell.swift; sourceTree = "<group>"; };
+		183963852C35E8DB0030278E /* NewAnnouncementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAnnouncementView.swift; sourceTree = "<group>"; };
+		183963892C3600620030278E /* ForumCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForumCellViewModel.swift; sourceTree = "<group>"; };
+		1839638B2C361C1A0030278E /* ReportStory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportStory.swift; sourceTree = "<group>"; };
 		183B21EE2C19D105008A3DCF /* UserControllView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserControllView.swift; sourceTree = "<group>"; };
 		183B21F02C19D117008A3DCF /* UserControllViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserControllViewModel.swift; sourceTree = "<group>"; };
 		183B21F52C19D2C7008A3DCF /* Tabview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabview.swift; sourceTree = "<group>"; };
@@ -481,6 +489,7 @@
 		180D88D32C3201A30030322B /* Forum */ = {
 			isa = PBXGroup;
 			children = (
+				183963882C3600540030278E /* ViewModel */,
 				180D88D72C32026C0030322B /* View */,
 				180D88D42C3201A90030322B /* Module */,
 			);
@@ -498,6 +507,8 @@
 		180D88D72C32026C0030322B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				183963832C35B1B00030278E /* ForumCell.swift */,
+				183963852C35E8DB0030278E /* NewAnnouncementView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -624,6 +635,14 @@
 				180D88EE2C34507E0030322B /* PlayGround.swift */,
 			);
 			path = Lottie;
+			sourceTree = "<group>";
+		};
+		183963882C3600540030278E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				183963892C3600620030278E /* ForumCellViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		183B21F22C19D2A9008A3DCF /* Tabbar */ = {
@@ -911,6 +930,7 @@
 				184060D52C1C89770002894C /* StoryIconView.swift */,
 				184060D92C1C9CF40002894C /* StoryOverlayView.swift */,
 				184060DD2C1CA97E0002894C /* StoryCell.swift */,
+				1839638B2C361C1A0030278E /* ReportStory.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1647,11 +1667,13 @@
 				18D91A8D2C22EB2900CD1E6C /* RecipeViewModel.swift in Sources */,
 				18332F322C19B666002E95F4 /* FirebaseConstants.swift in Sources */,
 				183B21FC2C19D701008A3DCF /* Post.swift in Sources */,
+				183963842C35B1B00030278E /* ForumCell.swift in Sources */,
 				186E2B7D2C1AE6A4003E35D4 /* FeedView.swift in Sources */,
 				18F5FE4D2C255CD700A94B57 /* MainChallengeView.swift in Sources */,
 				185A6A6A2C1F7D7C0006E5B0 /* SearchCellViewModel.swift in Sources */,
 				183C7D1D2C20635600E00241 /* NewPostView.swift in Sources */,
 				183B22092C19E5DD008A3DCF /* ImagePickerViewModel.swift in Sources */,
+				1839638C2C361C1A0030278E /* ReportStory.swift in Sources */,
 				18DDBD122C18E60000E288DE /* User.swift in Sources */,
 				180D88BD2C2EDFEB0030322B /* MainVoteView.swift in Sources */,
 				18C9545A2C1B3E8700B6439E /* FocusPostView.swift in Sources */,
@@ -1721,6 +1743,7 @@
 				185A6A5F2C1F3DAB0006E5B0 /* ProfileView.swift in Sources */,
 				1817617F2C24B3C000E52AB0 /* MainCrewView.swift in Sources */,
 				183C7CFD2C20338E00E00241 /* LandingNotificationView.swift in Sources */,
+				183963862C35E8DB0030278E /* NewAnnouncementView.swift in Sources */,
 				184060E82C1DDF230002894C /* CreateAlbumView.swift in Sources */,
 				18D91A882C21A6BC00CD1E6C /* UploadStoryVM.swift in Sources */,
 				189D02242C20E06A00A93C4B /* Recipe.swift in Sources */,
@@ -1736,6 +1759,7 @@
 				185A6A442C1F04900006E5B0 /* GridItemCell.swift in Sources */,
 				185A6A752C1FA2EA0006E5B0 /* ReportView.swift in Sources */,
 				185A6A6C2C1F83FB0006E5B0 /* EmptySearchView.swift in Sources */,
+				1839638A2C3600620030278E /* ForumCellViewModel.swift in Sources */,
 				183C7CEA2C2027CE00E00241 /* NotificationType.swift in Sources */,
 				183C7CF82C202A5900E00241 /* NotificationsViewModel.swift in Sources */,
 				1894196D2C283D9D006BECDA /* EditCrewList.swift in Sources */,

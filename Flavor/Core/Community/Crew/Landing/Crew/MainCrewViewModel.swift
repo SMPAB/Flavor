@@ -41,6 +41,15 @@ class MainCrewViewModel: ObservableObject {
     
     @Published var ratingUsers: [UserRating] = []
     
+    
+    //MARK: FORUM
+    
+    @Published var forumPosts: [Forum] = []
+    @Published var latestForumFetch: DocumentSnapshot?
+    @Published var fetchingForum = false
+    
+    @Published var showNewAnnouncement = false
+    
     private var landingVM: LandingCrewViewModel
     
     init(crew: Crew, landingVM: LandingCrewViewModel) {
@@ -156,6 +165,18 @@ class MainCrewViewModel: ObservableObject {
             let challengeForDisplay = Challenge(id: challengeRef.documentID, crewId: crew.id, title: challengeTitle, description: challengeDescription, imageUrl: challenge.imageUrl, startDate: Timestamp(date: challengeStart), endDate: Timestamp(date: challengeEnd), votes: 1, finished: false, users: crew.uids, completedUsers: [], crew: crew)
             
             challenges.append(challengeForDisplay)
+            
+            //MARK: FORUM
+            let forumRef = FirebaseConstants.CrewCollection.document(crew.id).collection("forum").document()
+            let forum = Forum(id: forumRef.documentID, type: .newChallenge, timestamp: Timestamp(date: Date()), challengeID: challengeRef.documentID)
+            
+            guard let encodedForum = try? Firestore.Encoder().encode(forum) else { return }
+            
+            try await forumRef.setData(encodedForum)
+            
+            var forumForDisplay = forum
+            forumForDisplay.challenge = challenge
+            forumPosts.insert(forumForDisplay, at: 0)
         } catch {
             return
         }
@@ -174,4 +195,59 @@ class MainCrewViewModel: ObservableObject {
         }
     
     
+}
+
+//MARK: - FORUM
+
+extension MainCrewViewModel {
+    func fetchForums() async throws {
+        fetchingForum = true
+        let (newForums, latestsnapshot) = try await CrewService.fetchForum(crew: crew, latestDocument: latestForumFetch)
+        
+        for i in 0..<newForums.count {
+            if !forumPosts.contains(where: {$0.id == newForums[i].id}) {
+                forumPosts.append(newForums[i])
+            }
+        }
+        latestForumFetch = latestsnapshot
+        fetchingForum = false
+    }
+    
+    func newAnnouncement(text: String, currentUser: User, voting: Bool) async throws {
+        do {
+            
+            if voting {
+                let forumRef = FirebaseConstants.CrewCollection.document(crew.id).collection("forum").document()
+                
+                var forum = Forum(id: forumRef.documentID, type: .voting, timestamp: Timestamp(date: Date()), Upvotes: 0, DownVotes: 0, announcementText: text, announcementTextOwnerId: currentUser.id)
+                
+                
+                
+                guard let encodedForum = try? Firestore.Encoder().encode(forum) else { return }
+                
+                try await forumRef.setData(encodedForum)
+                
+                var forumForDisplay = forum
+                forum.user = currentUser
+                
+                forumPosts.insert(forum, at: 0)
+            } else {
+                let forumRef = FirebaseConstants.CrewCollection.document(crew.id).collection("forum").document()
+                
+                var forum = Forum(id: forumRef.documentID, type: .Announcement, timestamp: Timestamp(date: Date()), announcementText: text, announcementTextOwnerId: currentUser.id)
+                
+                guard let encodedForum = try? Firestore.Encoder().encode(forum) else { return }
+                
+                try await forumRef.setData(encodedForum)
+                
+                var forumForDisplay = forum
+                forum.user = currentUser
+                
+                forumPosts.insert(forum, at: 0)
+            }
+           
+        } catch {
+            return
+        }
+    }
 }

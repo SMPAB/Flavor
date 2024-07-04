@@ -580,7 +580,9 @@ extension PostService {
             //MARK: DELETE STORY FROM POST (IF THERE IS ONE)
             
             if let storyId = post.storyID {
-                try await FirebaseConstants.StoryCollection.document(storyId).delete()
+                if storyId != ""{
+                    try await FirebaseConstants.StoryCollection.document(storyId).delete()
+                }
             }
             
             
@@ -610,11 +612,11 @@ extension PostService {
             
             if snapshot.isEmpty {
                 /*async let _ = try await FirebaseConstants
-                    .UserCollection
-                    .document(post.ownerUid)
-                    .collection("story-days")
-                    .document("batch1")
-                    .updateData(["storyDays": FieldValue.arrayRemove([dateString])])*/
+                 .UserCollection
+                 .document(post.ownerUid)
+                 .collection("story-days")
+                 .document("batch1")
+                 .updateData(["storyDays": FieldValue.arrayRemove([dateString])])*/
                 
                 let lastLatestStory = try await FirebaseConstants.UserCollection.document(post.ownerUid).collection("story-days").document("batch1").getDocument()
                 
@@ -629,8 +631,61 @@ extension PostService {
         } catch {
             
         }
-
         
+        
+        
+    }
+    
+    static func deleteStory(_ story: Story) async throws {
+        
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        
+        do {
+            
+            
+            //MARK: DELETE IMAGE FROM POST
+            if let imageUrl = story.imageUrl {
+                    let storageRef = Storage.storage().reference(forURL: imageUrl)
+            }
+            
+            //MARK: DELETE STORY
+            
+            try await FirebaseConstants.StoryCollection.document(story.id).delete()
+            
+            //MARK: CHECK IF IT WAS THE LATEST STORY...
+            
+            let dateString = story.timestampDate
+            
+            let snapshot = try await FirebaseConstants
+                .StoryCollection
+                .whereField("timestampDate", isEqualTo: dateString)
+                .whereField("ownerUid", isEqualTo: story.ownerUid)
+                .limit(to: 1)
+                .getDocuments()
+            
+            if snapshot.isEmpty {
+                
+                let lastLatestStory = try await FirebaseConstants.UserCollection.document(story.ownerUid).collection("story-days").document("batch1").getDocument()
+                
+                if var days = lastLatestStory.data()?["storyDays"] as? [String] {
+                    days.removeAll(where: {$0 == dateString})
+                    
+                    try await FirebaseConstants.UserCollection.document(story.ownerUid).collection("story-days").document("batch1").updateData(["storyDays": days])
+                    
+                    try await FirebaseConstants.UserCollection.document(story.ownerUid).updateData(["latestStory": days.last])
+                }
+            }
+            
+           
+            
+            //MARK: UPDATE THE STORYS POST
+            
+            if let postID = story.postID {
+                try await FirebaseConstants.PostCollection.document(postID).updateData(["storyID": ""])
+            }
+        } catch {
+            
+        }
         
     }
 }

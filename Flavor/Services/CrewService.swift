@@ -22,6 +22,14 @@ class CrewService {
             return nil
         }
     }
+    
+    static func fetchChallengeWithId(_ id: String) async throws -> Challenge? {
+        do {
+            return try await FirebaseConstants.ChallengeCollection.document(id).getDocument().data(as: Challenge.self)
+        } catch {
+            return nil
+        }
+    }
     static func fetchUserCrews(latestSnapshot: DocumentSnapshot? = nil) async throws -> ([Crew], DocumentSnapshot?) {
         guard let uid = Auth.auth().currentUser?.uid else { return ([], latestSnapshot)}
         
@@ -174,4 +182,140 @@ extension CrewService {
     
     
        
+}
+
+//MARK: - Forum
+
+extension CrewService {
+    static func fetchForum(crew: Crew, latestDocument: DocumentSnapshot? = nil) async throws -> ([Forum], DocumentSnapshot?) {
+        do {
+            var query: Query = FirebaseConstants
+                .CrewCollection
+                .document(crew.id)
+                .collection("forum")
+                .order(by: "timestamp", descending: true)
+            
+            if let latestDocument = latestDocument {
+                query.start(afterDocument: latestDocument)
+            }
+            
+            let snapshot = try await query.getDocuments()
+            
+            var forums = snapshot.documents.compactMap({try? $0.data(as: Forum.self)})
+            
+            for i in 0..<forums.count {
+                let forum = forums[i]
+                
+                if let challengeId = forum.challengeID {
+                    let challenge = try await fetchChallengeWithId(challengeId)
+                    forums[i].challenge = challenge
+                }
+                
+                if let newUserId = forum.newUserId {
+                    let user = try await UserService.fetchUser(withUid: newUserId)
+                    forums[i].user = user
+                }
+                
+                if let UserId = forum.announcementTextOwnerId {
+                    let user = try await UserService.fetchUser(withUid: UserId)
+                    forums[i].user = user
+                }
+            }
+            
+            let latestDoc = snapshot.documents.last
+            
+            return (forums, latestDoc)
+        } catch {
+            return ([], latestDocument)
+        }
+    }
+    
+    
+    static func upvoteForum(crewId: String, forumPost: Forum) async throws {
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        do {
+            async let _ = try await FirebaseConstants.CrewCollection.document(crewId).collection("forum").document(forumPost.id).collection("user-upvotes").document(currentUid) .setData([:])
+            async let _ = try await FirebaseConstants.CrewCollection.document(crewId).collection("forum").document(forumPost.id).updateData(["Upvotes": (forumPost.Upvotes ?? 0) + 1])
+        } catch {
+            return
+        }
+        
+        
+    }
+    
+    static func unUpvoteForum(crewId: String, forumPost: Forum) async throws {
+        
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        
+        do {
+            async let _ = try await FirebaseConstants.CrewCollection.document(crewId).collection("forum").document(forumPost.id).collection("user-upvotes").document(currentUid).delete()
+            async let _ = try await FirebaseConstants.CrewCollection.document(crewId).collection("forum").document(forumPost.id).updateData(["Upvotes": (forumPost.Upvotes ?? 0) - 1])
+        } catch {
+            return
+        }
+       
+    }
+     
+    static func checkIfUSerUpvoteForum(crewId: String, forumPost: Forum) async throws -> Bool{
+        guard let uid = Auth.auth().currentUser?.uid else { return false }
+        
+        do {
+            let snapshot = try await FirebaseConstants
+                .CrewCollection
+                .document(crewId)
+                .collection("forum")
+                .document(forumPost.id)
+                .collection("user-upvotes")
+                .document(uid)
+                .getDocument()
+            
+            return snapshot.exists
+        } catch {
+            return false
+        }
+    }
+    
+    static func downvoteForum(crewId: String, forumPost: Forum) async throws {
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        do {
+            async let _ = try await FirebaseConstants.CrewCollection.document(crewId).collection("forum").document(forumPost.id).collection("user-downvotes").document(currentUid) .setData([:])
+            async let _ = try await FirebaseConstants.CrewCollection.document(crewId).collection("forum").document(forumPost.id).updateData(["DownVotes": (forumPost.DownVotes ?? 0) + 1])
+        } catch {
+            return
+        }
+        
+        
+    }
+    
+    static func unDownvoteForum(crewId: String, forumPost: Forum) async throws {
+        
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        
+        do {
+            async let _ = try await FirebaseConstants.CrewCollection.document(crewId).collection("forum").document(forumPost.id).collection("user-downvotes").document(currentUid).delete()
+            async let _ = try await FirebaseConstants.CrewCollection.document(crewId).collection("forum").document(forumPost.id).updateData(["DownVotes": (forumPost.DownVotes ?? 0) - 1])
+        } catch {
+            return
+        }
+       
+    }
+    
+    static func checkIfUSerDownvoteForum(crewId: String, forumPost: Forum) async throws -> Bool{
+        guard let uid = Auth.auth().currentUser?.uid else { return false }
+        
+        do {
+            let snapshot = try await FirebaseConstants
+                .CrewCollection
+                .document(crewId)
+                .collection("forum")
+                .document(forumPost.id)
+                .collection("user-downvotes")
+                .document(uid)
+                .getDocument()
+            
+            return snapshot.exists
+        } catch {
+            return false
+        }
+    }
 }

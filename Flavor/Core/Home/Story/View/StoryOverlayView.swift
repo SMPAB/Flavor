@@ -113,7 +113,7 @@ struct StoryOverlayView: View {
                                             .font(.primaryFont(.P1))
                                             .fontWeight(.semibold)
                                         
-                                        ForEach(Array(storiesToday!.sorted(by: {$0.timestamp.dateValue() > $1.timestamp.dateValue()}).enumerated()), id: \.element.id) { index, story in
+                                        ForEach(Array(storiesToday!.sorted(by: {$0.timestamp.dateValue() > $1.timestamp.dateValue()}).filter{!storyVM.deletedStorys.contains($0.id)}.enumerated()), id: \.element.id) { index, story in
                                             StoryCell(story: story, oddStory: index % 2 != 0)
                                                 .padding(.horizontal, 16)
                                         }
@@ -126,7 +126,7 @@ struct StoryOverlayView: View {
                                             .font(.primaryFont(.P1))
                                             .fontWeight(.semibold)
                                         
-                                        ForEach(Array(storiesYesterday!.sorted(by: {$0.timestamp.dateValue() > $1.timestamp.dateValue()}).enumerated()), id: \.element.id) { index, story in
+                                        ForEach(Array(storiesYesterday!.sorted(by: {$0.timestamp.dateValue() > $1.timestamp.dateValue()}).filter{!storyVM.deletedStorys.contains($0.id)}.enumerated()), id: \.element.id) { index, story in
                                             StoryCell(story: story, oddStory: (((storiesToday?.count ?? 0) % 2) != 0) ? index % 2 == 0 : index % 2 != 0)
                                                 .padding(.horizontal, 16)
                                         }

@@ -14,8 +14,24 @@ struct Forum: Identifiable, Hashable, Codable {
     let timestamp: Timestamp
     
     //NEW USER
-    var userId: String?
+    var newUserId: String?
     
     //NEW CHALLEGNE
     var challengeID: String?
+    
+    
+    //VOTING
+    var Upvotes: Int? = 0
+    var DownVotes: Int? = 0
+    var isLiked: Bool? = false
+    var isDisliked: Bool? = false
+    
+    
+    //Anouncement
+    var announcementText: String?
+    var announcementTextOwnerId: String?
+    
+    
+    var challenge: Challenge?
+    var user: User?
 }

@@ -7,6 +7,8 @@
 
 import SwiftUI
 import Kingfisher
+import Firebase
+import Iconoir
 
 struct VoteCell: View {
     
@@ -61,73 +63,102 @@ struct VoteCell: View {
                     .foregroundStyle(Color(.systemGray))
                     //.fontWeight(.semibold)
                 
-                
-                if challengeVM.challenge.votes - challengeVM.votes.count  > 0{
-                    HStack(spacing: 8){
-                        Button(action: {
-                            withAnimation(.spring(duration: 0.2, bounce: 0.4)){
-                                challengeVM.votePost = challengePost
-                                challengeVM.showVote = true
-                            }
+                if challengePost.ownerUid == Auth.auth().currentUser?.uid {
+                    
+                    Button(action: {
+                        withAnimation{
+                            challengeVM.deletePost = challengePost
+                            challengeVM.showDeletePost = true
+                        }
+                    }){
+                        HStack{
+                            Iconoir.trash.asImage
+                                .foregroundStyle(Color(.systemRed))
                             
-                        }){
-                            Text("Vote")
-                                .font(.primaryFont(.H4))
-                                .foregroundStyle(.colorWhite)
-                                .fontWeight(.semibold)
-                                .frame(maxWidth: .infinity)
-                                .frame(height: 58)
-                                .background(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .fill(.colorOrange)
-                                    .stroke(.colorOrange)
-                                )
+                            Text("Remove Post")
+                                .font(.primaryFont(.P1))
                         }
                         
-                        Spacer()
-                        Button(action: {
                             
-                        }){
-                            Text("Next")
-                                .font(.primaryFont(.H4))
-                                .foregroundStyle(.colorOrange)
-                                .fontWeight(.semibold)
-                                .frame(maxWidth: .infinity)
-                                .frame(height: 58)
-                                .background(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .fill(.colorWhite)
-                                    .stroke(.colorOrange)
-                                )
-                        }
-                    }
-                } else {
-                    VStack{
-                        Text("You have voted for @\(challengeVM.voteUploads.first?.user?.userName ?? "")")
-                            .font(.primaryFont(.P1))
-                            .foregroundStyle(.colorOrange)
+                        .foregroundStyle(Color(.systemRed))
                             .frame(maxWidth: .infinity)
                             .frame(height: 42)
                             .background(
                             RoundedRectangle(cornerRadius: 8)
-                                .fill(Color.clear)
-                                .stroke(.colorOrange)
+                                .fill(.colorWhite)
+                                .stroke(Color(.systemRed))
                             )
-                        
-                        
-                        Button(action: {
-                            withAnimation(.spring(duration: 0.2, bounce: 0.4)){
-                                challengeVM.unVotePost = challengePost
-                                challengeVM.showUnvote = true
+                    }
+                    
+                } else {
+                    if challengeVM.challenge.votes - challengeVM.votes.count  > 0{
+                        HStack(spacing: 8){
+                            Button(action: {
+                                withAnimation(.spring(duration: 0.2, bounce: 0.4)){
+                                    challengeVM.votePost = challengePost
+                                    challengeVM.showVote = true
+                                }
+                                
+                            }){
+                                Text("Vote")
+                                    .font(.primaryFont(.H4))
+                                    .foregroundStyle(.colorWhite)
+                                    .fontWeight(.semibold)
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 58)
+                                    .background(
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .fill(.colorOrange)
+                                        .stroke(.colorOrange)
+                                    )
                             }
-                        }){
-                            Text("unvote for @\(challengeVM.voteUploads.first?.user?.userName ?? "")")
+                            
+                            Spacer()
+                            Button(action: {
+                                
+                            }){
+                                Text("Next")
+                                    .font(.primaryFont(.H4))
+                                    .foregroundStyle(.colorOrange)
+                                    .fontWeight(.semibold)
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 58)
+                                    .background(
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .fill(.colorWhite)
+                                        .stroke(.colorOrange)
+                                    )
+                            }
+                        }
+                    } else {
+                        VStack{
+                            Text("You have voted for @\(challengeVM.voteUploads.first?.user?.userName ?? "")")
                                 .font(.primaryFont(.P1))
-                                .foregroundStyle(Color(.systemGray))
-                                .underline()
+                                .foregroundStyle(.colorOrange)
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 42)
+                                .background(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .fill(Color.clear)
+                                    .stroke(.colorOrange)
+                                )
+                            
+                            
+                            Button(action: {
+                                withAnimation(.spring(duration: 0.2, bounce: 0.4)){
+                                    challengeVM.unVotePost = challengeVM.voteUploads.first
+                                    challengeVM.showUnvote = true
+                                }
+                            }){
+                                Text("unvote for @\(challengeVM.voteUploads.first?.user?.userName ?? "")")
+                                    .font(.primaryFont(.P1))
+                                    .foregroundStyle(Color(.systemGray))
+                                    .underline()
+                            }
                         }
                     }
                 }
+                
                 
                
             }

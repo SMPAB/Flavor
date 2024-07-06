@@ -15,7 +15,7 @@ class MainCrewViewModel: ObservableObject {
     @Published var crew: Crew
     
     @Published var challenges: [Challenge] = []
-    
+
     
     //Edit
     
@@ -41,7 +41,7 @@ class MainCrewViewModel: ObservableObject {
     
     @Published var ratingUsers: [UserRating] = []
     
-    
+    @Published var dontShowResults = false
     //MARK: FORUM
     
     @Published var forumPosts: [Forum] = []
@@ -62,7 +62,21 @@ class MainCrewViewModel: ObservableObject {
     }
     
     func fetchChallenges() async throws {
-        self.challenges = try await CrewService.fetchChallenges(crewId: crew.id)
+        do {
+            let (challenges, newRating) = try await CrewService.fetchChallenges(crewId: crew.id)
+            self.challenges = challenges
+            
+            // Update crew's userRating if there's newRating
+            if let newRating = newRating {
+                updateCrewUserRating(with: newRating)
+                
+                if !ratingUsers.isEmpty {
+                   // try await fetchRatingUsers()
+                }
+            }
+        } catch {
+            print("Error fetching challenges: \(error.localizedDescription)")
+        }
     }
     
     func fetchUsersInCrew() async throws {
@@ -194,6 +208,32 @@ class MainCrewViewModel: ObservableObject {
             self.ratingUsers = userRatings
         }
     
+    private func updateCrewUserRating(with newRating: [String: UserRating]) {
+        guard var currentRating = crew.userRating else {
+            crew.userRating = newRating
+            return
+        }
+        
+        // Merge newRating into currentRating
+        for (userId, rating) in newRating {
+            if var existingRating = currentRating[userId] {
+                // Update points and wins
+                existingRating.points = rating.points
+                existingRating.wins.append(contentsOf: rating.wins)
+                currentRating[userId] = existingRating
+            } else {
+                // Add new user rating
+                currentRating[userId] = rating
+            }
+        }
+        
+        // Update crew's userRating
+        crew.userRating = currentRating
+        
+        // Optionally update ratingUsers or any other UI-related data
+        // Example: updateRatingUsers()
+    }
+
     
 }
 
@@ -250,4 +290,29 @@ extension MainCrewViewModel {
             return
         }
     }
+    
+    func registeredUserSeenResults() async throws {
+        
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        do {
+            dontShowResults = true
+           
+            let challengesR = challenges.filter({($0.showFinishToUserIds ?? []).contains(uid)})
+            for i in 0..<challengesR.count {
+                let challenge = challengesR[i]
+                let _ = try await FirebaseConstants
+                    .ChallengeCollection
+                    .document(challenge.id)
+                    .setData([
+                                    "showFinishToUserIds": FieldValue.arrayRemove([uid])
+                                ], merge: true)
+                
+                
+            }
+        } catch {
+            return
+        }
+    }
 }
+
+

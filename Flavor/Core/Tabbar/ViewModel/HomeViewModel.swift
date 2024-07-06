@@ -80,6 +80,9 @@ class HomeViewModel: ObservableObject{
     @Published var newPinPost: String?
     @Published var newUnpinPost: String?
     
+    @Published var newChallengePosts: [ChallengeUpload] = []
+    
+    
     
     
     //Edit

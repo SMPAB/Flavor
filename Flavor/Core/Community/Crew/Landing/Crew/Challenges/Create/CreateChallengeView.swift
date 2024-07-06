@@ -84,13 +84,13 @@ struct CreateChallengeView: View {
                             .font(.primaryFont(.H4))
                             .fontWeight(.semibold)
                         
-                        CustomTextField(text: $viewModel.challengeTitle, textInfo: "Name here...", secureField: false, multiRow: false)
+                        CustomTextField(text: $viewModel.challengeTitle, textInfo: "Name here...", secureField: false, multiRow: false, search: false)
                         
                         Text("Description")
                             .font(.primaryFont(.H4))
                             .fontWeight(.semibold)
                         
-                        CustomTextField(text: $viewModel.challengeDescription, textInfo: "Description here...", secureField: false, multiRow: false)
+                        CustomTextField(text: $viewModel.challengeDescription, textInfo: "Description here...", secureField: false, multiRow: false, search: false)
                         
                         DatePicker(selection: $viewModel.challengeStart){
                             Text("Date-From")

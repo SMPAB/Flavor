@@ -21,8 +21,8 @@ struct MainChallengeView: View {
     @State var showEdit = false
     
     
-    init(challenge: Challenge){
-        self._viewModel = StateObject(wrappedValue: ChallengeViewModel(challenge: challenge))
+    init(challenge: Challenge, crewVM: MainCrewViewModel){
+        self._viewModel = StateObject(wrappedValue: ChallengeViewModel(challenge: challenge, crewVM: crewVM))
     }
     
     
@@ -41,6 +41,7 @@ struct MainChallengeView: View {
                 VStack{
                     HStack{
                         Button(action: {
+                            homeVM.newChallengePosts = []
                             dismiss()
                         }){
                             Image(systemName: "chevron.left")
@@ -100,10 +101,29 @@ struct MainChallengeView: View {
                         
                     }.padding(.horizontal, 16)
                     
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack{
+                            if viewModel.challengePosts.count > 0 {
+                                Text("🥇 @\(viewModel.challengePosts[0].user?.userName ?? "")")
+                                    .font(.primaryFont(.P2))
+                                    .fontWeight(.semibold)
+                            }
+                            
+                            if viewModel.challengePosts.count > 1 {
+                                Text("🥈 @\(viewModel.challengePosts[1].user?.userName ?? "")")
+                                    .font(.primaryFont(.P2))
+                                    .fontWeight(.semibold)
+                            }
+                            
+                            if viewModel.challengePosts.count > 2 {
+                                Text("🥉 @\(viewModel.challengePosts[2].user?.userName ?? "")")
+                                    .font(.primaryFont(.P2))
+                                    .fontWeight(.semibold)
+                            }
+                        }.padding(.vertical, 8)
+                            .padding(.horizontal, 16)
+                    }
                     
-                    HStack{
-                        
-                    }.padding(.vertical, 8)
                     
                     HStack{
                         Text("Published")
@@ -115,7 +135,7 @@ struct MainChallengeView: View {
                     
                     LazyVGrid(columns: Array(repeating: .init(.flexible(), spacing: 8), count: 2)){
                         
-                        if !viewModel.challenge.completedUsers.contains(Auth.auth().currentUser?.uid ?? "") {
+                        if !viewModel.challenge.completedUsers.contains(Auth.auth().currentUser?.uid ?? "") && viewModel.challenge.finished != true && !homeVM.newChallengePosts.contains(where:{$0.challengeId == viewModel.challenge.id}){
                             
                             Button(action: {
                                 showTakePhoto.toggle()
@@ -144,6 +164,61 @@ struct MainChallengeView: View {
                                     .foregroundStyle(.black)
                             }
                             
+                        } else if homeVM.newChallengePosts.contains(where: {$0.challengeId == viewModel.challenge.id}) {
+                           if let post = homeVM.newChallengePosts.first(where: {$0.challengeId == viewModel.challenge.id}){
+                                VStack{
+                                    
+                                    if let user = post.user {
+                                        HStack{
+                                            Text("@\(user.userName)")
+                                                .font(.primaryFont(.P2))
+                                                .fontWeight(.semibold)
+                                            
+                                            
+                                            Spacer()
+                                            
+                                            Text("\(post.votes)")
+                                                .font(.primaryFont(.P2))
+                                                .fontWeight(.semibold)
+                                        }.frame(width: (width - 40)/2)
+                                    } else {
+                                        
+                                        HStack{
+                                            RoundedRectangle(cornerRadius: 8)
+                                                .fill(Color(.systemGray6))
+                                                .frame(width: 100, height: 10)
+                                            
+                                            Spacer()
+                                        }
+                                        
+                                    }
+                                    if let imageurl = post.imageUrl{
+                                        
+                                        ZStack(alignment: .bottomLeading){
+                                            KFImage(URL(string: imageurl))
+                                                .resizable()
+                                                .scaledToFill()
+                                                .frame(width: (width - 40)/2, height: (width - 40)/2)
+                                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                                                .contentShape(RoundedRectangle(cornerRadius: 8))
+                                            
+                                            /*if viewModel.votes.contains(post.id) {
+                                                Text("Your vote")
+                                                    .font(.primaryFont(.P2))
+                                                    .fontWeight(.semibold)
+                                                    .foregroundStyle(Color(.systemGreen))
+                                                    .padding(8)
+                                            }*/
+                                        }
+                                        
+                                            
+                                    }  else {
+                                        RoundedRectangle(cornerRadius: 8)
+                                            .fill(Color(.systemGray6))
+                                            .frame(width: (width - 40)/2, height: (width - 40)/2)
+                                    }
+                                }.foregroundStyle(.black)
+                            }
                         }
                         
                         if !viewModel.challengePosts.isEmpty{
@@ -178,13 +253,23 @@ struct MainChallengeView: View {
                                         }
                                         if let imageurl = post.imageUrl{
                                             
-                                           
-                                            KFImage(URL(string: imageurl))
-                                                .resizable()
-                                                .scaledToFill()
-                                                .frame(width: (width - 40)/2, height: (width - 40)/2)
-                                                .clipShape(RoundedRectangle(cornerRadius: 8))
-                                                .contentShape(RoundedRectangle(cornerRadius: 8))
+                                            ZStack(alignment: .bottomLeading){
+                                                KFImage(URL(string: imageurl))
+                                                    .resizable()
+                                                    .scaledToFill()
+                                                    .frame(width: (width - 40)/2, height: (width - 40)/2)
+                                                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                                                    .contentShape(RoundedRectangle(cornerRadius: 8))
+                                                
+                                                /*if viewModel.votes.contains(post.id) {
+                                                    Text("Your vote")
+                                                        .font(.primaryFont(.P2))
+                                                        .fontWeight(.semibold)
+                                                        .foregroundStyle(Color(.systemGreen))
+                                                        .padding(8)
+                                                }*/
+                                            }
+                                            
                                                 
                                         }  else {
                                             RoundedRectangle(cornerRadius: 8)
@@ -246,6 +331,23 @@ struct MainChallengeView: View {
                 try await viewModel.fetchVotes()
             }
         }
+        .customAlert(isPresented: $viewModel.showDeletePost, title: nil, message: "Are you sure you want to delete your post?", boldMessage: nil, afterBold: nil, confirmAction: {
+            
+                Task{
+                    
+                    try await viewModel.deletePost()
+                    homeVM.newChallengePosts = []
+                    withAnimation{
+                        viewModel.showVoteView = false
+                        viewModel.showDeletePost = false
+                    }
+            }
+        }, cancelAction: {
+            withAnimation{
+                viewModel.showDeletePost = false
+            }
+            
+        }, imageUrl: viewModel.deletePost?.imageUrl, dismissText: "Cancel", acceptText: "Delete")
         .fullScreenCover(isPresented: $showTakePhoto){
             LandingCameraView(story: .constant(true))
                 .environmentObject(homeVM)
@@ -253,6 +355,14 @@ struct MainChallengeView: View {
         .fullScreenCover(isPresented: $showEdit){
             EditChallengeView()
                 .environmentObject(viewModel)
+        }
+        .onChange(of: homeVM.newChallengePosts) {
+            if homeVM.newChallengePosts.count > 0 {
+               if let post = homeVM.newChallengePosts.last {
+                   
+                    viewModel.updateNewPost(post: post)
+                }
+            }
         }
     }
 }

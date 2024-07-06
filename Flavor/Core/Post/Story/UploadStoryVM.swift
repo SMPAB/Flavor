@@ -96,6 +96,11 @@ class UploadStoryVM: ObservableObject {
                 try await docRef.setData([
                     "completedUsers": FieldValue.arrayUnion([user.id])
                        ], merge: true)
+                
+                var challengeToDisplay = challengeUpload
+                challengeToDisplay.user = user
+                
+                homeVM.newChallengePosts.append(challengeToDisplay)
             }
             
             //MARK: LOCAL CHANGES

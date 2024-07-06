@@ -43,13 +43,13 @@ struct EditChallengeView: View {
                         .font(.primaryFont(.H4))
                         .fontWeight(.semibold)
                     
-                    CustomTextField(text: $viewModel.newName, textInfo: "Name here...", secureField: false, multiRow: false)
+                    CustomTextField(text: $viewModel.newName, textInfo: "Name here...", secureField: false, multiRow: false, search: false)
                     
                     Text("Description")
                         .font(.primaryFont(.H4))
                         .fontWeight(.semibold)
                     
-                    CustomTextField(text: $viewModel.newDescription, textInfo: "Descritpion here...", secureField: false, multiRow: false)
+                    CustomTextField(text: $viewModel.newDescription, textInfo: "Descritpion here...", secureField: false, multiRow: false, search: false)
                     
                     
                     DatePicker(selection: $viewModel.newStart){

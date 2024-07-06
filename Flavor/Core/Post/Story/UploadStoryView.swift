@@ -89,7 +89,7 @@ struct UploadStoryView: View {
                             .font(.primaryFont(.P1))
                             .fontWeight(.semibold)
                         
-                        CustomTextField(text: $viewModel.title, textInfo: "Write...", secureField: false, multiRow: false)
+                        CustomTextField(text: $viewModel.title, textInfo: "Write...", secureField: false, multiRow: false, search: false)
                         
                         
                         Text("Connect challenge")

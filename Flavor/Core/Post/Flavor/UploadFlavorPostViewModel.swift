@@ -150,6 +150,11 @@ class UploadFlavorPostViewModel: ObservableObject {
                 try await docRef.setData([
                     "completedUsers": FieldValue.arrayUnion([user.id])
                        ], merge: true)
+                
+                var challengeToDisplay = challengeUpload
+                challengeToDisplay.user = user
+                
+                homeVM.newChallengePosts.append(challengeToDisplay)
             }
             
             
@@ -173,6 +178,8 @@ class UploadFlavorPostViewModel: ObservableObject {
                 homeVM.storyUsers.insert(localUser, at: 0)
                 
             }
+            
+            
 
             
         } catch {

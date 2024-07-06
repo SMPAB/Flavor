@@ -71,7 +71,7 @@ struct EditCrewView: View {
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .fontWeight(.semibold)
                                 
-                                CustomTextField(text: $crewVM.name, textInfo: "your name", secureField: false, multiRow: false)
+                                CustomTextField(text: $crewVM.name, textInfo: "your name", secureField: false, multiRow: false, search: false)
                             }
                             
                             Rectangle()

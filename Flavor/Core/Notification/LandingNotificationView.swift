@@ -44,7 +44,7 @@ struct LandingNotificationView: View {
                         .navigationBarBackButtonHidden(true)
                     ){
                             HStack{
-                                Text("Friend Requests")
+                                Text("Friend Requests (\(homeVM.friendRequestUsernames.count))")
                                     .font(.primaryFont(.P1))
                                     .fontWeight(.semibold)
                                     .foregroundStyle(.black)

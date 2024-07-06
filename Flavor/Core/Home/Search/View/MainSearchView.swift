@@ -38,7 +38,7 @@ struct MainSearchView: View {
                     
                 }.padding(.horizontal, 16)
                 
-                CustomTextField(text: $viewModel.searchText, textInfo: "Search...", secureField: false, multiRow: false)
+                CustomTextField(text: $viewModel.searchText, textInfo: "Search...", secureField: false, multiRow: false, search: true)
                 .padding(.horizontal, 16)
                 
                 if !viewModel.searchText.isEmpty{

@@ -31,8 +31,12 @@ struct User: Identifiable, Hashable, Codable {
     
     var pinnedPostId: String?
     
+    var fcmTokens: [String]?
+    
     
     var postIds: [String]?
+    
+    var publicChallenges: [String]?
     
     var isCurrentUser: Bool{
         guard let currentUid = Auth.auth().currentUser?.uid else { return false}

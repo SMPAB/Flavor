@@ -30,7 +30,7 @@ struct ReportStory: View {
                     .font(.primaryFont(.P1))
                     .fontWeight(.semibold)
                 
-                CustomTextField(text: $text, textInfo: "Write about the report...", secureField: false, multiRow: true)
+                CustomTextField(text: $text, textInfo: "Write about the report...", secureField: false, multiRow: true, search: false)
             }.padding(.horizontal, 16)
             
             

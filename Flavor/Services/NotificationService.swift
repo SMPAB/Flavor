@@ -159,3 +159,86 @@ class NotificationService {
     }
 }
 
+//MARK: PUSH NOTIFICATION
+extension NotificationService {
+    @MainActor
+    func uploadCommentPush(toUid: String, post: Post) async throws {
+        
+        guard let currentUid = Auth.auth().currentUser?.uid else {return}
+        
+        do {
+            
+            let currentUser = try await UserService.fetchUser(withUid: currentUid)
+            
+            var data: [String:Any] = [
+                "title": "commented on your post",
+                "fromUsername": currentUser.userName,
+                "imageUrl": post.imageUrls?[0] ?? ""
+            ]
+            
+            try await FirebaseConstants.PushNotificationCollectio.document(toUid).collection("notifications").document().setData(data)
+        } catch {
+            return
+        }
+    }
+    @MainActor
+    func uploadLikePush(toUid: String, post: Post) async throws {
+        
+        guard let currentUid = Auth.auth().currentUser?.uid else {return}
+        
+        do {
+            
+            let currentUser = try await UserService.fetchUser(withUid: currentUid)
+            
+            var data: [String:Any] = [
+                "title": "liked your post",
+                "fromUsername": currentUser.userName,
+                "imageUrl": post.imageUrls?[0] ?? ""
+            ]
+            
+            try await FirebaseConstants.PushNotificationCollectio.document(toUid).collection("notifications").document().setData(data)
+        } catch {
+            return
+        }
+    }
+    @MainActor
+    func uploadFollow(toUid: String) async throws {
+        
+        guard let currentUid = Auth.auth().currentUser?.uid else {return}
+        
+        do {
+            
+            let currentUser = try await UserService.fetchUser(withUid: currentUid)
+            
+            var data: [String:Any] = [
+                "title": "started following you",
+                "fromUsername": currentUser.userName,
+            ]
+            
+            try await FirebaseConstants.PushNotificationCollectio.document(toUid).collection("notifications").document().setData(data)
+        } catch {
+            return
+        }
+    }
+    
+    @MainActor
+    func uploadFriendRequest(toUid: String) async throws {
+        
+        guard let currentUid = Auth.auth().currentUser?.uid else {return}
+        
+        do {
+            
+            let currentUser = try await UserService.fetchUser(withUid: currentUid)
+            
+            var data: [String:Any] = [
+                "title": "sent you a friend request",
+                "fromUsername": currentUser.userName,
+            ]
+            
+            try await FirebaseConstants.PushNotificationCollectio.document(toUid).collection("notifications").document().setData(data)
+        } catch {
+            return
+        }
+    }
+    
+}

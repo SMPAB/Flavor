@@ -265,6 +265,7 @@ extension ProfileViewModel {
     func follow(userToFollow: User, userFollowing: User) async throws{
             self.user.isFollowed = true
             try await UserService.follow(userToFollow: userToFollow, userFollowing: userFollowing)
+            try await NotificationsManager.shared.uploadFollowNotification(toUid: userToFollow.id)
     }
     @MainActor
     func unfollow(userToUnfollow: User, userUnfollowing: User) async throws {
@@ -280,6 +281,7 @@ extension ProfileViewModel {
     func sendFriendRequest(sendRequestTo: User, userSending: User) async throws{
         self.user.hasFriendRequests = true
         try await UserService.sendFriendRequest(userToSendFriendRequestTo: sendRequestTo, userSending: userSending)
+        try await NotificationsManager.shared.uploadFriendRequestNotification(toUid: sendRequestTo.id)
     }
 }
 

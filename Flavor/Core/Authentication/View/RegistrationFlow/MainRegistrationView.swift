@@ -35,7 +35,7 @@ struct MainRegistrationView: View {
                     
                 }
                 
-                CustomTextField(text: $viewModel.email, textInfo: "Eg. emilio.martinez@flavor", secureField: false, multiRow: false)
+                CustomTextField(text: $viewModel.email, textInfo: "Eg. emilio.martinez@flavor", secureField: false, multiRow: false, search: false)
                 
                 Text("By continuing and signing up, you are creating a Flavor account and agree to Flavors")
                     .font(.primaryFont(.P2))

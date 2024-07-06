@@ -111,13 +111,13 @@ struct UploadPostView: View {
                     .font(.primaryFont(.P1))
                     .fontWeight(.semibold)
                 
-                CustomTextField(text: $viewMdeol.title, textInfo: "Write here...", secureField: false, multiRow: false)
+                CustomTextField(text: $viewMdeol.title, textInfo: "Write here...", secureField: false, multiRow: false, search: false)
                 
                 Text("Caption")
                     .font(.primaryFont(.P1))
                     .fontWeight(.semibold)
                 
-                CustomTextField(text: $viewMdeol.caption, textInfo: "Write here...", secureField: false, multiRow: true)
+                CustomTextField(text: $viewMdeol.caption, textInfo: "Write here...", secureField: false, multiRow: true, search: false)
                 
                 Text("Recipe")
                     .font(.primaryFont(.P1))

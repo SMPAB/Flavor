@@ -68,7 +68,7 @@ struct CreateAlbumView: View {
                                 .font(.primaryFont(.P1))
                                 .fontWeight(.semibold)
                             
-                            CustomTextField(text: $viewModel.title, textInfo: "Write album name...", secureField: false, multiRow: false)
+                            CustomTextField(text: $viewModel.title, textInfo: "Write album name...", secureField: false, multiRow: false, search: false)
                         }.padding(.horizontal, 16)
                         
                         LazyVStack(spacing: 0){

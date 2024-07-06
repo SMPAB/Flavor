@@ -23,5 +23,7 @@ struct ChallengeUpload: Identifiable, Hashable, Codable {
     
     var votes: Int
     
+    var voters: [String]?
+    
     var user: User?
 }

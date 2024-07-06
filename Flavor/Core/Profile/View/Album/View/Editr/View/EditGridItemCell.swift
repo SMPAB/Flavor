@@ -26,7 +26,8 @@ struct EditGridItemCell: View {
             if let post = viewModel.post {
                 
                 var isSelected: Bool {
-                    return viewModel.selectedPosts.contains(post)
+                   // return viewModel..contains(post)
+                    return viewModel.selectedPostsId.contains(post.id)
                 }
                 
                 ZStack{
@@ -58,6 +59,16 @@ struct EditGridItemCell: View {
                             }
                         }.onTapGesture {
                             viewModel.handleTapp(isSelected: isSelected)
+                        }
+                        .onAppear{
+                            if isSelected {
+                                
+                                if !viewModel.selectedPosts.contains(where: {$0.id == post.id}){
+                                    viewModel.selectedPosts.append(post)
+                                    viewModel.mainVM.selectedPosts.append(post)
+                                }
+                                
+                            }
                         }
                     }
                 }

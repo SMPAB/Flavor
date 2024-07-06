@@ -46,7 +46,7 @@ struct CreateCrewUserList: View {
                 }.padding(.horizontal, 16)
                 
                 
-                CustomTextField(text: $searchText, textInfo: "Search...", secureField: false, multiRow: false)
+                CustomTextField(text: $searchText, textInfo: "Search...", secureField: false, multiRow: false, search: false)
                     .padding(.horizontal, 16)
                 
                 Rectangle()

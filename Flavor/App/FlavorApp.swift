@@ -74,7 +74,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     // MessagingDelegate
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
         let dataDict: [String: String] = ["token": fcmToken ?? ""]
-        print("Registered with FCM token: \(fcmToken ?? "No FCM token found")")
+        print("DEBUG APPRegistered with FCM token: \(fcmToken ?? "No FCM token found") currentUser: \(Auth.auth().currentUser?.uid)")
+        
+        if let uid = Auth.auth().currentUser?.uid {
+               let userRef = Firestore.firestore().collection("users").document(uid)
+               userRef.updateData([
+                   "fcmTokens": FieldValue.arrayUnion([fcmToken])
+               ]) { error in
+                   if let error = error {
+                       print("Error updating FCM token: \(error)")
+                   } else {
+                       print("FCM token updated successfully")
+                   }
+               }
+           }
+        
     }
 
     // UNUserNotificationCenterDelegate

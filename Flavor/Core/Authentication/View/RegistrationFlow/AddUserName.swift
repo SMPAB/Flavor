@@ -27,7 +27,7 @@ struct AddUserName: View {
                     .padding(.top, 8)
                 
                 VStack(alignment: .leading, spacing: 6){
-                    CustomTextField(text: $viewModel.userName, textInfo: "Write your username", secureField: false, multiRow: false)
+                    CustomTextField(text: $viewModel.userName, textInfo: "Write your username", secureField: false, multiRow: false, search: false)
                     
                     if viewModel.allUserNames.contains(viewModel.userName.lowercased()){
                         Text("This username is already taken")
@@ -42,13 +42,13 @@ struct AddUserName: View {
                     .fontWeight(.semibold)
                     .padding(.top, 8)
                 
-                CustomTextField(text: $viewModel.password, textInfo: "Create a password", secureField: true, multiRow: false)
+                CustomTextField(text: $viewModel.password, textInfo: "Create a password", secureField: true, multiRow: false, search: false)
                 
                 Text("Repeat password")
                     .font(.primaryFont(.P1))
                     .fontWeight(.semibold)
                 VStack(alignment: .leading, spacing: 6){
-                    CustomTextField(text: $viewModel.repeatPassword, textInfo: "Repeat your a password", secureField: true, multiRow: false)
+                    CustomTextField(text: $viewModel.repeatPassword, textInfo: "Repeat your a password", secureField: true, multiRow: false, search: false)
                     
                     if viewModel.password != viewModel.repeatPassword && viewModel.repeatPassword != "" {
                         Text("The passwords dont match up")

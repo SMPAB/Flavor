@@ -62,7 +62,7 @@ class CrewService {
 //MARK: - CHALLENGES
 
 extension CrewService {
-    static func fetchChallenges(crewId: String) async throws -> [Challenge] {
+    static func fetchChallenges(crewId: String) async throws -> ([Challenge], newRating: [String: UserRating]?) {
         
         do {
             let snapshot = try await FirebaseConstants
@@ -72,11 +72,109 @@ extension CrewService {
             
             var challenges = snapshot.documents.compactMap({try? $0.data(as: Challenge.self)})
             
-            return challenges
+            var newRatings: [String: UserRating] = [:]
+            
+            for i in 0..<challenges.count {
+                let challenge = challenges[i]
+                
+                //MARK: IF A CHALLENGE IS COMPLETED BUT NOT REGISTERED
+                if challenge.endDate.dateValue() < Date() && challenge.finished != true{
+                    try await FirebaseConstants.ChallengeCollection.document(challenge.id).updateData(["finished": true, "showFinishToUserIds": challenge.users])
+                    challenges[i].finished = true
+                    challenges[i].showFinishToUserIds = challenge.users
+                    
+                    let postSnapshot = try await FirebaseConstants
+                        .ChallengeCollection
+                        .document(challenge.id)
+                        .collection("posts")
+                        .order(by: "votes", descending: true)
+                        .limit(to: 3)
+                        .getDocuments()
+                    
+                    var posts = postSnapshot.documents.compactMap({try? $0.data(as: ChallengeUpload.self)})
+                    var crew = try await CrewService.fetchCrew(challenge.crewId)
+                    
+                    
+                    
+                    if posts.count >= 1 {
+                        print("DEBUG APP CREW: \(crewId) USER THAT SHOULD BE UPDATED AS FIRST PLACE: \(posts[0].ownerUid)")
+                        if let crew = crew {
+                            if let updatedRating = try await updatePointsForUserInCrew(crew: crew, userId: posts[0].ownerUid, points: 10, challengeId: challenge.id) {
+                                                            newRatings[posts[0].ownerUid] = updatedRating
+                                                        }
+                        }
+                        
+                    }
+                    if posts.count >= 2 {
+                        print("DEBUG APP CREW: \(crewId) USER THAT SHOULD BE UPDATED SECOND PLACE: \(posts[1].ownerUid)")
+                        if let crew = crew {
+                            if let updatedRating = try await updatePointsForUserInCrew(crew: crew, userId: posts[1].ownerUid, points: 7, challengeId: nil) {
+                                                            newRatings[posts[1].ownerUid] = updatedRating
+                                                        }
+                        }
+                    }
+                    if posts.count >= 3 {
+                        print("DEBUG APP CREW: \(crewId) USER THAT SHOULD BE UPDATED AS THIRD: \(posts[2].ownerUid)")
+                        if let crew = crew {
+                            if let updatedRating = try await updatePointsForUserInCrew(crew: crew, userId: posts[2].ownerUid, points: 5, challengeId: nil) {
+                                                            newRatings[posts[2].ownerUid] = updatedRating
+                                                        }
+                        }
+                    }
+                }
+            }
+            
+            return (challenges, newRatings.isEmpty ? nil : newRatings)
         } catch {
-            return []
+            return ([], nil)
         }
     }
+    
+    static func updatePointsForUserInCrew(crew: Crew, userId: String, points: Int, challengeId: String?) async throws -> UserRating? {
+            var updatedUserRating: UserRating?
+            
+            do {
+                var crew = crew
+                
+                if var userRating = crew.userRating?[userId] {
+                    userRating.points += points
+                    if let challengeId = challengeId {
+                        userRating.wins.append(challengeId)
+                    }
+                    crew.userRating?[userId] = userRating
+                    
+                    // Update only the userRating map in Firestore
+                    try await FirebaseConstants.CrewCollection.document(crew.id).updateData([
+                        "userRating.\(userId).points": userRating.points,
+                        "userRating.\(userId).wins": userRating.wins
+                    ])
+                    
+                    // Return the updated userRating
+                    updatedUserRating = userRating
+                } else {
+                    // If userRating for userId doesn't exist, create a new entry
+                    var newUserRating = UserRating(id: userId, points: points, wins: [], user: nil)
+                    
+                    if let challengeId = challengeId {
+                        newUserRating.wins = [challengeId]
+                    }
+                    crew.userRating?[userId] = newUserRating
+                    
+                    // Update only the userRating map in Firestore
+                    try await FirebaseConstants.CrewCollection.document(crew.id).updateData([
+                        "userRating.\(userId)": newUserRating
+                    ])
+                    
+                    // Return the updated userRating
+                    updatedUserRating = newUserRating
+                }
+            } catch {
+                print("Error updating user rating in crew: \(error.localizedDescription)")
+            }
+            
+            return updatedUserRating
+        }
+
     
     static func fetchUserChallenges() async throws -> [Challenge] {
         guard let currentUid = Auth.auth().currentUser?.uid else { return []}
@@ -132,6 +230,37 @@ extension CrewService {
             
         } catch {
             return ([], latestDocument)
+        }
+    }
+    
+    
+    static func fetchChallengeResultsPosts(challengeId: String) async throws -> [ChallengeUpload] {
+        do {
+            var query: Query = FirebaseConstants
+                .ChallengeCollection
+                .document(challengeId)
+                .collection("posts")
+                .order(by: "votes", descending: true)
+                .limit(to: 3)
+            
+            
+            let snapshot = try await query.getDocuments()
+            
+            var posts = snapshot.documents.compactMap({try? $0.data(as: ChallengeUpload.self)})
+            
+            for i in 0..<posts.count {
+                let post = posts[i]
+                let ownerUid = post.ownerUid
+                let user = try await UserService.fetchUser(withUid: ownerUid)
+                posts[i].user = user
+            }
+            
+            let latestCurrentDocument = snapshot.documents.last
+            
+            return posts
+            
+        } catch {
+            return ([])
         }
     }
     

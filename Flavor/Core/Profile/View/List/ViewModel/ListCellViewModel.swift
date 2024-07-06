@@ -36,6 +36,7 @@ class ListCellViewModel: ObservableObject {
     func follow(userToFollow: User, userFollowing: User) async throws{
             self.user?.isFollowed = true
             try await UserService.follow(userToFollow: userToFollow, userFollowing: userFollowing)
+        try await  NotificationsManager.shared.uploadFollowNotification(toUid: userToFollow.id)
     }
     
     func unfollow(userToUnfollow: User, userUnfollowing: User) async throws {
@@ -51,5 +52,6 @@ class ListCellViewModel: ObservableObject {
     func sendFriendRequest(sendRequestTo: User, userSending: User) async throws{
         self.user?.hasFriendRequests = true
         try await UserService.sendFriendRequest(userToSendFriendRequestTo: sendRequestTo, userSending: userSending)
+        try await NotificationsManager.shared.uploadFriendRequestNotification(toUid: sendRequestTo.id)
     }
 }

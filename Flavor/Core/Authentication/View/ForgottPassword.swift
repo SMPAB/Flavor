@@ -24,7 +24,7 @@ struct ForgottPassword: View {
                     .fontWeight(.semibold)
                 
                 ZStack(alignment: .trailing){
-                    CustomTextField(text: $mail, textInfo: "type in your mail", secureField: false, multiRow: false)
+                    CustomTextField(text: $mail, textInfo: "type in your mail", secureField: false, multiRow: false, search: false)
                     
                     if tryingToSendEmail{
                         LottieView(animation: .named("Checkmark"))

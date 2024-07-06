@@ -20,6 +20,7 @@ class EditAlbumViewModel: ObservableObject {
     @Published var originalPosts: [Post] = []
     
     @Published var selectedPosts: [Post] = []
+    @Published var selectedPostIds: [String] = []
     
     @Published var albumViewModel: MainAlbumViewModel
     
@@ -31,7 +32,20 @@ class EditAlbumViewModel: ObservableObject {
 
         self.originalPosts = albumViewModel.posts
         self.selectedPosts = albumViewModel.posts
+        self.selectedPostIds = albumViewModel.album.uploadIds
     }
+    
+   /* @MainActor
+    func fetchSelectedPosts() async throws {
+        for i in 0..<albumViewModel.album.uploadIds.count {
+            let postId = albumViewModel.album.uploadIds[i]
+            let post = try await PostService.fetchPost(postId)
+            if let post = post {
+                albumViewModel.posts.append(post)
+                selectedPosts.append(post)
+            }
+        }
+    }*/
     
     @MainActor
     func editAlbum() async throws {
@@ -69,6 +83,7 @@ class EditAlbumViewModel: ObservableObject {
             
             if let index = albumViewModel.profileVM.albums.firstIndex(where: { $0.id == albumViewModel.album.id }) {
                                 albumViewModel.profileVM.albums[index].uploadIds = sortedPostIds
+                albumViewModel.album.uploadIds = sortedPostIds
                 }
             
         } catch {

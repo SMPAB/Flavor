@@ -89,7 +89,7 @@ struct CreateCrewView: View {
                                     .fontWeight(.semibold)
                                     .padding(.horizontal, 16)
                                 
-                                CustomTextField(text: $viewModel.crewName, textInfo: "Name here...", secureField: false, multiRow: false)
+                                CustomTextField(text: $viewModel.crewName, textInfo: "Name here...", secureField: false, multiRow: false, search: false)
                                     .padding(.horizontal, 16)
                             }
                             

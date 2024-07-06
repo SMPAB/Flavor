@@ -45,13 +45,21 @@ class ChallengeViewModel: ObservableObject {
     @Published var newEnd = Date()
     
     
-    init(challenge: Challenge) {
+    //DELETE
+    @Published var deletePost: ChallengeUpload?
+    @Published var showDeletePost = false
+    
+    @Published var crewVM: MainCrewViewModel
+    
+    
+    init(challenge: Challenge, crewVM: MainCrewViewModel) {
         self.challenge = challenge
         
         self.newName = challenge.title
         self.newDescription = challenge.description
         self.newStart = challenge.startDate.dateValue()
         self.newEnd = challenge.endDate.dateValue()
+        self.crewVM = crewVM
     }
     
     @MainActor
@@ -92,6 +100,8 @@ class ChallengeViewModel: ObservableObject {
                 let _ = try await FirebaseConstants.ChallengeCollection.document(challenge.id).collection("votes").document(currentUser.id).setData([
                                 "votes": FieldValue.arrayUnion([post.id])
                             ], merge: true)
+                
+                let _ = try await FirebaseConstants.ChallengeCollection.document(challenge.id).collection("posts").document(post.id).setData(["voters": FieldValue.arrayUnion([currentUser.id])], merge: true)
             }
             
         } catch {
@@ -118,6 +128,8 @@ class ChallengeViewModel: ObservableObject {
                 let _ = try await FirebaseConstants.ChallengeCollection.document(challenge.id).collection("votes").document(currentUser.id).setData([
                                 "votes": FieldValue.arrayRemove([post.id])
                             ], merge: true)
+                
+                let _ = try await FirebaseConstants.ChallengeCollection.document(challenge.id).collection("posts").document(post.id).setData(["voters": FieldValue.arrayRemove([currentUser.id])], merge: true)
             }
         } catch {
             return
@@ -170,5 +182,64 @@ class ChallengeViewModel: ObservableObject {
         } catch {
             return
         }
+    }
+    
+    @MainActor
+    func deletePost() async throws {
+        
+        
+        
+        do {
+            if let post = deletePost {
+                challengePosts.removeAll(where: {$0.id == post.id})
+                challenge.completedUsers.removeAll(where: {$0 == post.ownerUid})
+                
+                if let index = crewVM.challenges.firstIndex(where: {$0.id == challenge.id}){
+                    crewVM.challenges[index].completedUsers.removeAll(where: {$0 == post.ownerUid})
+                }
+                
+                try await FirebaseConstants.ChallengeCollection
+                    .document(challenge.id)
+                    .collection("posts")
+                    .document(post.id)
+                    .delete()
+                
+                
+                try await FirebaseConstants.ChallengeCollection.document(challenge.id).setData(["completedUsers": FieldValue.arrayRemove([post.ownerUid])], merge: true)
+                
+                if let voters = post.voters {
+                    if voters.count > 0 {
+                        for i in 0..<voters.count {
+                            let voter = voters[i]
+                            try await FirebaseConstants.ChallengeCollection.document(challenge.id).collection("votes").document(voter).setData(["votes": FieldValue.arrayRemove([post.id])], merge: true)
+                        }
+                    }
+                }
+                
+                
+                
+            }
+            
+            
+        } catch {
+            return
+        }
+        
+    }
+    
+    @MainActor
+    private func updateMain(postId: String) {
+        if let index = crewVM.challenges.firstIndex(where: {$0.id == challenge.id}) {
+            crewVM.challenges[index].completedUsers.removeAll(where: {$0 == postId})
+        }
+    }
+    
+    @MainActor
+    func updateNewPost(post: ChallengeUpload) {
+        if let index = crewVM.challenges.firstIndex(where: {$0.id == challenge.id}) {
+            crewVM.challenges[index].completedUsers.append(post.ownerUid)
+        }
+        
+        challenge.completedUsers.append(post.ownerUid)
     }
 }

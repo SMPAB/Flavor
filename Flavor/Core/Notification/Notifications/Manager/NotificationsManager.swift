@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 
 class NotificationsManager{
     
@@ -15,14 +16,31 @@ class NotificationsManager{
     private init() { }
     func uploadLikeNotification(toUid uid: String, post: Post) async throws {
         
+        guard uid != Auth.auth().currentUser?.uid else { return }
+        
         try await service.uploadNotification(toUid: uid, type: .like, post: post)
+        try await service.uploadLikePush(toUid: uid, post: post)
     }
     
     func uploadCommentNotification(toUid uid: String, post: Post) async throws {
+        guard uid != Auth.auth().currentUser?.uid else { return }
+        
         try await service.uploadNotification(toUid: uid, type: .comment, post: post)
+        try await service.uploadCommentPush(toUid: uid, post: post)
     }
     
     func uploadFollowNotification(toUid uid: String) async throws {
+        
+        guard uid != Auth.auth().currentUser?.uid else { return }
+        
         try await service.uploadNotification(toUid: uid, type: .follow)
+        try await service.uploadFollow(toUid: uid)
+    }
+    
+    func uploadFriendRequestNotification(toUid uid: String) async throws {
+        
+        guard uid != Auth.auth().currentUser?.uid else { return }
+        
+        try await service.uploadFriendRequest(toUid: uid)
     }
 }

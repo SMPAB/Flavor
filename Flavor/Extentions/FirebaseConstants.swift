@@ -19,6 +19,10 @@ struct FirebaseConstants{
     static let CrewCollection = Firestore.firestore().collection("crews")
     static let ChallengeCollection = Firestore.firestore().collection("challenges")
     
+    static let PublicChallengeCollection = Firestore.firestore().collection("publicChallenges")
+    
+    static let PushNotificationCollectio = Firestore.firestore().collection("push-notifications")
+    
     static let RecipeCollection = Firestore.firestore().collection("recipe")
     
     static let AlbumCollection = Firestore.firestore().collection("album")

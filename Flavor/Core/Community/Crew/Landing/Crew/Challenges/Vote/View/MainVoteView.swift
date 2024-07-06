@@ -157,8 +157,9 @@ struct MainVoteView: View {
         
     }
 }
-
+/*
 #Preview {
     MainVoteView()
-        .environmentObject(ChallengeViewModel(challenge: Challenge(id: "", crewId: "", title: "TacoFriday", description: "", startDate: Timestamp(date: Date()), endDate: Timestamp(date: Date()), votes: 1, users: [], completedUsers: [])))
+        .environmentObject(ChallengeViewModel(challenge: Challenge(id: "", crewId: "", title: "TacoFriday", description: "", startDate: Timestamp(date: Date()), endDate: Timestamp(date: Date()), votes: 1, users: [], completedUsers: []), crewVM: Maincrewviewm))
 }
+*/

@@ -146,13 +146,30 @@ struct MainCrewView: View {
                     
                     if !activeChallenges.isEmpty {
                         VStack(alignment: .leading){
-                            Text("Active Challenges")
-                                .font(.primaryFont(.H4))
-                                .fontWeight(.semibold)
+                            
+                            HStack{
+                                
+                                Text("Active Challenges")
+                                    .font(.primaryFont(.H4))
+                                    .fontWeight(.semibold)
+                                
+                                Spacer()
+                                
+                                NavigationLink(destination: 
+                                                AllChallengesView()
+                                    .environmentObject(homeVM)
+                                    .environmentObject(viewModel)
+                                ){
+                                    Text("show past")
+                                        .font(.primaryFont(.P2))
+                                        .foregroundStyle(.black)
+                                }
+                            }
+                            
                             
                             ForEach(activeChallenges){ challenge in
                                 NavigationLink(destination: 
-                                                MainChallengeView(challenge: challenge)
+                                                MainChallengeView(challenge: challenge, crewVM: viewModel)
                                     .environmentObject(homeVM)
                                 ){
                                     ChallengeCell(challenge: challenge)
@@ -166,9 +183,25 @@ struct MainCrewView: View {
                     
                     if !upCommingChallenges.isEmpty {
                         VStack(alignment: .leading){
-                            Text("Upcomming Challenges")
-                                .font(.primaryFont(.H4))
-                                .fontWeight(.semibold)
+                            
+                            HStack{
+                                Text("Upcomming Challenges")
+                                    .font(.primaryFont(.H4))
+                                    .fontWeight(.semibold)
+                                
+                                Spacer()
+                                
+                                NavigationLink(destination: 
+                                                AllChallengesView()
+                                    .environmentObject(homeVM)
+                                    .environmentObject(viewModel)
+                                ){
+                                    Text("show past")
+                                        .font(.primaryFont(.P2))
+                                        .foregroundStyle(.black)
+                                }
+                            }
+                            
                             
                             ForEach(upCommingChallenges){ challenge in
                                 ChallengeCell(challenge: challenge)
@@ -211,6 +244,15 @@ struct MainCrewView: View {
                 NewAnnouncementView()
                     .environmentObject(viewModel)
                     .environmentObject(homeVM)
+            }
+            
+            
+             var newFinishedChallenges = viewModel.challenges.filter({($0.showFinishToUserIds ?? []).contains(Auth.auth().currentUser?.uid ?? "")})
+            
+            if !newFinishedChallenges.isEmpty && !viewModel.dontShowResults {
+                FinishedChallengeView(challenges: .constant(newFinishedChallenges))
+                    .environmentObject(homeVM)
+                    .environmentObject(viewModel)
             }
             
         }.navigationBarBackButtonHidden(true)

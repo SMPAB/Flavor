@@ -15,11 +15,13 @@ class EditGridItemCellViewModel: ObservableObject{
     
     
     @Published var selectedPosts: [Post] = []
+    @Published var selectedPostsId: [String] = []
     
     init(postId: String, mainVM: EditAlbumViewModel) {
         self.postId = postId
         self.mainVM = mainVM
         self.selectedPosts = mainVM.selectedPosts
+        self.selectedPostsId = mainVM.selectedPostIds
         //self.originalPosts = mainVM.posts
     }
     
@@ -37,11 +39,16 @@ class EditGridItemCellViewModel: ObservableObject{
         if isSelected {
             
             mainVM.selectedPosts.removeAll(where: {$0.id == postId})
+            mainVM.selectedPostIds.removeAll(where: {$0 == postId})
             selectedPosts.removeAll(where: {$0.id == postId})
+            selectedPostsId.removeAll(where: {$0 == postId})
+            
             //print("DEBUG APP SELECTED POSTS \(mainVM.selectedPosts.count)")
         } else {
             mainVM.selectedPosts.append(post!)
             selectedPosts.append(post!)
+            mainVM.selectedPostIds.append(post!.id)
+            selectedPostsId.append(post!.id)
            // print("DEBUG APP POSTS \(mainVM.selectedPosts.count)")
            
         }

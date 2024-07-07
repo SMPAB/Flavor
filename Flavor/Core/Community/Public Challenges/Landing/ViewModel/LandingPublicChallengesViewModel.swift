@@ -13,4 +13,9 @@ class LandingPublicChallengesViewModel: ObservableObject {
     
     @Published var userChallenges = [PublicChallenge]()
     
+    @MainActor
+    func fetchUserChallenges(user: User) async throws {
+        self.userChallenges = try await ChallengeService.fetchUserChallenges(user: user)
+    }
+    
 }

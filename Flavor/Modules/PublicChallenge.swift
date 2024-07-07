@@ -20,6 +20,7 @@ struct PublicChallenge: Identifiable, Hashable, Codable {
     
     let startDate: Timestamp
     let endDate: Timestamp
+    let finished: Bool
     
     let votes: Int
     
@@ -42,7 +43,7 @@ struct prize: Hashable, Codable {
 extension PublicChallenge {
     static var mockChallenges: [PublicChallenge] {
         return [
-            .init(id: "001", ownerName: "Global", ownerImageUrl: nil, title: "Slice and Dice", description: "Publish the best slicing challenge you possibly can!", imageUrl: nil, startDate: Timestamp(date: Date()), endDate: Timestamp(date: Date()), votes: 3, prizes: [prize(place: 1, prizeName: "Knive", prizeDescription: "en vacker kniv från global", prizeImageUrl: nil, prizeWorth: 999.99)])
+            .init(id: "001", ownerName: "Global", ownerImageUrl: nil, title: "Slice and Dice", description: "Publish the best slicing challenge you possibly can!", imageUrl: nil, startDate: Timestamp(date: Date()), endDate: Timestamp(date: Date()), finished: false, votes: 3, prizes: [prize(place: 1, prizeName: "Knive", prizeDescription: "en vacker kniv från global", prizeImageUrl: nil, prizeWorth: 999.99)])
         ]
     }
 }

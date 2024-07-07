@@ -20,6 +20,7 @@ struct MainChallengeView: View {
     @State var showTakePhoto = false
     @State var showEdit = false
     
+    @Environment(\.namespace) var namespace
     
     init(challenge: Challenge, crewVM: MainCrewViewModel){
         self._viewModel = StateObject(wrappedValue: ChallengeViewModel(challenge: challenge, crewVM: crewVM))
@@ -39,28 +40,114 @@ struct MainChallengeView: View {
         ZStack{
             ScrollView{
                 VStack{
-                    HStack{
-                        Button(action: {
-                            homeVM.newChallengePosts = []
-                            dismiss()
-                        }){
-                            Image(systemName: "chevron.left")
-                                .foregroundStyle(.black)
+                    if challenge.finished != true {
+                        HStack{
+                            Button(action: {
+                                homeVM.newChallengePosts = []
+                                dismiss()
+                            }){
+                                Image(systemName: "chevron.left")
+                                    .foregroundStyle(.black)
+                            }
+                            
+                            Spacer()
+                            
+                            Button(action: {
+                                showEdit.toggle()
+                            }){
+                                Iconoir.settings.asImage
+                                    .foregroundStyle(.black)
+                            }
+                            
+                        }.padding(.horizontal, 16)
+                        
+                        
+                        VStack(spacing: 8){
+                            HStack(spacing: 8){
+                                ImageView(size: .medium, imageUrl: challenge.imageUrl, background: true)
+                                
+                                VStack(alignment: .leading){
+                                    Text(challenge.title)
+                                        .font(.primaryFont(.H4))
+                                        .fontWeight(.semibold)
+                                    
+                                    Text(challenge.description)
+                                        .font(.primaryFont(.P1))
+                                        
+                                    
+                                    Text("Deadline: \(challenge.endDate.dateValue().formattedChallengeCell())")
+                                        .font(.primaryFont(.P1))
+                                        .fontWeight(.semibold)
+                                    
+                                }.frame(maxWidth: .infinity, alignment: .topLeading)
+                            }
+                            
+                            HStack{
+                                Iconoir.check.asImage
+                                
+                                Text("\(challenge.completedUsers.count) members done")
+                                    .font(.primaryFont(.P2))
+                                
+                                Rectangle()
+                                    .fill(Color(.systemGray))
+                                    .frame(width: 1, height: 24)
+                                
+                                
+                                Iconoir.hourglass.asImage
+                                
+                                Text("\(challenge.users.count - challenge.completedUsers.count) members left")
+                                    .font(.primaryFont(.P2))
+                                
+                                Spacer()
+                            }
+                            
+                        }.padding(.horizontal, 16)
+                        
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack{
+                                if viewModel.challengePosts.count > 0 {
+                                    Text("🥇 @\(viewModel.challengePosts[0].user?.userName ?? "")")
+                                        .font(.primaryFont(.P2))
+                                        .fontWeight(.semibold)
+                                }
+                                
+                                if viewModel.challengePosts.count > 1 {
+                                    Text("🥈 @\(viewModel.challengePosts[1].user?.userName ?? "")")
+                                        .font(.primaryFont(.P2))
+                                        .fontWeight(.semibold)
+                                }
+                                
+                                if viewModel.challengePosts.count > 2 {
+                                    Text("🥉 @\(viewModel.challengePosts[2].user?.userName ?? "")")
+                                        .font(.primaryFont(.P2))
+                                        .fontWeight(.semibold)
+                                }
+                            }.padding(.vertical, 8)
+                                .padding(.horizontal, 16)
                         }
+                    } else {
+                        HStack{
+                            Button(action: {
+                                homeVM.newChallengePosts = []
+                                dismiss()
+                            }){
+                                Image(systemName: "chevron.left")
+                                    .foregroundStyle(.black)
+                            }
+                            
+                            Spacer()
+                            
+                           Text("Challenge finished")
+                                .font(.primaryFont(.H4))
+                                .fontWeight(.semibold)
+                            
+                            Spacer()
+                            
+                            Image(systemName: "chevron.left").opacity(0)
+                            
+                        }.padding(.horizontal, 16)
                         
-                        Spacer()
                         
-                        Button(action: {
-                            showEdit.toggle()
-                        }){
-                            Iconoir.settings.asImage
-                                .foregroundStyle(.black)
-                        }
-                        
-                    }.padding(.horizontal, 16)
-                    
-                    
-                    VStack(spacing: 8){
                         HStack(spacing: 8){
                             ImageView(size: .medium, imageUrl: challenge.imageUrl, background: true)
                             
@@ -70,58 +157,67 @@ struct MainChallengeView: View {
                                     .fontWeight(.semibold)
                                 
                                 Text(challenge.description)
-                                    .font(.primaryFont(.P1))
-                                    
-                                
-                                Text("Deadline: \(challenge.endDate.dateValue().formattedChallengeCell())")
-                                    .font(.primaryFont(.P1))
-                                    .fontWeight(.semibold)
-                                
-                            }.frame(maxWidth: .infinity, alignment: .topLeading)
-                        }
+                                    .font(.primaryFont(.P2))
+                                    .foregroundStyle(Color(.systemGray))
+                            }.frame(maxWidth: .infinity, alignment: .leading)
+                        }.padding(.horizontal, 16)
                         
-                        HStack{
-                            Iconoir.check.asImage
+                        VStack(alignment: .leading, spacing: 16){
+                            Text("Results")
+                                .font(.primaryFont(.H4))
+                                .fontWeight(.semibold)
                             
-                            Text("\(challenge.completedUsers.count) members done")
-                                .font(.primaryFont(.P2))
-                            
-                            Rectangle()
-                                .fill(Color(.systemGray))
-                                .frame(width: 1, height: 24)
-                            
-                            
-                            Iconoir.hourglass.asImage
-                            
-                            Text("\(challenge.users.count - challenge.completedUsers.count) members left")
-                                .font(.primaryFont(.P2))
-                            
-                            Spacer()
-                        }
-                        
-                    }.padding(.horizontal, 16)
-                    
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack{
-                            if viewModel.challengePosts.count > 0 {
-                                Text("🥇 @\(viewModel.challengePosts[0].user?.userName ?? "")")
-                                    .font(.primaryFont(.P2))
-                                    .fontWeight(.semibold)
+                            var posts = viewModel.challengePosts.sorted(by: {$0.votes > $1.votes})
+                            VStack{
+                                if posts.count > 0 {
+                                    HStack(spacing: 4){
+                                        
+                                        Text("🥇 @\(posts[0].user?.userName ?? "")")
+                                            .font(.primaryFont(.P2))
+                                            .fontWeight(.semibold)
+                                        
+                                        Spacer()
+                                        
+                                        Text("\(posts[0].votes) votes")
+                                            .font(.primaryFont(.P2))
+                                            .foregroundStyle(Color(.systemGray))
+                                    }
+                                }
+                                
+                                if posts.count > 1 {
+                                    HStack(spacing: 4){
+                                        
+                                        Text("🥈 @\(posts[1].user?.userName ?? "")")
+                                            .font(.primaryFont(.P2))
+                                            .fontWeight(.semibold)
+                                        
+                                        Spacer()
+                                        
+                                        Text("\(posts[1].votes) votes")
+                                            .font(.primaryFont(.P2))
+                                            .foregroundStyle(Color(.systemGray))
+                                    }
+                                }
+                                
+                                if posts.count > 2 {
+                                    HStack(spacing: 4){
+                                        
+                                        Text("🥉 @\(posts[2].user?.userName ?? "")")
+                                            .font(.primaryFont(.P2))
+                                            .fontWeight(.semibold)
+                                        
+                                        Spacer()
+                                        
+                                        Text("\(posts[2].votes) votes")
+                                            .font(.primaryFont(.P2))
+                                            .foregroundStyle(Color(.systemGray))
+                                    }
+                                }
                             }
-                            
-                            if viewModel.challengePosts.count > 1 {
-                                Text("🥈 @\(viewModel.challengePosts[1].user?.userName ?? "")")
-                                    .font(.primaryFont(.P2))
-                                    .fontWeight(.semibold)
-                            }
-                            
-                            if viewModel.challengePosts.count > 2 {
-                                Text("🥉 @\(viewModel.challengePosts[2].user?.userName ?? "")")
-                                    .font(.primaryFont(.P2))
-                                    .fontWeight(.semibold)
-                            }
-                        }.padding(.vertical, 8)
-                            .padding(.horizontal, 16)
+                                
+                        }.frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal, 16)
+                        .padding(.bottom, 8)
                     }
                     
                     
@@ -253,21 +349,28 @@ struct MainChallengeView: View {
                                         }
                                         if let imageurl = post.imageUrl{
                                             
-                                            ZStack(alignment: .bottomLeading){
+                                            ZStack(alignment: .topTrailing){
                                                 KFImage(URL(string: imageurl))
                                                     .resizable()
                                                     .scaledToFill()
+                                                    .matchedGeometryEffect(id: post.id, in: namespace)
                                                     .frame(width: (width - 40)/2, height: (width - 40)/2)
                                                     .clipShape(RoundedRectangle(cornerRadius: 8))
                                                     .contentShape(RoundedRectangle(cornerRadius: 8))
                                                 
-                                                /*if viewModel.votes.contains(post.id) {
-                                                    Text("Your vote")
-                                                        .font(.primaryFont(.P2))
-                                                        .fontWeight(.semibold)
-                                                        .foregroundStyle(Color(.systemGreen))
-                                                        .padding(8)
-                                                }*/
+                                                if viewModel.votes.contains(post.id) {
+                                                    ZStack{
+                                                        Circle()
+                                                             .fill(.colorOrange)
+                                                             .frame(width: 24, height: 24)
+                                                        
+                                                        Iconoir.trophy.asImage
+                                                            .resizable()
+                                                            .frame(width: 16, height: 16)
+                                                            .foregroundStyle(.colorWhite)
+                                                    }.padding(8)
+                                                   
+                                                }
                                             }
                                             
                                                 
@@ -285,9 +388,17 @@ struct MainChallengeView: View {
                                     }
                                 }
                                 .onTapGesture {
-                                    viewModel.selectedPost = post.id
-                                    print("DEBUG APP SELECTED POST: \(viewModel.selectedPost)")
-                                    viewModel.showVoteView.toggle()
+                                    
+                                    if challenge.finished != true {
+                                        viewModel.selectedPost = post.id
+                                        print("DEBUG APP SELECTED POST: \(viewModel.selectedPost)")
+                                        viewModel.showVoteView.toggle()
+                                    } else {
+                                        withAnimation(.spring){
+                                            homeVM.selectedChallengePost = post
+                                        }
+                                        
+                                    }
                                 }
                                
                                 

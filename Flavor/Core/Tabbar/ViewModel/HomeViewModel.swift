@@ -66,6 +66,8 @@ class HomeViewModel: ObservableObject{
     @Published var selectedStory: Story?
     @Published var showSelectedStory = false
     
+    @Published var selectedChallengePost: ChallengeUpload?
+    
     
     //NAVGATIONS
     @Published var navigationUser: User?

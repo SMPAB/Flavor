@@ -49,9 +49,17 @@ struct LandingCommunityView: View {
             }
             
             
-            LandingCrewView()
-                .environmentObject(homeVM)
-                .offset(x: crew ? 0 : -width)
+            ZStack{
+                LandingCrewView()
+                    .environmentObject(homeVM)
+                    .offset(x: crew ? 0 : -width)
+                
+                LandingPublicChallenges()
+                    .environmentObject(homeVM)
+                    .offset(x: crew ? width : 0)
+                    
+            }
+            
             
             
             Spacer()

@@ -202,7 +202,7 @@ struct Tabview: View {
                                 .scaledToFit()
                                 .matchedGeometryEffect(id: story.id, in: namespace)
                                 .onTapGesture {
-                                    withAnimation{
+                                    withAnimation(.linear(duration: 0.1)){
                                         homeViewModel.showSelectedStory.toggle()
                                         homeViewModel.selectedStory = nil
                                     }
@@ -215,9 +215,54 @@ struct Tabview: View {
                                     }
                                     .onEnded{ value in
                                         if value.translation.height > 200 {
-                                            withAnimation{
+                                            withAnimation(.linear(duration: 0.1)){
                                                 homeViewModel.showSelectedStory.toggle()
                                                 homeViewModel.selectedStory = nil
+                                                offsetStory = 0
+                                            }
+                                        } else {
+                                            withAnimation{
+                                                offsetStory = 0
+                                            }
+                                        }
+                                    }
+                                
+                                )
+                                
+                            
+                        }
+                    }
+                    
+                    
+                }
+                
+                
+                if let post = homeViewModel.selectedChallengePost {
+                    ZStack{
+                        
+                        Color.black.ignoresSafeArea()
+                        
+                        if let image = post.imageUrl {
+                            KFImage(URL(string: image))
+                                .resizable()
+                                .scaledToFit()
+                                .matchedGeometryEffect(id: post.id, in: namespace)
+                                .onTapGesture {
+                                    withAnimation(.linear(duration: 0.1)){
+                                        
+                                        homeViewModel.selectedChallengePost = nil
+                                    }
+                                }
+                                .offset(y: offsetStory)
+                                .gesture(
+                                DragGesture()
+                                    .onChanged{ newValue in
+                                        offsetStory = newValue.translation.height/1.4
+                                    }
+                                    .onEnded{ value in
+                                        if value.translation.height > 200 {
+                                            withAnimation(.linear(duration: 0.1)){
+                                                homeViewModel.selectedChallengePost = nil
                                                 offsetStory = 0
                                             }
                                         } else {

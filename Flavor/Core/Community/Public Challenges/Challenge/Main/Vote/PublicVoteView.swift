@@ -1,17 +1,18 @@
 //
-//  MainVoteView.swift
+//  PublicVoteView.swift
 //  Flavor
 //
-//  Created by Emilio Martinez on 2024-06-28.
+//  Created by Emilio Martinez on 2024-07-13.
 //
 
 import SwiftUI
-import Firebase
 import Iconoir
-struct MainVoteView: View {
+import Firebase
 
+struct PublicVoteView: View {
+    
     @EnvironmentObject var homeVM: HomeViewModel
-    @EnvironmentObject var viewModel: ChallengeViewModel
+    @EnvironmentObject var viewModel: MainPublicChallengeVM
     @State private var currentPostId: Int = 0
     var body: some View {
         let width = UIScreen.main.bounds.width
@@ -53,7 +54,7 @@ struct MainVoteView: View {
                 }.padding(.horizontal, 16)*/
                 TabView(selection: $currentPostId) {
                     ForEach(viewModel.challengePosts.indices, id: \.self) { index in
-                        VoteCell(challengePost: viewModel.challengePosts[index])
+                        PublicVoteCell(challengePost: viewModel.challengePosts[index], currentPostId: $currentPostId)
                             .padding(.horizontal, 16)
                             .background(
                             RoundedRectangle(cornerRadius: 16)
@@ -122,7 +123,7 @@ struct MainVoteView: View {
         }.customAlert(isPresented: $viewModel.showVote, title: nil, message: "Are you sure you want to vote on ", boldMessage: "\(viewModel.votePost?.user?.userName ?? "")", afterBold: nil,
                       confirmAction: {
             Task{
-                try await viewModel.vote(currentUser: homeVM.user)
+                try await viewModel.vote(currentUser: homeVM.user, homeVM: homeVM)
             }
         },
                       cancelAction: {
@@ -132,15 +133,34 @@ struct MainVoteView: View {
         
         .customAlert(isPresented: $viewModel.showUnvote, title: nil, message: "Are you sure you want to remove your vote on ", boldMessage: "\(viewModel.unVotePost?.user?.userName ?? "")", afterBold: nil, confirmAction: {
             Task {
-                try await viewModel.unVote(currentUser: homeVM.user)
+                try await viewModel.unVote(currentUser: homeVM.user, homeVM: homeVM)
             }
         }, cancelAction: {
             viewModel.showUnvote.toggle()
             viewModel.unVotePost = nil
         }, imageUrl: viewModel.unVotePost?.user?.profileImageUrl, dismissText: "Cancel", acceptText: "Remove")
+        
+        .customAlert(isPresented: $viewModel.showDeletePost, title: nil, message: "Are you sure you want to delete your post?", boldMessage: nil, afterBold: nil, confirmAction: {
+            
+                Task{
+                    
+                    try await viewModel.deletePost(homeVM: homeVM)
+                    homeVM.newPublicChallengePosts = []
+                    withAnimation{
+                        viewModel.showVoteView = false
+                        viewModel.showDeletePost = false
+                    }
+            }
+        }, cancelAction: {
+            withAnimation{
+                viewModel.showDeletePost = false
+            }
+            
+        }, imageUrl: viewModel.deletePost?.imageUrl, dismissText: "Cancel", acceptText: "Delete")
+        
         .onAppear {
             if let selectedPostId = viewModel.selectedPost,
-                           let index = viewModel.challengePosts.firstIndex(where: { $0.id == selectedPostId }) {
+               let index = viewModel.challengePosts.firstIndex(where: { $0.id == selectedPostId}) {
                             currentPostId = index
                 viewModel.selectedPostId = index
                         } else {
@@ -157,9 +177,7 @@ struct MainVoteView: View {
         
     }
 }
-/*
+
 #Preview {
-    MainVoteView()
-        .environmentObject(ChallengeViewModel(challenge: Challenge(id: "", crewId: "", title: "TacoFriday", description: "", startDate: Timestamp(date: Date()), endDate: Timestamp(date: Date()), votes: 1, users: [], completedUsers: []), crewVM: Maincrewviewm))
+    PublicVoteView()
 }
-*/

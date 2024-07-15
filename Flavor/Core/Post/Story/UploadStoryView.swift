@@ -108,6 +108,35 @@ struct UploadStoryView: View {
                                 
                                 Button(action: {
                                     viewModel.challenge = nil
+                                    viewModel.publicChallenge = nil
+                                }){
+                                    Iconoir.trash.asImage
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 16, height: 16)
+                                        .foregroundStyle(.colorOrange)
+                                }
+                            }.padding(.horizontal, 8)
+                            .frame(maxWidth: .infinity)
+                                .frame(height: 48)
+                                .background(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .fill(Color.clear)
+                                    .stroke(Color(.systemGray))
+                                )
+                        } else if let challenge = viewModel.publicChallenge {
+                            HStack{
+                                ImageView(size: .xsmall, imageUrl: challenge.imageUrl, background: true)
+                                
+                                Text(challenge.title)
+                                    .font(.primaryFont(.P2))
+                                    .fontWeight(.semibold)
+                                
+                                Spacer()
+                                
+                                Button(action: {
+                                    viewModel.challenge = nil
+                                    viewModel.publicChallenge = nil
                                 }){
                                     Iconoir.trash.asImage
                                         .resizable()
@@ -128,6 +157,7 @@ struct UploadStoryView: View {
                             NavigationLink(destination:
                                            SelectChallengeViewStory()
                                 .environmentObject(viewModel)
+                                .environmentObject(homeVM)
                                 .navigationBarBackButtonHidden(true)
                             ){
                                 HStack{

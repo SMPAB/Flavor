@@ -17,6 +17,9 @@ class UploadStoryVM: ObservableObject {
     @Published var allChallenges: [Challenge] = []
     @Published var challenge: Challenge?
     
+    @Published var allPublicChallenges: [PublicChallenge] = []
+    @Published var publicChallenge: PublicChallenge?
+    
     
     init(image: FilteredImage? = nil) {
         self.image = image
@@ -37,6 +40,11 @@ class UploadStoryVM: ObservableObject {
             var challengeUploadId = FirebaseConstants.ChallengeUploadCollection.document()
             if let challenge = challenge {
                 challengeUploadId = FirebaseConstants.ChallengeCollection.document(challenge.id).collection("posts").document()
+            }
+            
+            var publicChallengeId = FirebaseConstants.PublicChallengeCollection.document()
+            if let publicChallenge = publicChallenge {
+                publicChallengeId = FirebaseConstants.PublicChallengeCollection.document(publicChallenge.id).collection("posts").document()
             }
             
             var IMAGEURL: String?
@@ -72,7 +80,7 @@ class UploadStoryVM: ObservableObject {
                 .collection("seen-story")
                 .document("batch1")
             
-            try await seenStoryRef.updateData([
+            try await seenStoryRef.setData([
                    "userIds": []
                ])
             
@@ -103,6 +111,30 @@ class UploadStoryVM: ObservableObject {
                 homeVM.newChallengePosts.append(challengeToDisplay)
             }
             
+            if let publicChallenge = publicChallenge {
+                let challengeUpload = ChallengeUpload(id: publicChallengeId.documentID,
+                                                      challengeId: publicChallenge.id,
+                                                      ownerUid: user.id,
+                                                      storyId: storyId,
+                                                      imageUrl: IMAGEURL,
+                                                      timestamp: Timestamp(date: Date()),
+                                                      title: title,
+                                                      votes: 0)
+                
+                
+                guard let encodedChallengePost = try? Firestore.Encoder().encode(challengeUpload) else { return }
+                try await publicChallengeId.setData(encodedChallengePost)
+                
+                let docRef = FirebaseConstants.PublicChallengeCollection.document(publicChallenge.id)
+                
+                try await docRef.collection("completedUsers").document(user.id).setData([:])
+                
+                var challengeToDisplay = challengeUpload
+                challengeToDisplay.user = user
+                
+                homeVM.newPublicChallengePosts.append(challengeToDisplay)
+            }
+            
             //MARK: LOCAL CHANGES
             var localStory = story
             homeVM.currentUserHasStory = true
@@ -125,6 +157,14 @@ class UploadStoryVM: ObservableObject {
     func fetchAllChallenges() async throws {
         do {
             self.allChallenges = try await CrewService.fetchUserChallenges()
+        } catch {
+            return
+        }
+    }
+    
+    func fetchAllPublicChallenges(homeVM: HomeViewModel) async throws {
+        do {
+            self.allPublicChallenges = try await ChallengeService.fetchUserChallenges(user: homeVM.user)
         } catch {
             return
         }

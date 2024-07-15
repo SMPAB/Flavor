@@ -234,6 +234,8 @@ extension CrewService {
     }
     
     
+    
+    
     static func fetchChallengeResultsPosts(challengeId: String) async throws -> [ChallengeUpload] {
         do {
             var query: Query = FirebaseConstants

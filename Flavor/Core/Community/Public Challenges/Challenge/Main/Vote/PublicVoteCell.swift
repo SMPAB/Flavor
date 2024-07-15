@@ -1,8 +1,8 @@
 //
-//  VoteCell.swift
+//  PublicVoteCell.swift
 //  Flavor
 //
-//  Created by Emilio Martinez on 2024-06-28.
+//  Created by Emilio Martinez on 2024-07-13.
 //
 
 import SwiftUI
@@ -10,10 +10,10 @@ import Kingfisher
 import Firebase
 import Iconoir
 
-struct VoteCell: View {
-    
+struct PublicVoteCell: View {
     let challengePost: ChallengeUpload
-    @EnvironmentObject var challengeVM: ChallengeViewModel
+    @EnvironmentObject var challengeVM: MainPublicChallengeVM
+    @Binding var currentPostId: Int
     
     var body: some View {
         
@@ -115,7 +115,13 @@ struct VoteCell: View {
                             
                             Spacer()
                             Button(action: {
-                                
+                                withAnimation{
+                                    if currentPostId != challengeVM.challengePosts.count-1 {
+                                        currentPostId += 1
+                                        challengeVM.selectedPostId += 1
+                                    }
+                                    
+                                }
                             }){
                                 Text("Next")
                                     .font(.primaryFont(.H4))
@@ -173,5 +179,5 @@ struct VoteCell: View {
 }
 /*
 #Preview {
-    VoteCell()
+    PublicVoteCell()
 }*/

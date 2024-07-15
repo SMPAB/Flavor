@@ -23,6 +23,8 @@ class HomeViewModel: ObservableObject{
     //@Published var storys = [Story]()
     
     @Published var userFollowingUsernames = [String]()
+    @Published var fetchedFollowingUsernames = false
+    @Published var recomendedUsers: [User] = []
     
     @Published var fetchedUsers = [String]()
     
@@ -31,7 +33,7 @@ class HomeViewModel: ObservableObject{
     @Published var posts = [Post]()
     private var latestFeedFetch: DocumentSnapshot?
     @Published var fetchingPosts = false
-    
+
     //VARIABLEVIEW
     @Published var showVariableView = false
     @Published var variablesTitle: String = ""
@@ -83,6 +85,12 @@ class HomeViewModel: ObservableObject{
     @Published var newUnpinPost: String?
     
     @Published var newChallengePosts: [ChallengeUpload] = []
+    @Published var newPublicChallengePosts: [ChallengeUpload] = []
+    
+    @Published var newUploadPublicChallenge = false
+    @Published var newDeletePublicChallenge = false
+    @Published var newVotePublicChallenge = false
+    @Published var newunVotePublicChallenge = false
     
     
     
@@ -115,6 +123,7 @@ class HomeViewModel: ObservableObject{
     @MainActor
     func fetchFollowingUsernames() async throws {
         self.userFollowingUsernames = try await UserService.fetchUserFollowingUsernames(id: user.id)
+        fetchedFollowingUsernames = true
         print("Debug app userFollowing usernames: \(userFollowingUsernames)")
     }
     
@@ -123,6 +132,15 @@ class HomeViewModel: ObservableObject{
 
 //MARK: - Feed
 extension HomeViewModel {
+    
+    @MainActor
+    func fetchRecomendedUsers() async throws {
+        do {
+            self.recomendedUsers = try await UserService.fetchRecomendedUsers()
+        } catch {
+            return
+        }
+    }
     @MainActor
     func fetchFeedPosts() async throws {
         
@@ -190,7 +208,10 @@ extension HomeViewModel {
     @MainActor
     func fetchStoryUsers() async throws{
         
-        guard !userFollowingUsernames.isEmpty else { return }
+        guard !userFollowingUsernames.isEmpty else {
+            try await fetchStoryUsersNoFollowing()
+            return
+        }
         
         // Split userFollowingUsernames into chunks of up to 30 elements
         var allUserNamesToFetch = userFollowingUsernames
@@ -216,9 +237,35 @@ extension HomeViewModel {
         }
         
         // Update posts array with all fetched posts
-        self.storyUsers.append(contentsOf: allUsers)
+        
+        for i in 0..<allUsers.count{
+            if !storyUsers.contains(allUsers[i]){
+                storyUsers.append(allUsers[i])
+            }
+        }
         
         self.storyUsers.sort { $0.isCurrentUser && !$1.isCurrentUser }
+    }
+    
+    @MainActor
+    func fetchStoryUsersNoFollowing() async throws {
+        
+        let usernames = [user.userName]
+        
+        do {
+            let newUsers = try await StoryService.fetchStoryUsers(userFollowingBacth: usernames)
+            
+            for i in 0..<newUsers.count {
+                if !storyUsers.contains(newUsers[i]){
+                    storyUsers.append(newUsers[i])
+                }
+            }
+            
+            
+        } catch {
+            fetchingPosts = false
+            return
+        }
     }
     
     @MainActor
@@ -282,6 +329,7 @@ extension HomeViewModel {
 
 //MARK: - DELETE
 extension HomeViewModel {
+    @MainActor
     func deletePost() async throws {
         do {
             if let post = deletePost {

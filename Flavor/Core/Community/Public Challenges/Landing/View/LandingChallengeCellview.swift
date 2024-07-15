@@ -11,6 +11,7 @@ import Iconoir
 struct LandingChallengeCellview: View {
     
     @StateObject var viewModel: LandingChallengeCellVM
+    @EnvironmentObject var homeVM: HomeViewModel
     
     init(challenge: PublicChallenge) {
         self._viewModel = StateObject(wrappedValue: LandingChallengeCellVM(challenge: challenge))
@@ -114,6 +115,19 @@ struct LandingChallengeCellview: View {
                     try await viewModel.checkIfUseHasVoted()
                     try await viewModel.checkIfUserHasPublished()
                 }
+            }
+        
+            .onChange(of: homeVM.newUploadPublicChallenge) {
+                viewModel.challenge.userHasPublished = true
+            }
+            .onChange(of: homeVM.newDeletePublicChallenge) {
+                viewModel.challenge.userHasPublished = false
+            }
+            .onChange(of: homeVM.newVotePublicChallenge) {
+                viewModel.challenge.userDoneVoting = true
+            }
+            .onChange(of: homeVM.newunVotePublicChallenge) {
+                viewModel.challenge.userDoneVoting = false
             }
             
     }

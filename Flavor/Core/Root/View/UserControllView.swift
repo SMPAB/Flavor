@@ -22,7 +22,9 @@ struct UserControllView: View {
                 Tabview(user: user, authService: authservice)
                     .environmentObject(contentViewModel)
             } else if viewModel.user == nil && viewModel.hasFetchedUser {
-                Text("Set upp account")
+                SetupAccount()
+                    .environmentObject(viewModel)
+                    .background(.colorWhite)
             } else {
                 ZStack{
                     
@@ -46,6 +48,11 @@ struct UserControllView: View {
                 }
             }
         }.background(.colorOrange)
+            .onFirstAppear {
+                Task {
+                    try await viewModel.fetchAllUsernames()
+                }
+            }
         
     }
 }

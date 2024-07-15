@@ -18,6 +18,9 @@ class UploadFlavorPostViewModel: ObservableObject {
 
     @Published var allChallenges: [Challenge] = []
     @Published var challenge: Challenge?
+    
+    @Published var allPublicChallenges: [PublicChallenge] = []
+    @Published var publicChallenge: PublicChallenge?
 
     @Published var recipeTitle = ""
     @Published var recipeDiff: Int?
@@ -55,6 +58,11 @@ class UploadFlavorPostViewModel: ObservableObject {
                 challengeUploadId = FirebaseConstants.ChallengeCollection.document(challenge.id).collection("posts").document()
             }
             
+            var publicChallengeId = FirebaseConstants.ChallengeCollection.document()
+            if let publicChallenge = publicChallenge {
+                publicChallengeId = FirebaseConstants.PublicChallengeCollection.document(publicChallenge.id).collection("posts").document()
+            }
+            
             var post = Post(id: postId.documentID, ownerUid: user.id, ownerUsername: user.userName, likes: 0, title: title, caption: caption, imageUrls: nil, storyID: storyId.documentID, recipeId: recipe ? recipeId.documentID : nil, challengeUploadId: challenge != nil ? challengeUploadId.documentID : nil, timestamp: Timestamp(date: Date()), timestampDate: todayString, hasLiked: nil, hasSaved: nil, user: nil)
             
             var imageUrls: [String] = []
@@ -82,13 +90,19 @@ class UploadFlavorPostViewModel: ObservableObject {
             
             //MARK: UPDATE USER
             //update postIds and latest story
-            var postsIds = homeVM.user.postIds
-            postsIds?.insert(postId.documentID, at: 0)
+            var postsIds = homeVM.user.postIds ?? []
+            postsIds.insert(postId.documentID, at: 0)
             var userData = [String:Any]()
             userData["postIds"] = postsIds
             userData["latestStory"] = todayString
-            homeVM.user.postIds?.insert(postId.documentID, at: 0)
-            try await FirebaseConstants.UserCollection.document(user.id).updateData(userData)
+            
+            if homeVM.user.postIds != nil {
+                homeVM.user.postIds?.insert(postId.documentID, at: 0)
+            } else {
+                homeVM.user.postIds = [postId.documentID]
+            }
+            
+            try await FirebaseConstants.UserCollection.document(user.id).setData(userData, merge: true)
             
             //add date to uploaddays
             let uploadDates = try await StoryService.fetchCalenderStoryDays(user.id)
@@ -106,7 +120,7 @@ class UploadFlavorPostViewModel: ObservableObject {
                 .collection("seen-story")
                 .document("batch1")
             
-            try await seenStoryRef.updateData([
+            try await seenStoryRef.setData([
                    "userIds": []
                ])
             
@@ -157,6 +171,30 @@ class UploadFlavorPostViewModel: ObservableObject {
                 homeVM.newChallengePosts.append(challengeToDisplay)
             }
             
+            if let publicChallenge = publicChallenge {
+                let challengeUpload = ChallengeUpload(id: publicChallengeId.documentID,
+                                                      challengeId: publicChallenge.id,
+                                                      ownerUid: user.id,
+                                                      storyId: storyId.documentID,
+                                                      imageUrl: imageUrls[0],
+                                                      timestamp: Timestamp(date: Date()),
+                                                      title: title,
+                                                      votes: 0)
+                
+                
+                guard let encodedChallengePost = try? Firestore.Encoder().encode(challengeUpload) else { return }
+                try await publicChallengeId.setData(encodedChallengePost)
+                
+                let docRef = FirebaseConstants.PublicChallengeCollection.document(publicChallenge.id)
+                
+                try await docRef.collection("completedUsers").document(user.id).setData([:])
+                
+                var challengeToDisplay = challengeUpload
+                challengeToDisplay.user = user
+                
+                homeVM.newPublicChallengePosts.append(challengeToDisplay)
+            }
+            
             
             
             //MARK: HOMEVIEWMODEL!
@@ -183,6 +221,7 @@ class UploadFlavorPostViewModel: ObservableObject {
 
             
         } catch {
+            print("DEBUG APP LOCAL ERROR: \(error.localizedDescription)")
             return
         }
     }
@@ -190,6 +229,14 @@ class UploadFlavorPostViewModel: ObservableObject {
     func fetchAllChallenges() async throws {
         do {
             self.allChallenges = try await CrewService.fetchUserChallenges()
+        } catch {
+            return
+        }
+    }
+    
+    func fetchAllPublicChallenges(homeVM: HomeViewModel) async throws {
+        do {
+            self.allPublicChallenges = try await ChallengeService.fetchUserChallenges(user: homeVM.user)
         } catch {
             return
         }

@@ -14,6 +14,8 @@ struct currentProfilveView: View {
     @EnvironmentObject var homeVM: HomeViewModel
     @EnvironmentObject var contentViewModel: ContentViewModel
     
+    @State var showCamera = false
+    
     @State var offsetRectangle: CGFloat = 0
     
     @State var mockPostForGrid: [Post] = [Post.mockPosts[0], Post.mockPosts[0], Post.mockPosts[0], Post.mockPosts[0], Post.mockPosts[0], Post.mockPosts[0], Post.mockPosts[0], Post.mockPosts[0]]
@@ -243,16 +245,36 @@ struct currentProfilveView: View {
                 LazyVStack {
                     if viewModel.grid {
                         
-                        
-                        if user.isCurrentUser{
-                            TestGrid(posts: viewModel.postIds, variableTitle: "Flavors", variableSubtitle: "\(user.userName)")
-                                .environmentObject(viewModel)
-                                .environmentObject(homeVM)
-                        } else {
-                            TestGrid(posts: viewModel.postIds, variableTitle: "Flavors", variableSubtitle: "\(user.userName)")
-                                .environmentObject(viewModel)
-                                .environmentObject(homeVM)
+                        ZStack{
+                            if user.isCurrentUser{
+                                TestGrid(posts: viewModel.postIds, variableTitle: "Flavors", variableSubtitle: "\(user.userName)")
+                                    .environmentObject(viewModel)
+                                    .environmentObject(homeVM)
+                            }
+                            
+                            if viewModel.postIds.isEmpty && homeVM.newPosts.isEmpty {
+                                VStack{
+                                    
+                                    HStack{
+                                        
+                                        Button(action: {
+                                            showCamera.toggle()
+                                        }) {
+                                            Iconoir.plus.asImage
+                                                .foregroundStyle(.colorWhite)
+                                                .frame(width: width/3, height: width/3)
+                                                .background(
+                                                RoundedRectangle(cornerRadius: 8)
+                                                    .fill(Color(.systemGray6))
+                                                )
+                                        }
+                                        Spacer()
+                                    }.padding(.leading, 8)
+                                    Spacer()
+                                }.offset(y: -8)
+                            }
                         }
+                        
                         
                     }
                 }
@@ -339,6 +361,11 @@ struct currentProfilveView: View {
                 .environmentObject(homeVM)
                 .environmentObject(viewModel)
         }
+        
+        .fullScreenCover(isPresented: $showCamera){
+            LandingCameraView(story: .constant(false))
+                .environmentObject(homeVM)
+        }
         .onChange(of: homeVM.newPosts){ newValue in
             for i in 0..<newValue.count{
                 let newPost = newValue[i]
@@ -412,6 +439,8 @@ struct currentProfilveView: View {
                 
             }
         }
+        
+        
     }
 }
 

@@ -157,6 +157,10 @@
 		185A6A732C1F9A070006E5B0 /* BlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185A6A722C1F9A070006E5B0 /* BlockView.swift */; };
 		185A6A752C1FA2EA0006E5B0 /* ReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185A6A742C1FA2EA0006E5B0 /* ReportView.swift */; };
 		185A6A792C1FB57A0006E5B0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 185A6A782C1FB57A0006E5B0 /* GoogleService-Info.plist */; };
+		18623F8E2C3C3DF700B26DF5 /* PublicChallengeFocusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18623F8D2C3C3DF700B26DF5 /* PublicChallengeFocusView.swift */; };
+		18623F912C3C3E1900B26DF5 /* PublicChallengeFocusVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18623F902C3C3E1900B26DF5 /* PublicChallengeFocusVM.swift */; };
+		18623F942C3EE36300B26DF5 /* MainPublicChallengeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18623F932C3EE36300B26DF5 /* MainPublicChallengeVM.swift */; };
+		18623F962C3EE37C00B26DF5 /* MainPublicChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18623F952C3EE37C00B26DF5 /* MainPublicChallengeView.swift */; };
 		186E2B792C1AE567003E35D4 /* MainHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E2B782C1AE567003E35D4 /* MainHomeView.swift */; };
 		186E2B7B2C1AE63B003E35D4 /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E2B7A2C1AE63B003E35D4 /* PostService.swift */; };
 		186E2B7D2C1AE6A4003E35D4 /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E2B7C2C1AE6A4003E35D4 /* FeedView.swift */; };
@@ -170,6 +174,11 @@
 		188E62DD2C242704001D9FBB /* CreatCrewUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188E62DC2C242704001D9FBB /* CreatCrewUserCell.swift */; };
 		188E62DF2C24270F001D9FBB /* CreateCrewUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188E62DE2C24270F001D9FBB /* CreateCrewUserCell.swift */; };
 		188E62E12C242B39001D9FBB /* CreateCrewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188E62E02C242B39001D9FBB /* CreateCrewCell.swift */; };
+		189016092C42A17B00609C50 /* PublicVoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189016082C42A17B00609C50 /* PublicVoteView.swift */; };
+		1890160B2C42A8CD00609C50 /* PublicVoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1890160A2C42A8CD00609C50 /* PublicVoteCell.swift */; };
+		1890160E2C432DB000609C50 /* SetupAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1890160D2C432DB000609C50 /* SetupAccount.swift */; };
+		189016112C43D49800609C50 /* RecomendedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189016102C43D49800609C50 /* RecomendedCell.swift */; };
+		189016132C43D4A200609C50 /* RecomendedCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189016122C43D4A200609C50 /* RecomendedCellViewModel.swift */; };
 		1894196B2C28346F006BECDA /* EditCrewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1894196A2C28346F006BECDA /* EditCrewView.swift */; };
 		1894196D2C283D9D006BECDA /* EditCrewList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1894196C2C283D9D006BECDA /* EditCrewList.swift */; };
 		1894196F2C283F0B006BECDA /* EditCrewUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1894196E2C283F0B006BECDA /* EditCrewUserCell.swift */; };
@@ -356,6 +365,10 @@
 		185A6A722C1F9A070006E5B0 /* BlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockView.swift; sourceTree = "<group>"; };
 		185A6A742C1FA2EA0006E5B0 /* ReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportView.swift; sourceTree = "<group>"; };
 		185A6A782C1FB57A0006E5B0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		18623F8D2C3C3DF700B26DF5 /* PublicChallengeFocusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicChallengeFocusView.swift; sourceTree = "<group>"; };
+		18623F902C3C3E1900B26DF5 /* PublicChallengeFocusVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicChallengeFocusVM.swift; sourceTree = "<group>"; };
+		18623F932C3EE36300B26DF5 /* MainPublicChallengeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPublicChallengeVM.swift; sourceTree = "<group>"; };
+		18623F952C3EE37C00B26DF5 /* MainPublicChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPublicChallengeView.swift; sourceTree = "<group>"; };
 		186E2B782C1AE567003E35D4 /* MainHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHomeView.swift; sourceTree = "<group>"; };
 		186E2B7A2C1AE63B003E35D4 /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
 		186E2B7C2C1AE6A4003E35D4 /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
@@ -369,6 +382,11 @@
 		188E62DC2C242704001D9FBB /* CreatCrewUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatCrewUserCell.swift; sourceTree = "<group>"; };
 		188E62DE2C24270F001D9FBB /* CreateCrewUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCrewUserCell.swift; sourceTree = "<group>"; };
 		188E62E02C242B39001D9FBB /* CreateCrewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCrewCell.swift; sourceTree = "<group>"; };
+		189016082C42A17B00609C50 /* PublicVoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicVoteView.swift; sourceTree = "<group>"; };
+		1890160A2C42A8CD00609C50 /* PublicVoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicVoteCell.swift; sourceTree = "<group>"; };
+		1890160D2C432DB000609C50 /* SetupAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupAccount.swift; sourceTree = "<group>"; };
+		189016102C43D49800609C50 /* RecomendedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecomendedCell.swift; sourceTree = "<group>"; };
+		189016122C43D4A200609C50 /* RecomendedCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecomendedCellViewModel.swift; sourceTree = "<group>"; };
 		1894196A2C28346F006BECDA /* EditCrewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCrewView.swift; sourceTree = "<group>"; };
 		1894196C2C283D9D006BECDA /* EditCrewList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCrewList.swift; sourceTree = "<group>"; };
 		1894196E2C283F0B006BECDA /* EditCrewUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCrewUserCell.swift; sourceTree = "<group>"; };
@@ -680,6 +698,7 @@
 		1839638F2C37F6100030278E /* Public Challenges */ = {
 			isa = PBXGroup;
 			children = (
+				18623F8C2C3C3DE700B26DF5 /* Challenge */,
 				183963982C3814250030278E /* Landing */,
 			);
 			path = "Public Challenges";
@@ -1153,6 +1172,7 @@
 		1844C25F2C18D8D000243FAB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1890160C2C432D8A00609C50 /* Setup */,
 				18332F1D2C19973A002E95F4 /* RegistrationFlow */,
 				18DDBD192C1906EB00E288DE /* LoginView.swift */,
 				18332F332C19BC09002E95F4 /* ForgottPassword.swift */,
@@ -1338,9 +1358,38 @@
 			path = Report;
 			sourceTree = "<group>";
 		};
+		18623F8C2C3C3DE700B26DF5 /* Challenge */ = {
+			isa = PBXGroup;
+			children = (
+				18623F922C3EE35600B26DF5 /* Main */,
+				18623F8F2C3C3E0200B26DF5 /* Focus */,
+			);
+			path = Challenge;
+			sourceTree = "<group>";
+		};
+		18623F8F2C3C3E0200B26DF5 /* Focus */ = {
+			isa = PBXGroup;
+			children = (
+				18623F8D2C3C3DF700B26DF5 /* PublicChallengeFocusView.swift */,
+				18623F902C3C3E1900B26DF5 /* PublicChallengeFocusVM.swift */,
+			);
+			path = Focus;
+			sourceTree = "<group>";
+		};
+		18623F922C3EE35600B26DF5 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				189016072C42A16900609C50 /* Vote */,
+				18623F932C3EE36300B26DF5 /* MainPublicChallengeVM.swift */,
+				18623F952C3EE37C00B26DF5 /* MainPublicChallengeView.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
 		186E2B762C1AE554003E35D4 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				1890160F2C43D47E00609C50 /* Recomended */,
 				185A6A602C1F79A00006E5B0 /* Search */,
 				184060D22C1C89530002894C /* Story */,
 				18C954422C1B170C00B6439E /* Comments */,
@@ -1403,6 +1452,32 @@
 				188E62DE2C24270F001D9FBB /* CreateCrewUserCell.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		189016072C42A16900609C50 /* Vote */ = {
+			isa = PBXGroup;
+			children = (
+				189016082C42A17B00609C50 /* PublicVoteView.swift */,
+				1890160A2C42A8CD00609C50 /* PublicVoteCell.swift */,
+			);
+			path = Vote;
+			sourceTree = "<group>";
+		};
+		1890160C2C432D8A00609C50 /* Setup */ = {
+			isa = PBXGroup;
+			children = (
+				1890160D2C432DB000609C50 /* SetupAccount.swift */,
+			);
+			path = Setup;
+			sourceTree = "<group>";
+		};
+		1890160F2C43D47E00609C50 /* Recomended */ = {
+			isa = PBXGroup;
+			children = (
+				189016102C43D49800609C50 /* RecomendedCell.swift */,
+				189016122C43D4A200609C50 /* RecomendedCellViewModel.swift */,
+			);
+			path = Recomended;
 			sourceTree = "<group>";
 		};
 		189419672C283454006BECDA /* Edit */ = {
@@ -1758,6 +1833,7 @@
 				183C7D1D2C20635600E00241 /* NewPostView.swift in Sources */,
 				183B22092C19E5DD008A3DCF /* ImagePickerViewModel.swift in Sources */,
 				1839638C2C361C1A0030278E /* ReportStory.swift in Sources */,
+				18623F942C3EE36300B26DF5 /* MainPublicChallengeVM.swift in Sources */,
 				18DDBD122C18E60000E288DE /* User.swift in Sources */,
 				180D88BD2C2EDFEB0030322B /* MainVoteView.swift in Sources */,
 				18C9545A2C1B3E8700B6439E /* FocusPostView.swift in Sources */,
@@ -1766,6 +1842,7 @@
 				183C7D0E2C20497600E00241 /* MainSettingsView.swift in Sources */,
 				183C7D082C20393000E00241 /* FriendRequestCellViewModel.swift in Sources */,
 				183C7D282C2072A300E00241 /* UploadPostView.swift in Sources */,
+				18623F912C3C3E1900B26DF5 /* PublicChallengeFocusVM.swift in Sources */,
 				183C7CEF2C2027F000E00241 /* Notification.swift in Sources */,
 				1894196F2C283F0B006BECDA /* EditCrewUserCell.swift in Sources */,
 				183963AB2C397E590030278E /* FinishedChallengeCellVM.swift in Sources */,
@@ -1784,6 +1861,7 @@
 				189D02222C20DE9C00A93C4B /* camera.swift in Sources */,
 				180D88DD2C32CDFD0030322B /* GridCell.swift in Sources */,
 				18F5FE4F2C255F7500A94B57 /* ChallengeUpload.swift in Sources */,
+				18623F962C3EE37C00B26DF5 /* MainPublicChallengeView.swift in Sources */,
 				183B21EF2C19D105008A3DCF /* UserControllView.swift in Sources */,
 				184060EB2C1DDF3D0002894C /* CreateAlbumViewModel.swift in Sources */,
 				183B21F12C19D117008A3DCF /* UserControllViewModel.swift in Sources */,
@@ -1800,16 +1878,20 @@
 				18332F1C2C1994A5002E95F4 /* CustomAlertModifier.swift in Sources */,
 				183C7D2A2C20782400E00241 /* UploadFlavorPostViewModel.swift in Sources */,
 				183C7D172C2050FD00E00241 /* BlockCell.swift in Sources */,
+				189016112C43D49800609C50 /* RecomendedCell.swift in Sources */,
 				18332F342C19BC09002E95F4 /* ForgottPassword.swift in Sources */,
+				189016132C43D4A200609C50 /* RecomendedCellViewModel.swift in Sources */,
 				186E2B7B2C1AE63B003E35D4 /* PostService.swift in Sources */,
 				183C7CED2C2027E400E00241 /* NotificationCell.swift in Sources */,
 				185A6A5B2C1F37530006E5B0 /* EditGridItemCell.swift in Sources */,
 				18332F292C19AD70002E95F4 /* HeaderRegisration.swift in Sources */,
+				189016092C42A17B00609C50 /* PublicVoteView.swift in Sources */,
 				188E62E12C242B39001D9FBB /* CreateCrewCell.swift in Sources */,
 				186E2B792C1AE567003E35D4 /* MainHomeView.swift in Sources */,
 				1894196B2C28346F006BECDA /* EditCrewView.swift in Sources */,
 				18DDBD222C19159200E288DE /* KeyboardDismiss.swift in Sources */,
 				188E62DB2C242427001D9FBB /* CreateCrewUserList.swift in Sources */,
+				1890160B2C42A8CD00609C50 /* PublicVoteCell.swift in Sources */,
 				180D88E92C34383C0030322B /* OptionsSheet.swift in Sources */,
 				1844C2292C18D13900243FAB /* FlavorApp.swift in Sources */,
 				180D88EF2C34507E0030322B /* PlayGround.swift in Sources */,
@@ -1859,10 +1941,12 @@
 				180D88E42C3313510030322B /* challengelaoder.swift in Sources */,
 				183B22062C19DEDE008A3DCF /* CustomButton.swift in Sources */,
 				181761832C24D1EE00E52AB0 /* Challenge.swift in Sources */,
+				1890160E2C432DB000609C50 /* SetupAccount.swift in Sources */,
 				184060D62C1C89770002894C /* StoryIconView.swift in Sources */,
 				1839639C2C3814420030278E /* LandingChallengeCellview.swift in Sources */,
 				180D88B82C2EBF0D0030322B /* CreateChallengeView.swift in Sources */,
 				183963952C37F6E20030278E /* PublicChallenge.swift in Sources */,
+				18623F8E2C3C3DF700B26DF5 /* PublicChallengeFocusView.swift in Sources */,
 				183B22112C1A12D2008A3DCF /* EditProfileView.swift in Sources */,
 				184060D12C1C30C00002894C /* GridView.swift in Sources */,
 				183963932C37F6A90030278E /* ChallengeService.swift in Sources */,
@@ -2036,7 +2120,8 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2069,7 +2154,8 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

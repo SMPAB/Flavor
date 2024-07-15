@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "B9C986A9-7186-488B-9288-265718DA04ED"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A06FD996-DFD1-487C-9AEC-037B10BA6642"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Flavor/Core/Community/Public Challenges/Challenge/Focus/PublicChallengeFocusView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "50935FC6-3374-4BCE-B94F-420D52242667"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Flavor/Core/Community/Public Challenges/Challenge/Main/MainPublicChallengeView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "384"
+            endingLineNumber = "384"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "50935FC6-3374-4BCE-B94F-420D52242667 - 9b592d4d936a3474"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; () in closure #1 () -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.onChange&lt;&#x3c4;_0_0 where &#x3c4;_1_0: Swift.Equatable&gt;(of: &#x3c4;_1_0, initial: Swift.Bool, _: () -&gt; ()) -&gt; some&gt;&gt;.0, Swift.Optional&lt;&lt;&lt;opaque return type of SwiftUI.View.background&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(_: &#x3c4;_1_0, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0&gt;, Swift.Optional&lt;&lt;&lt;opaque return type of SwiftUI.View.customAlert(isPresented: SwiftUI.Binding&lt;Swift.Bool&gt;, title: Swift.Optional&lt;Swift.String&gt;, message: Swift.String, boldMessage: Swift.Optional&lt;Swift.String&gt;, afterBold: Swift.Optional&lt;Swift.String&gt;, confirmAction: () -&gt; (), cancelAction: () -&gt; (), imageUrl: Swift.Optional&lt;Swift.String&gt;, dismissText: Swift.String, acceptText: Swift.String) -&gt; some&gt;&gt;.0&gt;)&gt; in Flavor.MainPublicChallengeView.body.getter : some"
+                  moduleName = "Flavor"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/emiliomartinez/Documents/Kodning/Flavor/Flavor/Core/Community/Public%20Challenges/Challenge/Main/MainPublicChallengeView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "384"
+                  endingLineNumber = "384">
+               </Location>
+               <Location
+                  uuid = "50935FC6-3374-4BCE-B94F-420D52242667 - 630059e3d489127d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable () async throws -&gt; () in closure #2 () -&gt; () in closure #1 () -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.onChange&lt;&#x3c4;_0_0 where &#x3c4;_1_0: Swift.Equatable&gt;(of: &#x3c4;_1_0, initial: Swift.Bool, _: () -&gt; ()) -&gt; some&gt;&gt;.0, Swift.Optional&lt;&lt;&lt;opaque return type of SwiftUI.View.background&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(_: &#x3c4;_1_0, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0&gt;, Swift.Optional&lt;&lt;&lt;opaque return type of SwiftUI.View.customAlert(isPresented: SwiftUI.Binding&lt;Swift.Bool&gt;, title: Swift.Optional&lt;Swift.String&gt;, message: Swift.String, boldMessage: Swift.Optional&lt;Swift.String&gt;, afterBold: Swift.Optional&lt;Swift.String&gt;, confirmAction: () -&gt; (), cancelAction: () -&gt; (), imageUrl: Swift.Optional&lt;Swift.String&gt;, dismissText: Swift.String, acceptText: Swift.String) -&gt; some&gt;&gt;.0&gt;)&gt; in Flavor.MainPublicChallengeView.body.getter : some"
+                  moduleName = "Flavor"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/emiliomartinez/Documents/Kodning/Flavor/Flavor/Core/Community/Public%20Challenges/Challenge/Main/MainPublicChallengeView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "384"
+                  endingLineNumber = "384">
+               </Location>
+               <Location
+                  uuid = "50935FC6-3374-4BCE-B94F-420D52242667 - 517986884de7ac58"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for closure #1 @Sendable () async throws -&gt; () in closure #2 () -&gt; () in closure #1 () -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.onChange&lt;&#x3c4;_0_0 where &#x3c4;_1_0: Swift.Equatable&gt;(of: &#x3c4;_1_0, initial: Swift.Bool, _: () -&gt; ()) -&gt; some&gt;&gt;.0, Swift.Optional&lt;&lt;&lt;opaque return type of SwiftUI.View.background&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(_: &#x3c4;_1_0, alignment: SwiftUI.Alignment) -&gt; some&gt;&gt;.0&gt;, Swift.Optional&lt;&lt;&lt;opaque return type of SwiftUI.View.customAlert(isPresented: SwiftUI.Binding&lt;Swift.Bool&gt;, title: Swift.Optional&lt;Swift.String&gt;, message: Swift.String, boldMessage: Swift.Optional&lt;Swift.String&gt;, afterBold: Swift.Optional&lt;Swift.String&gt;, confirmAction: () -&gt; (), cancelAction: () -&gt; (), imageUrl: Swift.Optional&lt;Swift.String&gt;, dismissText: Swift.String, acceptText: Swift.String) -&gt; some&gt;&gt;.0&gt;)&gt; in Flavor.MainPublicChallengeView.body.getter : some"
+                  moduleName = "Flavor"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/emiliomartinez/Documents/Kodning/Flavor/Flavor/Core/Community/Public%20Challenges/Challenge/Main/MainPublicChallengeView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "384"
+                  endingLineNumber = "384">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

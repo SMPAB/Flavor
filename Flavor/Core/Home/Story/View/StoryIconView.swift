@@ -11,6 +11,8 @@ import Iconoir
 struct StoryIconView: View {
     
     @EnvironmentObject var homeVM: HomeViewModel
+    
+    @State var showCamera = false
     var body: some View {
         ScrollView(.horizontal){
             HStack(spacing: 16){
@@ -31,6 +33,9 @@ struct StoryIconView: View {
                                         .fill(.colorOrange)
                                 )
                                 .offset(x: 30, y: 30)
+                                .onTapGesture {
+                                    showCamera.toggle()
+                                }
                                 
                     }.padding(.trailing, 8)
                 } else {
@@ -52,7 +57,7 @@ struct StoryIconView: View {
                             }.offset(x: 30, y: 30)
                         }.padding(.trailing, 8)
                         .onTapGesture {
-                            
+                            showCamera.toggle()
                         }
                         
                     
@@ -67,6 +72,10 @@ struct StoryIconView: View {
                 }
             }.frame(height: 100)
                 .padding(.leading, 16)
+        }
+        .fullScreenCover(isPresented: $showCamera){
+            LandingCameraView(story: .constant(true))
+                .environmentObject(homeVM)
         }
     }
 }

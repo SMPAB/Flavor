@@ -7,7 +7,7 @@
  * See a full list of supported triggers at https://firebase.google.com/docs/functions
  */
 const {onRequest} = require("firebase-functions/v2/https");
-const {onDocumentCreated} = require("firebase-functions/v2/firestore");
+const {onDocumentCreated, onDocumentDeleted} = require("firebase-functions/v2/firestore");
 const logger = require("firebase-functions/logger");
 const admin = require("firebase-admin");
 admin.initializeApp();
@@ -62,3 +62,4 @@ exports.sendNotification = onDocumentCreated('/push-notifications/{uid}/notifica
     }
     
 });
+

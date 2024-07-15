@@ -8,7 +8,6 @@
 import Foundation
 import Firebase
 import SwiftUI
-
 class ChallengeViewModel: ObservableObject {
     @Published var challenge: Challenge
     

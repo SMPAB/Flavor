@@ -143,6 +143,25 @@ struct MainSettingsView: View {
                     .shadow(radius: 3)
             )
             
+            HStack{
+                
+                Spacer()
+                VStack(spacing: 16){
+                    Image(.logoFullGray)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 88)
+                    
+                    Text("Version 2.0.1")
+                        .font(.primaryFont(.P2))
+                        .foregroundStyle(Color(.systemGray))
+                }
+                
+                Spacer()
+            }
+            
+            
+            
             Spacer()
         }
         .padding(.horizontal, 16)
@@ -162,7 +181,7 @@ struct MainSettingsView: View {
     func deleteAccount() {
         Task{
             try await UserService.deleteAccount(profileVM.user)
-            AuthService.shared.signout()
+           // AuthService.shared.signout()
             AuthService.shared.userSession = nil
             contentViewModel.userSession = nil
         }

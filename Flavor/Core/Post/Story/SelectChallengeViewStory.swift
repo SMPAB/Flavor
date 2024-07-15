@@ -11,6 +11,7 @@ import Firebase
 struct SelectChallengeViewStory: View {
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var viewModel: UploadStoryVM
+    @EnvironmentObject var homeVM: HomeViewModel
     
     var body: some View {
         ScrollView {
@@ -36,9 +37,36 @@ struct SelectChallengeViewStory: View {
                     
                 }.padding(.horizontal, 16)
                 
+                
+                ForEach(viewModel.allPublicChallenges.filter({$0.userHasPublished != true})) { challenge in
+                    Button(action: {
+                        viewModel.publicChallenge = challenge
+                        viewModel.challenge = nil
+                        dismiss()
+                    }) {
+                        HStack{
+                            ImageView(size: .small, imageUrl: challenge.imageUrl, background: true)
+
+                            VStack(alignment: .leading){
+                                Text(challenge.title)
+                                    .font(.primaryFont(.P1))
+                                    .fontWeight(.semibold)
+                                
+                                Text(challenge.ownerName)
+                                    .font(.primaryFont(.P2))
+                                    .foregroundStyle(Color(.systemGray))
+                            }
+                            
+                            Spacer()
+                        }.padding(.horizontal, 16)
+                            .foregroundStyle(.black)
+                    }
+                }
+                
                 ForEach(viewModel.allChallenges.filter({!$0.completedUsers.contains(Auth.auth().currentUser?.uid ?? "")})){ challenge in
                     Button(action: {
                         viewModel.challenge = challenge
+                        viewModel.publicChallenge = nil
                         dismiss()
                     }) {
                         HStack{
@@ -62,6 +90,7 @@ struct SelectChallengeViewStory: View {
             }
         }.onFirstAppear {
             Task{
+                try await viewModel.fetchAllPublicChallenges(homeVM: homeVM)
                 try await viewModel.fetchAllChallenges()
             }
         }

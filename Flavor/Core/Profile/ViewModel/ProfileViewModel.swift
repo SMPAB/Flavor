@@ -262,15 +262,23 @@ extension ProfileViewModel {
         self.user.hasFriendRequests = try await UserService.checkIfUserHasFriendRequest(id)
     }
     @MainActor
-    func follow(userToFollow: User, userFollowing: User) async throws{
-            self.user.isFollowed = true
-            try await UserService.follow(userToFollow: userToFollow, userFollowing: userFollowing)
-            try await NotificationsManager.shared.uploadFollowNotification(toUid: userToFollow.id)
+    func follow(userToFollow: User, userFollowing: User, homeVM: HomeViewModel) async throws{
+        self.user.isFollowed = true
+        try await UserService.follow(userToFollow: userToFollow, userFollowing: userFollowing)
+        try await NotificationsManager.shared.uploadFollowNotification(toUid: userToFollow.id)
+       
+        if let index = homeVM.recomendedUsers.firstIndex(where: {$0.id == userToFollow.id}){
+            homeVM.recomendedUsers[index].isFollowed = true
+        }
     }
     @MainActor
-    func unfollow(userToUnfollow: User, userUnfollowing: User) async throws {
+    func unfollow(userToUnfollow: User, userUnfollowing: User, homeVM: HomeViewModel) async throws {
         self.user.isFollowed = false
         try await UserService.unfollow(userToUnfollow: userToUnfollow, userUnfollowing: userUnfollowing)
+        
+        if let index = homeVM.recomendedUsers.firstIndex(where: {$0.id == userToUnfollow.id}){
+            homeVM.recomendedUsers[index].isFollowed = false
+        }
     }
     @MainActor
     func unsendFriendRequest(userToUnFriendRequest: User, userUnfriendrequesting: User) async throws{

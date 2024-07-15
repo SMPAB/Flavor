@@ -137,6 +137,25 @@ class UserService{
         }
     }
     
+    @MainActor
+    static func fetchRecomendedUsers() async throws -> [User] {
+        
+        guard let currentUid = Auth.auth().currentUser?.uid else { return []}
+        do {
+           let snapshot = try await FirebaseConstants
+                .UserCollection
+                .whereField("publicAccount", isEqualTo: true)
+                .limit(to: 5)
+                .getDocuments()
+            
+            let users = snapshot.documents.compactMap({try? $0.data(as: User.self)}).filter({$0.id != currentUid})
+            return users
+            
+        } catch {
+            return []
+        }
+    }
+    
     
     @MainActor
     static func usersToNotShow() async throws -> [String]{
@@ -511,20 +530,154 @@ extension UserService {
 
 extension UserService{
     static func deleteAccount(_ user: User) async throws {
-        //MARK: DELETE USERNAME FROM BACKEND
         
-        //MARK: FETCH ALL USERFOLLOWERS, GO INTO THERE USER FOLLOWING AND DELETEE USERNAME, ID,
-        
-        //MARK: FETCH ALL USERFOLLOWING, UNFOLLOW ALL USERS
-        
-        //MARK: FETCH ALL CREWS USER IS IN, REMOVE FROM CREW
-        
-        //MARK: DELETE ALL POSTS USER HAS
-        
-        //MARK: DELETE ALL STORYS USER HAS
-        
-        //MARK: DELETE ALL CHALLENGPOST USER HAS
-        
-        //MARK: DELETE ACCOUNT FROM FIREBASE...
+        do {
+            
+            //MARK: DELETE ALL CHALLENGPOST USER HAS
+            
+            let challengeSnapshot = try await FirebaseConstants
+                .ChallengeCollection
+                .whereField("users", arrayContains: user.id)
+                .getDocuments()
+            
+            let challenges = challengeSnapshot.documents.compactMap({try? $0.data(as: Challenge.self)})
+            
+            for i in 0..<challenges.count {
+                let challenge = challenges[i]
+                let challengePostsSnap = try await FirebaseConstants.ChallengeCollection.document(challenge.id).collection("posts").whereField("ownerUid", isEqualTo: user.id).getDocuments()
+                
+                let challengePostsIds = challengePostsSnap.documents.map {$0.documentID}
+                
+                for challengePostsId in challengePostsIds {
+                    try await FirebaseConstants.ChallengeCollection.document(challenge.id).collection("posts").document(challengePostsId).delete()
+                }
+            }
+            
+            //MARK: FETCH ALL CREWS USER IS IN, REMOVE FROM CREW
+            
+            try await leaveCrew(user)
+            
+            
+            //MARK: DELETE USERNAME FROM BACKEND
+            try await FirebaseConstants.userNameCollection.document("batch1").setData(["usernames": FieldValue.arrayRemove([user.userName])], merge: true)
+            
+            //MARK: FETCH ALL USERFOLLOWERS, GO INTO THERE USER FOLLOWING AND DELETEE USERNAME, ID,
+            
+            let followingSnapshot = try await FirebaseConstants.FollowingCollection.document(user.id).collection("user-followingID").getDocuments()
+            let followingIDs = followingSnapshot.documents.map { $0.documentID }
+            
+            for followingID in followingIDs {
+                try await FirebaseConstants.FollowersCollection.document(followingID).collection("user-followersUsername").document("batch1").setData(["usernames": FieldValue.arrayRemove([user.userName])], merge: true)
+                
+                try await FirebaseConstants.FollowersCollection.document(followingID).collection("user-followersID").document(user.id).delete()
+                
+                try await FirebaseConstants.FollowersCollection.document(followingID).collection("friend-requestID").document("batch1").setData(["ids": FieldValue.arrayRemove([user.id])], merge: true)
+                
+                try await FirebaseConstants.FollowersCollection.document(followingID).collection("friend-requestUsername").document("batch1").setData(["usernames": FieldValue.arrayRemove([user.userName])], merge: true)
+                
+                try await FirebaseConstants.FollowersCollection.document(followingID).collection("friend-requestID").document(user.id).delete()
+                
+                
+            }
+            
+            
+            
+            //MARK: FETCH ALL USERFOLLOWING, UNFOLLOW ALL USERS
+            
+            let followersSnapshot = try await FirebaseConstants.FollowersCollection.document(user.id).collection("user-followersID").getDocuments()
+            let followersIDS = followersSnapshot.documents.map {$0.documentID}
+            
+            for followerID in followersIDS {
+                try await FirebaseConstants.FollowingCollection.document(followerID).collection("user-followingID").document(user.id).delete()
+                
+                try await FirebaseConstants.FollowingCollection.document(followerID).collection("user-followingUsername").document("batch1").setData(["usernames": FieldValue.arrayRemove([user.userName])], merge: true)
+            }
+            
+            try await FirebaseConstants.FollowingCollection.document(user.id).delete()
+            try await FirebaseConstants.FollowersCollection.document(user.id).delete()
+            
+            //MARK: DELETE POSTS IN PUBLIC CHALLENGES
+            
+            if let publicChallenges = user.publicChallenges {
+                for i in 0..<publicChallenges.count {
+                    let challenge = publicChallenges[i]
+                    
+                    let snapshotPublic = try await FirebaseConstants.PublicChallengeCollection.document(challenge).collection("posts").whereField("ownerUid", isEqualTo: user.id).getDocuments()
+                    
+                    let publicPosts = snapshotPublic.documents.map {$0.documentID}
+                    for i in 0..<publicPosts.count{
+                        try await FirebaseConstants.PublicChallengeCollection.document(challenge).collection("posts").document(publicPosts[i]).delete()
+                    }
+                    
+                }
+            }
+            
+            //MARK: DELETE ALL POSTS USER HAS
+            
+           /* if let postIds = user.postIds {
+                for i in 0..<postIds.count {
+                    let postId = postIds[i]
+                    if let postId = postId {
+                        try await FirebaseConstants.PostCollection.do
+                    }
+                }
+            }*/
+            
+           let snapshot = try await FirebaseConstants
+                .PostCollection
+                .whereField("ownerUid", isEqualTo: user.id)
+                .getDocuments()
+            
+            let postCollectionIds = snapshot.documents.map {$0.documentID}
+            
+            for documentID in postCollectionIds {
+                try await FirebaseConstants.PostCollection.document(documentID).delete()
+            }
+            
+            
+            //MARK: DELETE ALL STORYS USER HAS
+            
+            let Storysnapshot = try await FirebaseConstants
+                .StoryCollection
+                .whereField("ownerUid", isEqualTo: user.id)
+                .getDocuments()
+            
+            let storyCollectionIds = snapshot.documents.map { $0.documentID}
+            
+            for documentId in storyCollectionIds {
+                try await FirebaseConstants.StoryCollection.document(documentId).delete()
+            }
+            
+            
+            
+            //MARK: DELETE ACCOUNT FROM FIREBASE...
+            try await FirebaseConstants.UserCollection.document(user.id).delete()
+            try await Auth.auth().currentUser?.delete()
+        } catch {
+            print("DEBUG APP ERROR: \(error.localizedDescription)")
+        }
+       
+    }
+    
+    static func leaveCrew(_ user: User) async throws {
+        do {
+            let snapshot = try await FirebaseConstants
+                .CrewCollection
+                .whereField("uids", arrayContains: user.id)
+                .getDocuments()
+            
+            var crews = snapshot.documents.compactMap({try? $0.data(as: Crew.self)})
+            
+            for i in 0..<crews.count {
+                crews[i].uids.removeAll(where: {$0 == user.id})
+                crews[i].userRating?.removeValue(forKey: user.id)
+                
+                try await FirebaseConstants.CrewCollection.document(crews[i].id).setData(from: crews[i], merge: false)
+            }
+            
+           
+        } catch {
+            print("DEBUG APP ERROR FROM LEAVE \(error.localizedDescription)")
+        }
     }
 }

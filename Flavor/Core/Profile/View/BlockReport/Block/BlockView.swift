@@ -29,9 +29,9 @@ struct BlockView: View {
             CustomButton(text: "Block", textColor: .colorWhite, backgroundColor: .colorOrange, strokeColor: .colorOrange, action: {
                 Task{
                     try await viewModel.block(currentUser: homeVM.user)
-                    try await viewModel.unfollow(userToUnfollow: viewModel.user, userUnfollowing: homeVM.user)
+                    try await viewModel.unfollow(userToUnfollow: viewModel.user, userUnfollowing: homeVM.user, homeVM: homeVM)
                     try await viewModel.unsendFriendRequest(userToUnFriendRequest: viewModel.user, userUnfriendrequesting: homeVM.user)
-                    try await viewModel.unfollow(userToUnfollow: homeVM.user, userUnfollowing: viewModel.user)
+                    try await viewModel.unfollow(userToUnfollow: homeVM.user, userUnfollowing: viewModel.user, homeVM: homeVM)
                     try await viewModel.unsendFriendRequest(userToUnFriendRequest: homeVM.user, userUnfriendrequesting: viewModel.user)
                     viewModel.showBlock.toggle()
                 }

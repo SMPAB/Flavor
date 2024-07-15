@@ -61,11 +61,92 @@ struct MainHomeView: View {
                 .environmentObject(viewModel)
             
             //MARK: FEED
-            FeedView()
-                .environmentObject(viewModel)
+            
+            if viewModel.fetchedFollowingUsernames == true && viewModel.userFollowingUsernames.isEmpty {
+                VStack{
+                    VStack{
+                        Text("Your feed is now empty because you are not following anyone")
+                            .multilineTextAlignment(.center)
+                            .font(.primaryFont(.H4))
+                            .fontWeight(.semibold)
+                            .foregroundStyle(.colorOrange)
+                        
+                        
+                        ShareLink(item: URL(string: "https://apps.apple.com/app/flavor/id6499230618")!, preview: SharePreview("Flavor", icon: Image(.appstore))) {
+                            HStack {
+                                Text("Invite friends")
+                                    .font(.primaryFont(.P1))
+                                    .foregroundColor(.white)
+                                Iconoir.shareIos.asImage
+                                    .foregroundColor(.white)
+                            }.frame(width: 170, height: 40)
+                                .background(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .fill(.colorOrange)
+                                )
+                        }
+                        
+                    }
+                    .padding(16)
+                    .frame(height: 172)
+                    .frame(maxWidth: .infinity)
+                    .background(
+                    RoundedRectangle(cornerRadius: 16)
+                        .fill(.colorWhite)
+                        .shadow(color: .colorOrange, radius: 5).opacity(0.2)
+                    )
+                    
+                    if !viewModel.recomendedUsers.isEmpty {
+                        VStack(alignment: .leading){
+                            Text("Lets find some kitchen-mates! ")
+                                .font(.primaryFont(.P1))
+                                .fontWeight(.semibold)
+                            
+                            ForEach(viewModel.recomendedUsers) { user in
+                                
+                                NavigationLink(destination:
+                                                ProfileView(user: user)
+                                    .environmentObject(viewModel)
+                                ){
+                                    RecomendedCell(user: user)
+                                        .environmentObject(viewModel)
+                                }
+                                
+                            }
+                        }.padding(16)
+                            .frame(maxWidth: .infinity)
+                            .background(
+                                RoundedRectangle(cornerRadius: 16)
+                                    .fill(.colorWhite)
+                                    .strokeBorder(style: StrokeStyle(lineWidth: 2, dash: [5]))
+                                    .foregroundStyle(.colorOrange)
+                            )
+                            .padding(.top, 16)
+                    }
+                    
+                }.padding(16)
+                    .onFirstAppear {
+                        Task{
+                            try await viewModel.fetchRecomendedUsers()
+                        }
+                    }
+            } else {
+                FeedView()
+                    .environmentObject(viewModel)
+            }
+            
         }.fullScreenCover(isPresented: $showNotifications){
             LandingNotificationView()
                 .environmentObject(viewModel)
+        }
+        .refreshable {
+            Task {
+                try await viewModel.fetchFollowingUsernames()
+                try await viewModel.fetchFeedPosts()
+                try await viewModel.fetchStoryUsers()
+                try await viewModel.fetchFriendRequests()
+                try await viewModel.checkIfUserHasANotification()
+            }
         }
     }
 }

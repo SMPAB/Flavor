@@ -361,13 +361,13 @@ struct ProfileView: View {
            
            if user.isFollowed == true {
                Task {
-                   try await viewModel.unfollow(userToUnfollow: user, userUnfollowing: homeVM.user)
+                   try await viewModel.unfollow(userToUnfollow: user, userUnfollowing: homeVM.user, homeVM: homeVM)
                }
            } else if user.isFollowed == false && user.hasFriendRequests != true{
                if user.publicAccount {
                    //Follow
                    Task{
-                       try await viewModel.follow(userToFollow: user, userFollowing: homeVM.user)
+                       try await viewModel.follow(userToFollow: user, userFollowing: homeVM.user, homeVM: homeVM)
                    }
                } else {
                    Task{

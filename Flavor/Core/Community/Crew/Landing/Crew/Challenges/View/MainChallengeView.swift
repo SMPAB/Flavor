@@ -35,7 +35,7 @@ struct MainChallengeView: View {
     //private let gridItems: [GridItem] = Array(repeating: .init(.flexible(), spacing: 8), count: 2)
 
     var body: some View {
-        
+    
         let width = UIScreen.main.bounds.width
         ZStack{
             ScrollView{

@@ -76,6 +76,29 @@ class AuthService {
         }
     }
     
+    func createAccount(username: String) async throws -> User?{
+        guard let currentUid = Auth.auth().currentUser?.uid else { return nil}
+        
+        do {
+            var user = User(id: currentUid,
+                            email: "",
+                            userName: username,
+                            publicAccount: false)
+            
+            if let email = Auth.auth().currentUser?.email {
+                user.email = email
+            }
+            
+            guard let encodedUser = try? Firestore.Encoder().encode(user) else { return nil}
+            try await FirebaseConstants.UserCollection.document(currentUid).setData(encodedUser)
+            
+            try await FirebaseConstants.userNameCollection.document("batch1").setData(["usernames": FieldValue.arrayUnion([username])], merge: true)
+            return user
+        } catch {
+            return nil
+        }
+    }
+    
     func createUserWithPhoneNumber(id: String,
                     birthday: Timestamp?,
                     userName: String,

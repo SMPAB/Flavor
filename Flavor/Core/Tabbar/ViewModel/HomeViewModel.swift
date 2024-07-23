@@ -33,6 +33,7 @@ class HomeViewModel: ObservableObject{
     @Published var posts = [Post]()
     private var latestFeedFetch: DocumentSnapshot?
     @Published var fetchingPosts = false
+    
 
     //VARIABLEVIEW
     @Published var showVariableView = false
@@ -132,6 +133,9 @@ class HomeViewModel: ObservableObject{
 
 //MARK: - Feed
 extension HomeViewModel {
+    
+    
+    
     
     @MainActor
     func fetchRecomendedUsers() async throws {

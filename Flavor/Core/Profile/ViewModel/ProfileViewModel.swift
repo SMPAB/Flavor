@@ -334,4 +334,8 @@ extension ProfileViewModel {
             return
         }
     }
+    
+    func checkCurrentStreak() async throws {
+        self.user.currentStreak = try await UserService.checkAndUpdateUserStreak(user: user)
+    }
 }

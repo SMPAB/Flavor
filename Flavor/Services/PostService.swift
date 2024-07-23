@@ -3,13 +3,14 @@
 //  Flavor
 //
 //  Created by Emilio Martinez on 2024-06-13.
-//
+
 
 import Foundation
 import Firebase
 import FirebaseStorage
 
 class PostService {
+    
     
     static func fetchPost(_ postId: String) async throws -> Post? {
             do {
@@ -687,5 +688,79 @@ extension PostService {
             
         }
         
+    }
+}
+
+extension PostService {
+    static func newCalender(dateString: String, user: User, homeVM: HomeViewModel) async throws {
+        
+        let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "MMMdd"
+                var last2Days: [String] = []
+        //MARK: THIS IS LAST 60 DAYS!!!
+        for i in 0..<2 {
+                    if let date = Calendar.current.date(byAdding: .day, value: -i, to: Date()) {
+                        last2Days.insert((dateFormatter.string(from: date)), at: 0)
+                    
+                    }
+                }
+        
+        do {
+            
+            print("DEBUG APP LAST 2 DAYS: \(last2Days)")
+
+            let userLastUpload = try await FirebaseConstants.UserCollection.document(user.id).collection("story-days").document("batch1").getDocument()
+            
+            if let days = userLastUpload.data()?["storyDays"] as? [String] {
+                
+                print("DEBUG APP DAYS LAST \(days.last)")
+                guard days.last != dateString else { return }
+                
+                
+                if days.last == last2Days.first {
+                    
+                    print("DEBUG APP CHANGING CURRENT STREAK")
+                    try await FirebaseConstants.UserCollection.document(user.id).setData(["currentStreak": (user.currentStreak ?? 0) + 1], merge: true)
+                    if homeVM.user.currentStreak != nil {
+                        homeVM.user.currentStreak! += 1
+                    } else {
+                        homeVM.user.currentStreak! = 1
+                    }
+                    if days.last == user.bestStreakDate {
+                        
+                        print("DEBUG APP BEST STREAK DATE")
+                        try await FirebaseConstants.UserCollection.document(user.id).setData(["bestStreak": (user.bestStreak ?? 0) + 1, "bestStreakDate": dateString], merge: true)
+                        
+                        if homeVM.user.bestStreak != nil {
+                            homeVM.user.bestStreak! += 1
+                            homeVM.user.bestStreakDate = dateString
+                        } else {
+                            homeVM.user.bestStreak! = 1
+                            homeVM.user.bestStreakDate = dateString
+                        }
+                    } else {
+                        print("DEBUG APP AHHAHAHHAHAHHAHAHAH")
+                    }
+                } else if !last2Days.contains(days.last ?? "") {
+                    try await FirebaseConstants.UserCollection.document(user.id).setData(["currentStreak": 1], merge: true)
+                    if homeVM.user.currentStreak != nil {
+                        homeVM.user.currentStreak! += 1
+                    } else {
+                        homeVM.user.currentStreak! = 1
+                    }
+                    
+                    if user.bestStreak == nil || user.bestStreak == 0{
+                        try await FirebaseConstants.UserCollection.document(user.id).setData(["bestStreak": 1, "bestStreakDate": dateString], merge: true)
+                    }
+                } else {
+                    print("DEBUG APP HAHA")
+                }
+            } else {
+                try await FirebaseConstants.UserCollection.document(user.id).setData(["currentStreak": 1, "bestStreak": 1, "bestStreakDate": dateString], merge: true)
+            }
+            
+        } catch {
+            return
+        }
     }
 }

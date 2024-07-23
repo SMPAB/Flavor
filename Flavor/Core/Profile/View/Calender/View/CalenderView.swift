@@ -30,7 +30,7 @@ struct CalendarView: View {
     var body: some View {
         
        
-            ScrollView(.vertical, showsIndicators: false){
+           
                     VStack(spacing: 20){
             
 
@@ -144,7 +144,7 @@ struct CalendarView: View {
                         
                        // CustomDateGrid(user: user, currentDate: $currentDate)
                     }
-            }.navigationBarBackButtonHidden(true)
+            .navigationBarBackButtonHidden(true)
             .onChange(of: currentDate){
                 //print("DEBUG APP currentDAte: \(currentDate)")
                 Task{

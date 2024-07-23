@@ -11,6 +11,7 @@ import Iconoir
 struct UploadPostView: View {
     
     @Binding var images: [UIImage]
+    @Binding var imageOrd: [imageOrder]
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var homeVM: HomeViewModel
     @StateObject var viewMdeol = UploadFlavorPostViewModel()
@@ -23,6 +24,8 @@ struct UploadPostView: View {
         ScrollView{
             HStack{
                 Button(action: {
+                    images = []
+                    imageOrd = []
                     dismiss()
                 }){
                     Image(systemName: "chevron.left")
@@ -49,8 +52,8 @@ struct UploadPostView: View {
                     .font(.primaryFont(.P2))
                     .foregroundStyle(Color(.systemGray))
                 
-                if let firstImage = images.first {
-                    Image(uiImage: firstImage)
+                if let firstImage = imageOrd.sorted(by: {$0.order < $1.order}).first {
+                    Image(uiImage: firstImage.image)
                         .resizable()
                         .scaledToFill()
                         .frame(width: 128, height: 128)
@@ -73,9 +76,11 @@ struct UploadPostView: View {
                 .padding(.top, 16)
             
             ScrollView(.horizontal){
+                
+                let otherImages = imageOrd.sorted(by: {$0.order < $1.order}).dropFirst()
                 HStack{
-                    ForEach(images.dropFirst().indices, id: \.self){ index in
-                        let image = images[index]
+                    ForEach(otherImages.indices, id: \.self){ index in
+                        let image = otherImages[index].image
                         
                         Image(uiImage: image)
                             .resizable()
@@ -288,8 +293,10 @@ struct UploadPostView: View {
             
             CustomButton(text: "Publish", textColor: .colorWhite, backgroundColor: .colorOrange, strokeColor: .colorOrange, action: {
                 Task{
+                    
+                    let imagesInOrder = imageOrd.sorted(by: {$0.order < $1.order}).map { $0.image }
                     viewMdeol.showUploadAnimation = true
-                    try await viewMdeol.uploadFlavorPostViewModel(images: images, user: homeVM.user, homeVM: homeVM)
+                    try await viewMdeol.uploadFlavorPostViewModel(images: imagesInOrder, user: homeVM.user, homeVM: homeVM)
                     viewMdeol.finishedUploading = true
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.8){

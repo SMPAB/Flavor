@@ -118,6 +118,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         var authService = AuthService()
         
         let contentView = ContentView(authService: authService)  // Your root view
+        //let contentView = TestPostPicker()
         let window = UIWindow(windowScene: windowScene)
         window.rootViewController = UIHostingController(rootView: contentView)
         self.window = window

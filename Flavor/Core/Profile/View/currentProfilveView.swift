@@ -336,6 +336,7 @@ struct currentProfilveView: View {
                //try await viewModel.fetchUserStats()
                 try await viewModel.fetchUserFollowingFollowersStats()
                 try await viewModel.fetchCalenderStoryDays()
+                try await viewModel.checkCurrentStreak()
             }
         
             

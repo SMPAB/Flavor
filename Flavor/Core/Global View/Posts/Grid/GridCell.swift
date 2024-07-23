@@ -68,7 +68,7 @@ struct GridCell: View {
                             .frame(width: width * (CGFloat(widthMultiplier)/390), height: width * (CGFloat(heightMultiplier)/390))
                             .contentShape(RoundedRectangle(cornerRadius: cornerRadius))
                             .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
-                            .background(.red)
+                            .background(Color(.systemGray6))
                     }.onChange(of: homeVM.newEditPost){
                         if let newPost = homeVM.newEditPost {
                             if post.id == newPost.id {
@@ -101,7 +101,7 @@ struct GridCell: View {
                 RoundedRectangle(cornerRadius: cornerRadius)
                     .fill(Color(.systemGray6))
                     .frame(width: width * (CGFloat(widthMultiplier)/390), height: width * (CGFloat(heightMultiplier)/390))
-                    .background(.blue)
+                    .background(Color(.systemGray6))
                     
             }
         }.onFirstAppear {

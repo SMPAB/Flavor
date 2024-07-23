@@ -85,7 +85,7 @@ struct Tabview: View {
                                     homeViewModel.showCamera.toggle()
                                 }
                             
-                            Text("MAP")
+                           MainMapView()
                                 .tabItem {
                                     Iconoir.map.asImage
                                 }

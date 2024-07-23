@@ -1,32 +1,27 @@
 //
-//  NewPostView.swift
+//  TestPostPicker.swift
 //  Flavor
 //
-//  Created by Emilio Martinez on 2024-06-17.
+//  Created by Emilio Martinez on 2024-07-18.
 //
 
 import SwiftUI
-import Photos
 import Iconoir
-struct NewPostView: View {
-    @StateObject private var viewModel = NewPostViewModel()
+import Photos
+
+struct TestPostPicker: View {
+    
+    @StateObject private var viewModel = TestPostPickerVM()
     @StateObject var controller = CameraController()
-    @State private var scale: CGFloat = 1
-    @State private var lastScale: CGFloat = 0
-    @State private var offset: CGSize = .zero
-    @State private var lastStoredOffset: CGSize = .zero
-    @GestureState private var isInteracting: Bool = false
-
-    @Environment(\.dismiss) var dismiss
-    @EnvironmentObject var homeVM: HomeViewModel
     
-    @Binding var showOptions: Bool
+    @State var selectedAsset: PHAsset?
     
-    @State var width = UIScreen.main.bounds.width
-
     var body: some View {
+        
+        let width = UIScreen.main.bounds.width
         NavigationStack {
             VStack {
+                
                 ZStack{
                     ForEach(viewModel.selectedAssets, id: \.self) { asset in
                         TestPostCell(asset: asset)
@@ -34,7 +29,11 @@ struct NewPostView: View {
                             .environmentObject(viewModel)
                     }
                 }.frame(height: width)
+                /*TabView(selection: $selectedAsset){
+                    
                 
+                }.tabViewStyle(.page(indexDisplayMode: .never))*/
+                    
                 footerView
                     .padding(.horizontal, 16)
                 if controller.hasPhotoAccess {
@@ -47,11 +46,7 @@ struct NewPostView: View {
                     Spacer()
                 }
                 
-            }.navigationDestination(isPresented: $viewModel.goToUpload){
-                UploadPostView(images: $viewModel.Images, imageOrd: $viewModel.ImagesOrder, showOption: $showOptions)
-                    .environmentObject(homeVM)
-            }
-            .navigationTitle("New Post")
+            } .navigationTitle("New Post")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbarBackground(.visible, for: .navigationBar)
                 .toolbarBackground(.white, for: .navigationBar)
@@ -61,7 +56,6 @@ struct NewPostView: View {
                 ToolbarItem(placement: .navigationBarTrailing){
                     Button(action: {
                         viewModel.goToUpload.toggle()
-                        showOptions = false
                     }) {
                         Text("Next")
                             .font(.custom("HankenGrotesk-Regular", size: .H4))
@@ -71,9 +65,21 @@ struct NewPostView: View {
                 
                 ToolbarItem(placement: .navigationBarLeading){
                     Button(action: {
-                        dismiss()
                     }){
                         Iconoir.xmark.asImage.foregroundStyle(.black)
+                    }
+                }
+            }
+            .navigationDestination(isPresented: $viewModel.goToUpload){
+                ScrollView(.horizontal) {
+                    HStack{
+                        ForEach(viewModel.Images, id: \.self){ image in
+                            Image(uiImage: image)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 50, height: 50)
+                                .clipShape(Rectangle())
+                        }
                     }
                 }
             }
@@ -82,15 +88,20 @@ struct NewPostView: View {
                 controller.getPhotoPermission()
                 viewModel.cameraController.getPhotoPermission()
         }
+            .onChange(of: viewModel.selectedAsset){
+                withAnimation{
+                    selectedAsset = viewModel.selectedAsset
+                }
+            }
         }
     }
-
+    
+    
     @ViewBuilder
     private var headerView: some View {
         HStack {
-            Button(action: { 
-                showOptions = true
-                dismiss()
+            Button(action: {
+               // dismiss()
                 
             }) {
                 
@@ -102,9 +113,7 @@ struct NewPostView: View {
                 .fontWeight(.semibold)
             Spacer()
             Button(action: {
-                viewModel.fetchImages()
                 viewModel.goToUpload.toggle()
-                showOptions = false
             }) {
                 Text("Next")
                     .font(.custom("HankenGrotesk-Regular", size: .H4))
@@ -112,51 +121,8 @@ struct NewPostView: View {
             }
         }
     }
-
-    @ViewBuilder
-    private var imageView: some View {
-        if let image = viewModel.image {
-            ZStack {
-                Image(uiImage: image)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: UIScreen.main.bounds.width - 32, height: 400)
-                    .scaleEffect(scale)
-                    .offset(offset)
-                    .coordinateSpace(name: "Image")
-                    /*.gesture(
-                        DragGesture()
-                            .updating($isInteracting) { _, out, _ in out = true }
-                            .onChanged { value in
-                                let translation = value.translation
-                                offset = CGSize(width: translation.width + lastStoredOffset.width, height: translation.height + lastStoredOffset.height)
-                            }
-                    )
-                    .gesture(
-                        MagnificationGesture()
-                            .updating($isInteracting) { _, out, _ in out = true }
-                            .onChanged { value in
-                                let updatedScale = value + lastScale
-                                scale = max(updatedScale, 1)
-                            }
-                            .onEnded { value in
-                                withAnimation(.easeInOut(duration: 0.2)) {
-                                    lastScale = scale - 1
-                                }
-                            }
-                    )*/
-            }
-            .background(Color.black)
-            .cornerRadius(16)
-            .contentShape(RoundedRectangle(cornerRadius: 16))
-        } else {
-            RoundedRectangle(cornerRadius: 16)
-                .frame(width: UIScreen.main.bounds.width - 32, height: 400)
-                .background(Color.black)
-                .cornerRadius(16)
-        }
-    }
-
+    
+    
     @ViewBuilder
     private var footerView: some View {
         HStack {
@@ -182,14 +148,14 @@ struct NewPostView: View {
 
     @ViewBuilder
     private var photosGridView: some View {
+        
         ScrollView {
             LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 4), spacing: 1) {
                 ForEach(viewModel.cameraController.allPhotosInCurrentAlbum, id: \.self) { photo in
-                    AssetImageView(asset: photo, isSelected: viewModel.selectedAsset == photo)
+                    TestAssetImageView(asset: photo, isSelected: viewModel.selectedAsset == photo)
                         .environmentObject(viewModel)
                         .onTapGesture {
-                            
-                            if viewModel.multiPhoto {
+                           // if viewModel.multiPhoto {
                                 if viewModel.selectedAssets.contains(photo){
                                     
                                     if viewModel.selectedAsset == photo {
@@ -207,17 +173,12 @@ struct NewPostView: View {
                                     }
                                     
                                 }
-                            } else {
-                                if viewModel.selectedAsset == photo {
-                                    viewModel.selectedAssets = []
-                                    viewModel.selectedAsset = nil
-                                } else {
-                                    viewModel.selectedAssets = [photo]
-                                    viewModel.selectedAsset = photo
-                                }
-                                
+                           /* } else {
+                                viewModel.selectedAsset = (viewModel.selectedAsset == photo ? nil : photo)
                             }
-                            
+                            if let asset = viewModel.selectedAsset {
+                                viewModel.loadImage(asset: asset, isThumbnail: false)
+                            }*/
                         }
                 }
             }
@@ -225,59 +186,16 @@ struct NewPostView: View {
     }
 }
 
-
-    
-
-private let itemFormatter: DateFormatter = {
-let formatter = DateFormatter()
-formatter.dateStyle = .short
-formatter.timeStyle = .medium
-return formatter
-}()
-
-
-class ImageLoader: ObservableObject {
-    @Published var image: UIImage?
-    
-    static let cache = NSCache<NSString, UIImage>()
-
-    func loadImage(asset: PHAsset, isThumbnail: Bool = false ) {
-        let assetIdentifier = asset.localIdentifier
-        if let cachedImage = ImageLoader.cache.object(forKey: NSString(string: assetIdentifier)) {
-            self.image = cachedImage
-            return
-        }
-
-        let manager = PHImageManager.default()
-        let options = PHImageRequestOptions()
-        options.version = .current
-        options.deliveryMode = .opportunistic
-        options.isNetworkAccessAllowed = true
-        options.resizeMode = .exact
-        options.isSynchronous = false
-
-        let targetSize = isThumbnail ? CGSize(width: 100, height: 100) : CGSize(width: 5000, height: 5000)// Thumbnail size
-
-        manager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: options) { image, info in
-            guard let image = image, info?[PHImageErrorKey] == nil else { return }
-            DispatchQueue.main.async {
-                ImageLoader.cache.setObject(image, forKey: NSString(string: assetIdentifier))
-                self.image = image
-            }
-        }
-    }
-
+#Preview {
+    TestPostPicker()
 }
 
-import SwiftUI
-import Photos
-
-struct AssetImageView: View {
+struct TestAssetImageView: View {
     let width = UIScreen.main.bounds.width
     let asset: PHAsset
     let isSelected: Bool
     @StateObject private var imageLoader = ImageLoader()
-    @EnvironmentObject var newPostVM: NewPostViewModel
+    @EnvironmentObject var newPostVM: TestPostPickerVM
     
     var body: some View {
         ZStack {
@@ -298,19 +216,16 @@ struct AssetImageView: View {
                             .frame(width: width/4, height: width/4 - 4)
                     }
                     
-                    if newPostVM.multiPhoto {
-                        if let index = newPostVM.selectedAssets.firstIndex(of: asset) {
-                            ZStack{
-                                Image(systemName: "circle.fill")
-                                    .foregroundStyle(.blue)
-                                
-                                Text("\(index + 1)")
-                                    .font(.primaryFont(.P2))
-                                    .foregroundStyle(.colorWhite)
-                            }.padding(4)
-                        }
+                    if let index = newPostVM.selectedAssets.firstIndex(of: asset) {
+                        ZStack{
+                            Image(systemName: "circle.fill")
+                                .foregroundStyle(.blue)
+                            
+                            Text("\(index + 1)")
+                                .font(.primaryFont(.P2))
+                                .foregroundStyle(.colorWhite)
+                        }.padding(4)
                     }
-                    
                 }
                 
             } else {
@@ -335,11 +250,3 @@ struct AssetImageView: View {
         }
     }
 }
-
-
-
-/*
-#Preview {
-    NewPostView()
-}
-*/

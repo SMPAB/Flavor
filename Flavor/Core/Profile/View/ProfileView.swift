@@ -326,6 +326,7 @@ struct ProfileView: View {
                     try await viewModel.checkIfUserHasfriendRequest(id: user.id)
                     try await viewModel.fetchUserFollowingFollowersStats()
                     try await viewModel.fetchCalenderStoryDays()
+                    try await viewModel.checkCurrentStreak()
                 }
                 
                

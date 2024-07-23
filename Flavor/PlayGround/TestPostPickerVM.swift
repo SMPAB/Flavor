@@ -1,33 +1,33 @@
 //
-//  NewPostViewModel.swift
+//  TestPostPickerVM.swift
 //  Flavor
 //
-//  Created by Emilio Martinez on 2024-06-17.
+//  Created by Emilio Martinez on 2024-07-18.
 //
+
 
 import SwiftUI
 import Photos
 import Firebase
 
 @MainActor
-class NewPostViewModel: ObservableObject {
+class TestPostPickerVM: ObservableObject {
     @Published var selectedAsset: PHAsset?
     @Published var selectedAssets: [PHAsset] = []
     @Published var image: UIImage?
     @Published var multiPhoto: Bool = false
     @Published var imageSelected: Bool = false
-    
-    
     @Published var Images: [UIImage] = []
-    
-    @Published var ImagesOrder: [imageOrder] = []
-    
+
     @Published var searchText: String = ""
 
     private var imageLoader = ImageLoader()
     @Published var cameraController = CameraController()
     
     @Published var goToUpload = false
+    
+    
+    @Published var cropImages = false
     
     
     
@@ -101,9 +101,3 @@ class NewPostViewModel: ObservableObject {
         }
     }
 }
-
-struct imageOrder: Hashable{
-    let image: UIImage
-    let order: Int
-}
-

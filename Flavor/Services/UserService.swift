@@ -681,3 +681,43 @@ extension UserService{
         }
     }
 }
+
+//MARK: - STREAKS
+extension UserService {
+    
+  static func checkAndUpdateUserStreak(user: User) async throws -> Int?{
+        
+        let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "MMMdd"
+                var last7Days: [String] = []
+        //MARK: THIS IS LAST 60 DAYS!!!
+        for i in 0..<2 {
+                    if let date = Calendar.current.date(byAdding: .day, value: -i, to: Date()) {
+                        last7Days.append(dateFormatter.string(from: date))
+                    }
+                }
+        
+        print("DEBUG APP LAST 7 DAYS: \(last7Days)")
+        
+        do {
+           let snapshot = try await FirebaseConstants.UserCollection.document(user.id).collection("story-days").document("batch1").getDocument()
+            
+            if let days = snapshot.data()?["storyDays"] as? [String]? {
+                if (days ?? [] ).contains(last7Days[0]) || (days ?? [] ).contains(last7Days[1]){
+                    print("DEBUG APP NOTHING TO UPDATE")
+                    return nil
+                } else {
+                    print("DEBUG APP SHOULD UPDATE CURRENT STREAK TO 0")
+                    try await FirebaseConstants.UserCollection.document(user.id).setData(["currentStreak": 0], merge: true)
+                    return 0
+                }
+            }
+            
+        
+            
+            return nil
+        } catch {
+            return nil
+        }
+    }
+}

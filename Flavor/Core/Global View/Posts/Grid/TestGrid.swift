@@ -128,7 +128,7 @@ struct TestGrid: View {
                             let modIndex = posts.count % 14
                             
                             if paddingPattern.contains(modIndex) {
-                                paddingBottom = width * 120/390
+                                paddingBottom = width * 120/390 + 16
                             } else {
                                 paddingBottom = 0
                             }

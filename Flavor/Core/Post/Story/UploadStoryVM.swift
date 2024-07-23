@@ -61,6 +61,8 @@ class UploadStoryVM: ObservableObject {
             try await storyRef.setData(encodedStory)
             
             //MARK: USER
+            
+            try await PostService.newCalender(dateString: todayString, user: user, homeVM: homeVM)
             var userData = [String:Any]()
             userData["latestStory"] = todayString
             try await FirebaseConstants.UserCollection.document(user.id).updateData(userData)

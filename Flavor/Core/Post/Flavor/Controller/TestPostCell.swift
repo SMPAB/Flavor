@@ -1,18 +1,18 @@
 //
-//  CropView.swift
+//  TestPostCell.swift
 //  Flavor
 //
-//  Created by Emilio Martinez on 2024-06-12.
+//  Created by Emilio Martinez on 2024-07-18.
 //
 
 import SwiftUI
+import Photos
 
-struct CropView: View {
+struct TestPostCell: View {
     
-    
-   
-    var image: UIImage?
-    var onCrop: (UIImage?,Bool)->()
+    @EnvironmentObject var viewModel: NewPostViewModel
+    let asset: PHAsset
+    @State private var image: UIImage?
     
     
     @State private var scale: CGFloat = 1
@@ -21,48 +21,79 @@ struct CropView: View {
     @State private var lastStoredOffset: CGSize = .zero
     @GestureState private var isInteracting: Bool = false
     
-    @EnvironmentObject var viewModel: ImagePickerViewModel
+    @State var hideGrids = false
+    
+    @State var width = UIScreen.main.bounds.width
     
     var body: some View {
-        NavigationStack {
-            ImageCropView()
-                .navigationTitle("Crop View")
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbarBackground(.visible, for: .navigationBar)
-                .toolbarBackground(.black, for: .navigationBar)
-                .toolbarColorScheme(.dark, for: .navigationBar)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.black.ignoresSafeArea())
-            .toolbar{
-                ToolbarItem(placement: .navigationBarTrailing){
-                    Button(action: {
-                        let renderer = ImageRenderer(content: ImageCropView(hideGrids: true))
-                        renderer.proposedSize = .init(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.width * 0.9)
-                        renderer.scale = 5
-                       
-                        if let image = renderer.uiImage{
-                            onCrop(image,true)
-                        } else {
-                            onCrop(nil, false)
-                        }
-                        viewModel.showView = false
-                    }){
-                        Image(systemName: "checkmark")
-                            .font(.callout)
-                            .fontWeight(.semibold)
-                            .foregroundStyle(.white)
+        
+        ZStack{
+            
+            ImageCropView(hideGrids: false)
+            
+        }.frame(width: width, height: width)
+            .background(.black)
+        .onAppear{
+           loadImage(asset: asset)
+        }
+        .onChange(of: viewModel.goToUpload) {
+            if viewModel.goToUpload == true {
+                let renderer = ImageRenderer(content: ImageCropView(hideGrids: true))
+                renderer.proposedSize = .init(width: 5000, height: 5000)
+                renderer.scale = 5
+               
+                if let image = renderer.uiImage{
+                    
+                   if let index = viewModel.selectedAssets.firstIndex(where: {$0 == asset}){
+                        viewModel.Images.append(image)
+                       viewModel.ImagesOrder.append(contentsOf: [imageOrder(image: image, order: index)])
                     }
+                        
+                    
+                    
+                } else {
+                    
                 }
-                
-                ToolbarItem(placement: .navigationBarLeading){
-                    Button(action: {
-                        viewModel.showView = false
-                    }){
-                        Image(systemName: "xmark")
-                            .font(.callout)
-                            .fontWeight(.semibold)
-                            .foregroundStyle(.white)
-                    }
+            }
+        }
+        
+       
+            
+    }
+    
+    
+     func loadImage(asset: PHAsset) {
+        let options = PHImageRequestOptions()
+        options.isSynchronous = false
+        options.deliveryMode = .highQualityFormat
+        options.isNetworkAccessAllowed = true
+
+        let size =  CGSize(width: asset.pixelWidth, height: asset.pixelHeight)
+       PHImageManager.default().requestImage(for: asset, targetSize: size, contentMode: .aspectFill, options: options, resultHandler: {
+            image, _ in
+           
+           self.image = image
+        })
+    }
+    
+    @ViewBuilder
+    func Grids()->some View{
+        ZStack{
+            HStack{
+                ForEach(1...5, id: \.self){ _ in
+                    Rectangle()
+                        .fill(.white.opacity(0.7))
+                        .frame(width: 1)
+                        .frame(maxWidth: .infinity)
+                }
+            }
+            
+            VStack{
+                ForEach(1...8, id: \.self){ _ in
+                    Rectangle()
+                        .fill(.white.opacity(0.7))
+                        .frame(height: 1)
+                        .frame(maxHeight: .infinity)
                 }
             }
         }
@@ -70,7 +101,6 @@ struct CropView: View {
     
     @ViewBuilder
     func ImageCropView(hideGrids: Bool = false)->some View{
-        let width = UIScreen.main.bounds.width
         GeometryReader{
             let size = $0.size
             
@@ -134,6 +164,9 @@ struct CropView: View {
                     let translation = value.translation
                     offset = CGSize(width: translation.width + lastStoredOffset.width, height: translation.height + lastStoredOffset.height)
                 })
+                .onEnded({ _ in
+                    lastStoredOffset = offset
+                })
         )
         .gesture(
         MagnificationGesture()
@@ -154,38 +187,31 @@ struct CropView: View {
                 }
             })
         )
-        .frame(width: width * 0.9, height: width * 0.9)
+        .frame(width: width, height: width)
         .cornerRadius(0)
-    }
-    
-    @ViewBuilder
-    func Grids()->some View{
-        ZStack{
-            HStack{
-                ForEach(1...5, id: \.self){ _ in
-                    Rectangle()
-                        .fill(.white.opacity(0.7))
-                        .frame(width: 1)
-                        .frame(maxWidth: .infinity)
-                }
-            }
-            
-            VStack{
-                ForEach(1...8, id: \.self){ _ in
-                    Rectangle()
-                        .fill(.white.opacity(0.7))
-                        .frame(height: 1)
-                        .frame(maxHeight: .infinity)
-                }
-            }
-        }
     }
 }
 
-extension View{
 
-    func haptics(_ style: UIImpactFeedbackGenerator.FeedbackStyle){
-        UIImpactFeedbackGenerator(style: style).impactOccurred()
+struct PNG {
+    private let data: Data
+    
+    init(_ data: Data) {
+        self.data = data
+    }
+}
+
+    // Transferable conformance, providing a DataRepresentation for ImageData.
+@available(iOS 16.0, *)
+extension PNG: Transferable {
+    
+    static var transferRepresentation: some TransferRepresentation {
+        
+        DataRepresentation<PNG>(contentType: .png) { imageData in
+            imageData.data
+        } importing: { data in
+            PNG(data)
+        }
     }
 }
 

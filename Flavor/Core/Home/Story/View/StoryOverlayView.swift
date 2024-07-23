@@ -54,7 +54,7 @@ struct StoryOverlayView: View {
                                 
                                 Spacer()
                                 
-                                Text("\(user.streak ?? 0) day streak")
+                                Text("\(user.currentStreak ?? 0) day streak")
                                     .font(.custom("HankenGrotesk-Regular", size: 18))
                                     .fontWeight(.semibold)
                                     .foregroundStyle(Color(.systemGray))

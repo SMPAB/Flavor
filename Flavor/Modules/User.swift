@@ -21,6 +21,10 @@ struct User: Identifiable, Hashable, Codable {
     
     var stats: UserStats?
     
+    var currentStreak: Int?
+    var bestStreak: Int?
+    var bestStreakDate: String?
+    
     var hasSeenAllStorys: Bool? = false
     var hasFriendRequests: Bool? = false
     var isFollowed: Bool? = false

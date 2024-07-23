@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1804ECE82C4924AA00C88CC1 /* MainTrophyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1804ECE72C4924AA00C88CC1 /* MainTrophyView.swift */; };
+		1807B7B32C49287800643C39 /* TestPostPickerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1807B7B22C49287800643C39 /* TestPostPickerVM.swift */; };
+		1807B7B52C4928C100643C39 /* TestPostPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1807B7B42C4928C100643C39 /* TestPostPicker.swift */; };
+		1807B7B72C492A2700643C39 /* TestPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1807B7B62C492A2700643C39 /* TestPostCell.swift */; };
 		180D88B82C2EBF0D0030322B /* CreateChallengeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D88B72C2EBF0D0030322B /* CreateChallengeView.swift */; };
 		180D88BD2C2EDFEB0030322B /* MainVoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D88BC2C2EDFEB0030322B /* MainVoteView.swift */; };
 		180D88BF2C2EE2560030322B /* VoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D88BE2C2EE2560030322B /* VoteCell.swift */; };
@@ -34,6 +38,8 @@
 		181761812C24B3C900E52AB0 /* MainCrewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181761802C24B3C900E52AB0 /* MainCrewViewModel.swift */; };
 		181761832C24D1EE00E52AB0 /* Challenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181761822C24D1EE00E52AB0 /* Challenge.swift */; };
 		181761852C24D2B900E52AB0 /* ChallengeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181761842C24D2B900E52AB0 /* ChallengeCell.swift */; };
+		183135732C484FD00019BB7C /* MainMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183135722C484FD00019BB7C /* MainMapView.swift */; };
+		183135762C4850260019BB7C /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183135752C4850260019BB7C /* LocationManager.swift */; };
 		18332F162C198A0B002E95F4 /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18332F152C198A0B002E95F4 /* CustomAlertView.swift */; };
 		18332F1A2C198BA2002E95F4 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18332F192C198BA2002E95F4 /* ImageView.swift */; };
 		18332F1C2C1994A5002E95F4 /* CustomAlertModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18332F1B2C1994A5002E95F4 /* CustomAlertModifier.swift */; };
@@ -225,6 +231,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1804ECE72C4924AA00C88CC1 /* MainTrophyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTrophyView.swift; sourceTree = "<group>"; };
+		1807B7B22C49287800643C39 /* TestPostPickerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPostPickerVM.swift; sourceTree = "<group>"; };
+		1807B7B42C4928C100643C39 /* TestPostPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPostPicker.swift; sourceTree = "<group>"; };
+		1807B7B62C492A2700643C39 /* TestPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPostCell.swift; sourceTree = "<group>"; };
 		180D88B72C2EBF0D0030322B /* CreateChallengeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChallengeView.swift; sourceTree = "<group>"; };
 		180D88BC2C2EDFEB0030322B /* MainVoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVoteView.swift; sourceTree = "<group>"; };
 		180D88BE2C2EE2560030322B /* VoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteCell.swift; sourceTree = "<group>"; };
@@ -252,6 +262,8 @@
 		181761802C24B3C900E52AB0 /* MainCrewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCrewViewModel.swift; sourceTree = "<group>"; };
 		181761822C24D1EE00E52AB0 /* Challenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge.swift; sourceTree = "<group>"; };
 		181761842C24D2B900E52AB0 /* ChallengeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeCell.swift; sourceTree = "<group>"; };
+		183135722C484FD00019BB7C /* MainMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMapView.swift; sourceTree = "<group>"; };
+		183135752C4850260019BB7C /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		18332F152C198A0B002E95F4 /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
 		18332F192C198BA2002E95F4 /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		18332F1B2C1994A5002E95F4 /* CustomAlertModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertModifier.swift; sourceTree = "<group>"; };
@@ -456,6 +468,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1804ECE62C49249C00C88CC1 /* Trophy */ = {
+			isa = PBXGroup;
+			children = (
+				1804ECE72C4924AA00C88CC1 /* MainTrophyView.swift */,
+			);
+			path = Trophy;
+			sourceTree = "<group>";
+		};
+		1807B7B12C49285300643C39 /* PlayGround */ = {
+			isa = PBXGroup;
+			children = (
+				1807B7B22C49287800643C39 /* TestPostPickerVM.swift */,
+				1807B7B42C4928C100643C39 /* TestPostPicker.swift */,
+			);
+			path = PlayGround;
+			sourceTree = "<group>";
+		};
 		180D88B32C2EBECC0030322B /* Create */ = {
 			isa = PBXGroup;
 			children = (
@@ -603,6 +632,14 @@
 				18F5FE502C25601200A94B57 /* View */,
 			);
 			path = Challenges;
+			sourceTree = "<group>";
+		};
+		183135742C48501C0019BB7C /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				183135752C4850260019BB7C /* LocationManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		18332F132C1989F8002E95F4 /* Global View */ = {
@@ -769,6 +806,7 @@
 		183B21FD2C19D8DA008A3DCF /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1804ECE62C49249C00C88CC1 /* Trophy */,
 				183C7D0C2C20496A00E00241 /* Settings */,
 				185A6A6D2C1F951C0006E5B0 /* BlockReport */,
 				184060E12C1DCDA60002894C /* Album */,
@@ -973,6 +1011,7 @@
 		183C7D1E2C20669500E00241 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				1807B7B62C492A2700643C39 /* TestPostCell.swift */,
 				183C7D1F2C20669F00E00241 /* CameraController.swift */,
 			);
 			path = Controller;
@@ -1077,6 +1116,7 @@
 		1844C2272C18D13900243FAB /* Flavor */ = {
 			isa = PBXGroup;
 			children = (
+				1807B7B12C49285300643C39 /* PlayGround */,
 				1844C2372C18D16E00243FAB /* Additionals */,
 				1844C2362C18D16000243FAB /* App */,
 				1844C25C2C18D8B800243FAB /* Core */,
@@ -1138,6 +1178,7 @@
 		1844C25C2C18D8B800243FAB /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				189016142C4668A700609C50 /* Map */,
 				18D91A8E2C2327C600CD1E6C /* Community */,
 				183C7D1A2C2062BE00E00241 /* Post */,
 				183C7CFA2C20337800E00241 /* Notification */,
@@ -1480,6 +1521,15 @@
 			path = Recomended;
 			sourceTree = "<group>";
 		};
+		189016142C4668A700609C50 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				183135742C48501C0019BB7C /* Managers */,
+				183135722C484FD00019BB7C /* MainMapView.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
 		189419672C283454006BECDA /* Edit */ = {
 			isa = PBXGroup;
 			children = (
@@ -1819,6 +1869,7 @@
 				1844C23F2C18D65300243FAB /* FontSize.swift in Sources */,
 				183C7D262C2070C300E00241 /* LandingCameraView.swift in Sources */,
 				18332F302C19B579002E95F4 /* UserService.swift in Sources */,
+				183135732C484FD00019BB7C /* MainMapView.swift in Sources */,
 				180D88F32C3456150030322B /* QRCode.swift in Sources */,
 				184060CF2C1B9D5D0002894C /* SavedView.swift in Sources */,
 				183C7D222C20687200E00241 /* NewPostViewModel.swift in Sources */,
@@ -1850,6 +1901,7 @@
 				183C7D152C204FF500E00241 /* MainBlockedViewModel.swift in Sources */,
 				183963A32C396A1E0030278E /* FinishedChallengeCell.swift in Sources */,
 				180D88CD2C318C090030322B /* NamesSpace.swift in Sources */,
+				1807B7B32C49287800643C39 /* TestPostPickerVM.swift in Sources */,
 				183B21F62C19D2C7008A3DCF /* Tabview.swift in Sources */,
 				183B22002C19D8EF008A3DCF /* ProfileViewModel.swift in Sources */,
 				185A6A4A2C1F05030006E5B0 /* CreateGridItemCellViewModel.swift in Sources */,
@@ -1868,8 +1920,10 @@
 				183B21F82C19D5A2008A3DCF /* HomeViewModel.swift in Sources */,
 				184060CA2C1B99DD0002894C /* VariableView.swift in Sources */,
 				18C9544D2C1B1C0600B6439E /* PrimaryCommentCell.swift in Sources */,
+				183135762C4850260019BB7C /* LocationManager.swift in Sources */,
 				180D88D92C32027C0030322B /* Forum.swift in Sources */,
 				186E2B852C1AE883003E35D4 /* TimeStamp.swift in Sources */,
+				1804ECE82C4924AA00C88CC1 /* MainTrophyView.swift in Sources */,
 				183B22132C1A134F008A3DCF /* HeaderMain.swift in Sources */,
 				18D91A922C23281800CD1E6C /* LandingCommunityView.swift in Sources */,
 				180D88CB2C317DD00030322B /* UploadAnimationModifier.swift in Sources */,
@@ -1932,12 +1986,14 @@
 				185A6A6C2C1F83FB0006E5B0 /* EmptySearchView.swift in Sources */,
 				1839638A2C3600620030278E /* ForumCellViewModel.swift in Sources */,
 				183C7CEA2C2027CE00E00241 /* NotificationType.swift in Sources */,
+				1807B7B52C4928C100643C39 /* TestPostPicker.swift in Sources */,
 				183C7CF82C202A5900E00241 /* NotificationsViewModel.swift in Sources */,
 				1894196D2C283D9D006BECDA /* EditCrewList.swift in Sources */,
 				18DDBD1A2C1906EB00E288DE /* LoginView.swift in Sources */,
 				185A6A682C1F7D660006E5B0 /* SearchCell.swift in Sources */,
 				183C7CF62C2029EF00E00241 /* NotificationService.swift in Sources */,
 				180D88C92C30A55F0030322B /* Uploading.swift in Sources */,
+				1807B7B72C492A2700643C39 /* TestPostCell.swift in Sources */,
 				180D88E42C3313510030322B /* challengelaoder.swift in Sources */,
 				183B22062C19DEDE008A3DCF /* CustomButton.swift in Sources */,
 				181761832C24D1EE00E52AB0 /* Challenge.swift in Sources */,
@@ -2115,6 +2171,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Flavor/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Allow access to your camera to be able to take photos";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Allow us to access your location for you to be able to find nearby flavorfull places";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow access to your library to be able to publish photos";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -2129,6 +2186,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = se.smp.Flavor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2149,6 +2210,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Flavor/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Allow access to your camera to be able to take photos";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Allow us to access your location for you to be able to find nearby flavorfull places";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow access to your library to be able to publish photos";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -2163,6 +2225,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = se.smp.Flavor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

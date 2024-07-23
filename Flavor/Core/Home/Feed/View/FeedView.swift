@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FeedView: View {
-    
+
     @EnvironmentObject var viewModel: HomeViewModel
     var body: some View {
         VStack (spacing: 32){

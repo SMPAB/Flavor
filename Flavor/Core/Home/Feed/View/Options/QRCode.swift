@@ -44,6 +44,7 @@ struct QRCode: View {
                         Task {
                                    let renderer = ImageRenderer(content: CodeView(string: LINK))
                                    renderer.proposedSize = .init(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.width * 0.9)
+                            renderer.scale = 5
                                    
                                    guard let uiImage = renderer.uiImage else {
                                        print("Failed to generate QR code image.")

@@ -122,7 +122,7 @@ struct MainCrewView: View {
                         }
                         
                         
-                        NavigationLink(destination: 
+                        /*NavigationLink(destination: 
                                         Text("Chat")
                         ){
                             Iconoir.chatBubbleEmpty.asImage
@@ -133,7 +133,7 @@ struct MainCrewView: View {
                                     .fill(.colorWhite)
                                     .stroke(.colorOrange)
                                 )
-                        }
+                        }*/
                         
                         
                         Spacer()

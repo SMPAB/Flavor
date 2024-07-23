@@ -40,7 +40,7 @@ class UploadFlavorPostViewModel: ObservableObject {
                step.utensils
            }))
        }
-    
+
     
     func uploadFlavorPostViewModel(images: [UIImage], user: User, homeVM: HomeViewModel) async throws {
     
@@ -90,6 +90,8 @@ class UploadFlavorPostViewModel: ObservableObject {
             
             //MARK: UPDATE USER
             //update postIds and latest story
+            try await PostService.newCalender(dateString: todayString, user: user, homeVM: homeVM)
+            
             var postsIds = homeVM.user.postIds ?? []
             postsIds.insert(postId.documentID, at: 0)
             var userData = [String:Any]()

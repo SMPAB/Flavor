@@ -120,6 +120,13 @@ extension ProfileViewModel {
         if PublicAccount != user.publicAccount {
             data["publicAccount"] = PublicAccount
             user.publicAccount = PublicAccount
+            
+            if let postIds = user.postIds {
+                for i in 0..<postIds.count {
+                    let postId = postIds[i]
+                    try await FirebaseConstants.PostCollection.document(postId).setData(["publicPost": PublicAccount], merge: true)
+                }
+            }
         }
         
         if caption != user.biography {

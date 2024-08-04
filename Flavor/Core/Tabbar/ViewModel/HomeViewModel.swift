@@ -22,6 +22,8 @@ class HomeViewModel: ObservableObject{
     
     //@Published var storys = [Story]()
     
+    @Published var followerIds = [String]()
+    
     @Published var userFollowingUsernames = [String]()
     @Published var fetchedFollowingUsernames = false
     @Published var recomendedUsers: [User] = []
@@ -33,6 +35,12 @@ class HomeViewModel: ObservableObject{
     @Published var posts = [Post]()
     private var latestFeedFetch: DocumentSnapshot?
     @Published var fetchingPosts = false
+    
+    @Published var feedPostIds = [String]()
+    
+    @Published var publicFeedPosts = [Post]()
+    private var lastPublicFeedFetch: DocumentSnapshot?
+    @Published var fetchingPublicPosts = false
     
 
     //VARIABLEVIEW
@@ -136,6 +144,17 @@ extension HomeViewModel {
     
     
     
+    @MainActor
+    func fetchFeedPostIds() async throws {
+        do {
+            let snapshot = try await FirebaseConstants.FeedCollection.document(user.userName).getDocument()
+            
+            let ids = snapshot.data()?["postIds"] as? [String]
+            self.feedPostIds = ids ?? []
+        } catch {
+            return
+        }
+    }
     
     @MainActor
     func fetchRecomendedUsers() async throws {
@@ -182,6 +201,28 @@ extension HomeViewModel {
         
         // Update latestFeedFetch with the last snapshot from the last chunk
         self.latestFeedFetch = lastSnapshot
+    }
+    
+    
+    @MainActor
+    func fetchPublicFeed() async throws {
+        do {
+            fetchingPublicPosts = true
+            let (posts, snapshot) = try await PostService.fetchPublicFeedPosts(latestFetched: lastPublicFeedFetch, fetchedPostsIds: publicFeedPosts.map({$0.id}))
+            
+            for i in 0..<posts.count {
+                print("DEBUG APP NEW POST ID \(posts[i].id)")
+                if !publicFeedPosts.contains(where: {$0.id == posts[i].id}){
+                    publicFeedPosts.append(posts[i])
+                }
+            }
+            
+            self.lastPublicFeedFetch = snapshot
+            fetchingPublicPosts = false
+        } catch {
+            fetchingPublicPosts = false
+            return
+        }
     }
 }
 
@@ -249,6 +290,15 @@ extension HomeViewModel {
         }
         
         self.storyUsers.sort { $0.isCurrentUser && !$1.isCurrentUser }
+    }
+    
+    @MainActor
+    func fetchFollowersIds() async throws {
+        do {
+            self.followerIds = try await UserService.fetchUserFollowersUsernames(id: user.id)
+        } catch {
+            return
+        }
     }
     
     @MainActor

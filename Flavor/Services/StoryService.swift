@@ -126,5 +126,13 @@ class StoryService {
         }
     }
     
+    static func fetchStoryWithId(_ id: String) async throws -> Story? {
+        do {
+            return try await FirebaseConstants.StoryCollection.document(id).getDocument().data(as: Story.self)
+        } catch {
+            return nil
+        }
+    }
+    
     
 }

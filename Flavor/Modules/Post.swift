@@ -22,8 +22,11 @@ struct Post: Identifiable, Hashable, Codable{
     var storyID: String?
     let recipeId: String?
     var challengeUploadId: String?
+    var locationId: String?
     
     var pinned: Bool? = false
+    
+    var publicPost: Bool? = false
     
     let timestamp: Timestamp
     let timestampDate: String

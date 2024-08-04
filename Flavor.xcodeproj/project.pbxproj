@@ -174,6 +174,26 @@
 		186E2B832C1AE733003E35D4 /* FeedCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E2B822C1AE733003E35D4 /* FeedCellViewModel.swift */; };
 		186E2B852C1AE883003E35D4 /* TimeStamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E2B842C1AE883003E35D4 /* TimeStamp.swift */; };
 		186E2B882C1B098E003E35D4 /* SkeletonPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186E2B872C1B098E003E35D4 /* SkeletonPost.swift */; };
+		188B3DA62C4FFE010069B861 /* MapSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188B3DA52C4FFE010069B861 /* MapSearchView.swift */; };
+		188B3DA82C50019A0069B861 /* MapSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188B3DA72C50019A0069B861 /* MapSearchCell.swift */; };
+		188B3DAA2C5064530069B861 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188B3DA92C5064530069B861 /* MapViewModel.swift */; };
+		188B3DAC2C52A7AA0069B861 /* LocationDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188B3DAB2C52A7AA0069B861 /* LocationDetailView.swift */; };
+		188B3DAF2C52A8260069B861 /* LocationDetailVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188B3DAE2C52A8260069B861 /* LocationDetailVM.swift */; };
+		188B3DB12C54608F0069B861 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188B3DB02C54608F0069B861 /* Location.swift */; };
+		188B3DB32C5838970069B861 /* MapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188B3DB22C5838970069B861 /* MapService.swift */; };
+		188B3DB62C59C0BB0069B861 /* SelectLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188B3DB52C59C0BB0069B861 /* SelectLocationView.swift */; };
+		188B3DB82C59C0F20069B861 /* SelectLocationVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188B3DB72C59C0F20069B861 /* SelectLocationVM.swift */; };
+		188B3DBB2C59E3720069B861 /* LocationDetailPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188B3DBA2C59E3720069B861 /* LocationDetailPostCell.swift */; };
+		188B3DBD2C59E3870069B861 /* LocationDetailPostCellVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188B3DBC2C59E3870069B861 /* LocationDetailPostCellVM.swift */; };
+		188B3DC12C5C89F00069B861 /* MapOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188B3DC02C5C89F00069B861 /* MapOverlay.swift */; };
+		188B3DC32C5D8A3C0069B861 /* CustomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188B3DC22C5D8A3C0069B861 /* CustomSheetView.swift */; };
+		188B3DC82C5D98D60069B861 /* MapFocusPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188B3DC72C5D98D60069B861 /* MapFocusPostView.swift */; };
+		188B3DCA2C5D99C20069B861 /* SceneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188B3DC92C5D99C20069B861 /* SceneController.swift */; };
+		188B3DCC2C5EB1330069B861 /* StoryDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188B3DCB2C5EB1330069B861 /* StoryDisplayView.swift */; };
+		188B3DCE2C5EB13F0069B861 /* StoryDisplayVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188B3DCD2C5EB13F0069B861 /* StoryDisplayVM.swift */; };
+		188B3DD12C5ED6170069B861 /* LazyFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188B3DD02C5ED6170069B861 /* LazyFeedView.swift */; };
+		188B3DD32C5ED7B10069B861 /* LazyFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188B3DD22C5ED7B10069B861 /* LazyFeedCell.swift */; };
+		188B3DD52C5ED84C0069B861 /* LazyfeedCellVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188B3DD42C5ED84C0069B861 /* LazyfeedCellVM.swift */; };
 		188E62D72C2418DC001D9FBB /* CreateCrewVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188E62D62C2418DC001D9FBB /* CreateCrewVM.swift */; };
 		188E62D92C241970001D9FBB /* CreateCrewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188E62D82C241970001D9FBB /* CreateCrewView.swift */; };
 		188E62DB2C242427001D9FBB /* CreateCrewUserList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188E62DA2C242427001D9FBB /* CreateCrewUserList.swift */; };
@@ -388,6 +408,26 @@
 		186E2B822C1AE733003E35D4 /* FeedCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCellViewModel.swift; sourceTree = "<group>"; };
 		186E2B842C1AE883003E35D4 /* TimeStamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeStamp.swift; sourceTree = "<group>"; };
 		186E2B872C1B098E003E35D4 /* SkeletonPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonPost.swift; sourceTree = "<group>"; };
+		188B3DA52C4FFE010069B861 /* MapSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchView.swift; sourceTree = "<group>"; };
+		188B3DA72C50019A0069B861 /* MapSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchCell.swift; sourceTree = "<group>"; };
+		188B3DA92C5064530069B861 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		188B3DAB2C52A7AA0069B861 /* LocationDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailView.swift; sourceTree = "<group>"; };
+		188B3DAE2C52A8260069B861 /* LocationDetailVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailVM.swift; sourceTree = "<group>"; };
+		188B3DB02C54608F0069B861 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		188B3DB22C5838970069B861 /* MapService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapService.swift; sourceTree = "<group>"; };
+		188B3DB52C59C0BB0069B861 /* SelectLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLocationView.swift; sourceTree = "<group>"; };
+		188B3DB72C59C0F20069B861 /* SelectLocationVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLocationVM.swift; sourceTree = "<group>"; };
+		188B3DBA2C59E3720069B861 /* LocationDetailPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailPostCell.swift; sourceTree = "<group>"; };
+		188B3DBC2C59E3870069B861 /* LocationDetailPostCellVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationDetailPostCellVM.swift; sourceTree = "<group>"; };
+		188B3DC02C5C89F00069B861 /* MapOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapOverlay.swift; sourceTree = "<group>"; };
+		188B3DC22C5D8A3C0069B861 /* CustomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSheetView.swift; sourceTree = "<group>"; };
+		188B3DC72C5D98D60069B861 /* MapFocusPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapFocusPostView.swift; sourceTree = "<group>"; };
+		188B3DC92C5D99C20069B861 /* SceneController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneController.swift; sourceTree = "<group>"; };
+		188B3DCB2C5EB1330069B861 /* StoryDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryDisplayView.swift; sourceTree = "<group>"; };
+		188B3DCD2C5EB13F0069B861 /* StoryDisplayVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryDisplayVM.swift; sourceTree = "<group>"; };
+		188B3DD02C5ED6170069B861 /* LazyFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyFeedView.swift; sourceTree = "<group>"; };
+		188B3DD22C5ED7B10069B861 /* LazyFeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyFeedCell.swift; sourceTree = "<group>"; };
+		188B3DD42C5ED84C0069B861 /* LazyfeedCellVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyfeedCellVM.swift; sourceTree = "<group>"; };
 		188E62D62C2418DC001D9FBB /* CreateCrewVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCrewVM.swift; sourceTree = "<group>"; };
 		188E62D82C241970001D9FBB /* CreateCrewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCrewView.swift; sourceTree = "<group>"; };
 		188E62DA2C242427001D9FBB /* CreateCrewUserList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCrewUserList.swift; sourceTree = "<group>"; };
@@ -645,6 +685,7 @@
 		18332F132C1989F8002E95F4 /* Global View */ = {
 			isa = PBXGroup;
 			children = (
+				188B3DBE2C5C87E40069B861 /* Sheet */,
 				180D88C72C30A5520030322B /* Animations */,
 				18C954582C1B3E7900B6439E /* Posts */,
 				186E2B862C1B0985003E35D4 /* Skeleton */,
@@ -702,6 +743,7 @@
 				183C7CF52C2029EF00E00241 /* NotificationService.swift */,
 				18D91A9D2C23317D00CD1E6C /* CrewService.swift */,
 				183963922C37F6A90030278E /* ChallengeService.swift */,
+				188B3DB22C5838970069B861 /* MapService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1034,6 +1076,7 @@
 		183C7D242C2070B600E00241 /* Story */ = {
 			isa = PBXGroup;
 			children = (
+				188B3DB42C59C0990069B861 /* Location */,
 				189D02212C20DE9C00A93C4B /* camera.swift */,
 				18D91A852C21A6AB00CD1E6C /* UploadStoryView.swift */,
 				18D91A872C21A6BC00CD1E6C /* UploadStoryVM.swift */,
@@ -1143,6 +1186,7 @@
 			isa = PBXGroup;
 			children = (
 				1844C2282C18D13900243FAB /* FlavorApp.swift */,
+				188B3DC92C5D99C20069B861 /* SceneController.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -1443,6 +1487,7 @@
 		186E2B772C1AE559003E35D4 /* Feed */ = {
 			isa = PBXGroup;
 			children = (
+				188B3DCF2C5ED60A0069B861 /* LazyFeed */,
 				186E2B812C1AE720003E35D4 /* ViewModel */,
 				186E2B802C1AE71C003E35D4 /* View */,
 			);
@@ -1473,6 +1518,79 @@
 				186E2B872C1B098E003E35D4 /* SkeletonPost.swift */,
 			);
 			path = Skeleton;
+			sourceTree = "<group>";
+		};
+		188B3DA22C4FF3C70069B861 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				188B3DA52C4FFE010069B861 /* MapSearchView.swift */,
+				188B3DA72C50019A0069B861 /* MapSearchCell.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		188B3DAD2C52A7AF0069B861 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				188B3DB92C59E35F0069B861 /* Posts */,
+				188B3DAB2C52A7AA0069B861 /* LocationDetailView.swift */,
+				188B3DAE2C52A8260069B861 /* LocationDetailVM.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		188B3DB42C59C0990069B861 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				188B3DB52C59C0BB0069B861 /* SelectLocationView.swift */,
+				188B3DB72C59C0F20069B861 /* SelectLocationVM.swift */,
+			);
+			path = Location;
+			sourceTree = "<group>";
+		};
+		188B3DB92C59E35F0069B861 /* Posts */ = {
+			isa = PBXGroup;
+			children = (
+				188B3DBA2C59E3720069B861 /* LocationDetailPostCell.swift */,
+				188B3DBC2C59E3870069B861 /* LocationDetailPostCellVM.swift */,
+			);
+			path = Posts;
+			sourceTree = "<group>";
+		};
+		188B3DBE2C5C87E40069B861 /* Sheet */ = {
+			isa = PBXGroup;
+			children = (
+				188B3DC22C5D8A3C0069B861 /* CustomSheetView.swift */,
+			);
+			path = Sheet;
+			sourceTree = "<group>";
+		};
+		188B3DBF2C5C89DE0069B861 /* Overlay */ = {
+			isa = PBXGroup;
+			children = (
+				188B3DC02C5C89F00069B861 /* MapOverlay.swift */,
+			);
+			path = Overlay;
+			sourceTree = "<group>";
+		};
+		188B3DC42C5D95640069B861 /* FocusPosst */ = {
+			isa = PBXGroup;
+			children = (
+				188B3DC72C5D98D60069B861 /* MapFocusPostView.swift */,
+				188B3DCB2C5EB1330069B861 /* StoryDisplayView.swift */,
+				188B3DCD2C5EB13F0069B861 /* StoryDisplayVM.swift */,
+			);
+			path = FocusPosst;
+			sourceTree = "<group>";
+		};
+		188B3DCF2C5ED60A0069B861 /* LazyFeed */ = {
+			isa = PBXGroup;
+			children = (
+				188B3DD02C5ED6170069B861 /* LazyFeedView.swift */,
+				188B3DD22C5ED7B10069B861 /* LazyFeedCell.swift */,
+				188B3DD42C5ED84C0069B861 /* LazyfeedCellVM.swift */,
+			);
+			path = LazyFeed;
 			sourceTree = "<group>";
 		};
 		188E62D42C2418C6001D9FBB /* View */ = {
@@ -1524,8 +1642,13 @@
 		189016142C4668A700609C50 /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				188B3DC42C5D95640069B861 /* FocusPosst */,
+				188B3DBF2C5C89DE0069B861 /* Overlay */,
+				188B3DAD2C52A7AF0069B861 /* Detail */,
+				188B3DA22C4FF3C70069B861 /* Search */,
 				183135742C48501C0019BB7C /* Managers */,
 				183135722C484FD00019BB7C /* MainMapView.swift */,
+				188B3DA92C5064530069B861 /* MapViewModel.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -1669,6 +1792,7 @@
 				183963942C37F6E20030278E /* PublicChallenge.swift */,
 				18F5FE4E2C255F7500A94B57 /* ChallengeUpload.swift */,
 				180D88D82C32027C0030322B /* Forum.swift */,
+				188B3DB02C54608F0069B861 /* Location.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -1841,6 +1965,8 @@
 			files = (
 				180D88ED2C3448B80030322B /* QR-code.swift in Sources */,
 				189D02262C20E2BD00A93C4B /* CreateRecipeView.swift in Sources */,
+				188B3DCA2C5D99C20069B861 /* SceneController.swift in Sources */,
+				188B3DC12C5C89F00069B861 /* MapOverlay.swift in Sources */,
 				18332F2D2C19B4E7002E95F4 /* OnFirstAppear.swift in Sources */,
 				183C7CF42C20298900E00241 /* NotificationCellViewModel.swift in Sources */,
 				183B220F2C1A1157008A3DCF /* TestView.swift in Sources */,
@@ -1853,10 +1979,13 @@
 				184060DA2C1C9CF40002894C /* StoryOverlayView.swift in Sources */,
 				185A6A732C1F9A070006E5B0 /* BlockView.swift in Sources */,
 				18332F242C19AAC6002E95F4 /* LandingView.swift in Sources */,
+				188B3DBD2C59E3870069B861 /* LocationDetailPostCellVM.swift in Sources */,
 				183C7D132C204F9000E00241 /* MainBlockView.swift in Sources */,
 				18D91A8B2C22E58500CD1E6C /* MainRecipeView.swift in Sources */,
 				183B221C2C1A4523008A3DCF /* ListCell.swift in Sources */,
+				188B3DC32C5D8A3C0069B861 /* CustomSheetView.swift in Sources */,
 				18332F1F2C199745002E95F4 /* MainRegistrationView.swift in Sources */,
+				188B3DD52C5ED84C0069B861 /* LazyfeedCellVM.swift in Sources */,
 				183C7D032C20385E00E00241 /* MainFriendRequestView.swift in Sources */,
 				186E2B882C1B098E003E35D4 /* SkeletonPost.swift in Sources */,
 				18332F222C199753002E95F4 /* RegistrationViewModel.swift in Sources */,
@@ -1868,10 +1997,12 @@
 				18332F162C198A0B002E95F4 /* CustomAlertView.swift in Sources */,
 				1844C23F2C18D65300243FAB /* FontSize.swift in Sources */,
 				183C7D262C2070C300E00241 /* LandingCameraView.swift in Sources */,
+				188B3DD32C5ED7B10069B861 /* LazyFeedCell.swift in Sources */,
 				18332F302C19B579002E95F4 /* UserService.swift in Sources */,
 				183135732C484FD00019BB7C /* MainMapView.swift in Sources */,
 				180D88F32C3456150030322B /* QRCode.swift in Sources */,
 				184060CF2C1B9D5D0002894C /* SavedView.swift in Sources */,
+				188B3DCC2C5EB1330069B861 /* StoryDisplayView.swift in Sources */,
 				183C7D222C20687200E00241 /* NewPostViewModel.swift in Sources */,
 				18D91A8D2C22EB2900CD1E6C /* RecipeViewModel.swift in Sources */,
 				18332F322C19B666002E95F4 /* FirebaseConstants.swift in Sources */,
@@ -1889,16 +2020,19 @@
 				180D88BD2C2EDFEB0030322B /* MainVoteView.swift in Sources */,
 				18C9545A2C1B3E8700B6439E /* FocusPostView.swift in Sources */,
 				185A6A712C1F95620006E5B0 /* ProfileOptionsSheet.swift in Sources */,
+				188B3DB32C5838970069B861 /* MapService.swift in Sources */,
 				183B221E2C1A452E008A3DCF /* ListCellViewModel.swift in Sources */,
 				183C7D0E2C20497600E00241 /* MainSettingsView.swift in Sources */,
 				183C7D082C20393000E00241 /* FriendRequestCellViewModel.swift in Sources */,
 				183C7D282C2072A300E00241 /* UploadPostView.swift in Sources */,
 				18623F912C3C3E1900B26DF5 /* PublicChallengeFocusVM.swift in Sources */,
+				188B3DB12C54608F0069B861 /* Location.swift in Sources */,
 				183C7CEF2C2027F000E00241 /* Notification.swift in Sources */,
 				1894196F2C283F0B006BECDA /* EditCrewUserCell.swift in Sources */,
 				183963AB2C397E590030278E /* FinishedChallengeCellVM.swift in Sources */,
 				184060DE2C1CA97E0002894C /* StoryCell.swift in Sources */,
 				183C7D152C204FF500E00241 /* MainBlockedViewModel.swift in Sources */,
+				188B3DAF2C52A8260069B861 /* LocationDetailVM.swift in Sources */,
 				183963A32C396A1E0030278E /* FinishedChallengeCell.swift in Sources */,
 				180D88CD2C318C090030322B /* NamesSpace.swift in Sources */,
 				1807B7B32C49287800643C39 /* TestPostPickerVM.swift in Sources */,
@@ -1921,6 +2055,8 @@
 				184060CA2C1B99DD0002894C /* VariableView.swift in Sources */,
 				18C9544D2C1B1C0600B6439E /* PrimaryCommentCell.swift in Sources */,
 				183135762C4850260019BB7C /* LocationManager.swift in Sources */,
+				188B3DC82C5D98D60069B861 /* MapFocusPostView.swift in Sources */,
+				188B3DBB2C59E3720069B861 /* LocationDetailPostCell.swift in Sources */,
 				180D88D92C32027C0030322B /* Forum.swift in Sources */,
 				186E2B852C1AE883003E35D4 /* TimeStamp.swift in Sources */,
 				1804ECE82C4924AA00C88CC1 /* MainTrophyView.swift in Sources */,
@@ -1935,6 +2071,7 @@
 				189016112C43D49800609C50 /* RecomendedCell.swift in Sources */,
 				18332F342C19BC09002E95F4 /* ForgottPassword.swift in Sources */,
 				189016132C43D4A200609C50 /* RecomendedCellViewModel.swift in Sources */,
+				188B3DD12C5ED6170069B861 /* LazyFeedView.swift in Sources */,
 				186E2B7B2C1AE63B003E35D4 /* PostService.swift in Sources */,
 				183C7CED2C2027E400E00241 /* NotificationCell.swift in Sources */,
 				185A6A5B2C1F37530006E5B0 /* EditGridItemCell.swift in Sources */,
@@ -1957,10 +2094,12 @@
 				18C954572C1B2B6100B6439E /* SubCommentViewModel.swift in Sources */,
 				18DDBD0A2C18E3C700E288DE /* LoginViewModel.swift in Sources */,
 				180D88BF2C2EE2560030322B /* VoteCell.swift in Sources */,
+				188B3DA62C4FFE010069B861 /* MapSearchView.swift in Sources */,
 				184060E62C1DD05B0002894C /* Album.swift in Sources */,
 				180D88CF2C319A910030322B /* SelectChallengeViewStory.swift in Sources */,
 				181761812C24B3C900E52AB0 /* MainCrewViewModel.swift in Sources */,
 				180D88E02C32CE220030322B /* GridCellViewModel.swift in Sources */,
+				188B3DAA2C5064530069B861 /* MapViewModel.swift in Sources */,
 				18DDBD242C1916EA00E288DE /* ContentViewModel.swift in Sources */,
 				18D91A9E2C23317D00CD1E6C /* CrewService.swift in Sources */,
 				185A6A662C1F79FC0006E5B0 /* MainSearchViewModel.swift in Sources */,
@@ -1984,8 +2123,10 @@
 				185A6A442C1F04900006E5B0 /* GridItemCell.swift in Sources */,
 				185A6A752C1FA2EA0006E5B0 /* ReportView.swift in Sources */,
 				185A6A6C2C1F83FB0006E5B0 /* EmptySearchView.swift in Sources */,
+				188B3DB62C59C0BB0069B861 /* SelectLocationView.swift in Sources */,
 				1839638A2C3600620030278E /* ForumCellViewModel.swift in Sources */,
 				183C7CEA2C2027CE00E00241 /* NotificationType.swift in Sources */,
+				188B3DB82C59C0F20069B861 /* SelectLocationVM.swift in Sources */,
 				1807B7B52C4928C100643C39 /* TestPostPicker.swift in Sources */,
 				183C7CF82C202A5900E00241 /* NotificationsViewModel.swift in Sources */,
 				1894196D2C283D9D006BECDA /* EditCrewList.swift in Sources */,
@@ -2015,6 +2156,7 @@
 				180D88EB2C3444740030322B /* ReportPostView.swift in Sources */,
 				183B221A2C1A2CBB008A3DCF /* ListView.swift in Sources */,
 				188E62DF2C24270F001D9FBB /* CreateCrewUserCell.swift in Sources */,
+				188B3DA82C50019A0069B861 /* MapSearchCell.swift in Sources */,
 				180D88C42C3088F40030322B /* StatsView.swift in Sources */,
 				185A6A592C1F34AC0006E5B0 /* EditAlbumView.swift in Sources */,
 				18D91A9C2C232BD300CD1E6C /* ratingUser.swift in Sources */,
@@ -2025,6 +2167,7 @@
 				184060E02C1DB5830002894C /* CalenderStoryGrid.swift in Sources */,
 				18D91A982C232ACC00CD1E6C /* LandingCrewViewModel.swift in Sources */,
 				185A6A5D2C1F37810006E5B0 /* EditGridItemCellViewModel.swift in Sources */,
+				188B3DAC2C52A7AA0069B861 /* LocationDetailView.swift in Sources */,
 				183C7D052C20390A00E00241 /* FriendRequestCell.swift in Sources */,
 				183B22152C1A1AA3008A3DCF /* ImageUploader.swift in Sources */,
 				183C7D0B2C2045C500E00241 /* NotificationsManager.swift in Sources */,
@@ -2032,6 +2175,7 @@
 				180D88D62C3201E20030322B /* ForumMessageType.swift in Sources */,
 				186E2B7F2C1AE714003E35D4 /* FeedCell.swift in Sources */,
 				18DDBD082C18E34300E288DE /* AuthService.swift in Sources */,
+				188B3DCE2C5EB13F0069B861 /* StoryDisplayVM.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

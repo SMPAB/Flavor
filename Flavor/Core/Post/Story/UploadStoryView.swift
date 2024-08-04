@@ -180,7 +180,68 @@ struct UploadStoryView: View {
                             }
                             
                         }
+                        
+                        
+                        Text("Add location")
+                            .font(.primaryFont(.P1))
+                            .fontWeight(.semibold)
+                        
+                        if let selectedItem = viewModel.selectedMapItem {
+                            HStack{
+                                
+                                Text(viewModel.selectedMapItemTitle ?? "")
+                                    .font(.primaryFont(.P2))
+                                    .fontWeight(.semibold)
+                                
+                                Spacer()
+                                
+                                Button(action: {
+                                    viewModel.selectedMapItem = nil
+                                    viewModel.selectedMapItemTitle = nil
+                                }){
+                                    Iconoir.trash.asImage
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 16, height: 16)
+                                        .foregroundStyle(.colorOrange)
+                                }
+                            }.padding(.horizontal, 8)
+                            .frame(maxWidth: .infinity)
+                                .frame(height: 48)
+                                .background(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .fill(Color.clear)
+                                    .stroke(Color(.systemGray))
+                                )
+                        }  else {
+                            
+                            NavigationLink(destination:
+                                            SelectLocationView(selectedLocation: $viewModel.selectedMapItem, selectedLocationTitle: $viewModel.selectedMapItemTitle)
+                            ){
+                                HStack{
+                                    Text("Add Location")
+                                        .font(.primaryFont(.P2))
+                                        .foregroundStyle(Color(.systemGray))
+                                    
+                                    Spacer()
+                                    
+                                    Iconoir.globe.asImage
+                                        .foregroundStyle(Color(.systemGray))
+                                }.padding(.horizontal, 8)
+                                .frame(maxWidth: .infinity)
+                                    .frame(height: 48)
+                                    .background(
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .fill(Color.clear)
+                                        .stroke(Color(.systemGray))
+                                    )
+                            }
+                            
+                        }
                     }
+                    
+                    
+                    
                     
                     
                     

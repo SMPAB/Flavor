@@ -24,6 +24,8 @@ struct FirebaseConstants{
     
     static let PushNotificationCollectio = Firestore.firestore().collection("push-notifications")
     
+    static let LocationCollection = Firestore.firestore().collection("locations")
+    
     static let RecipeCollection = Firestore.firestore().collection("recipe")
     
     static let AlbumCollection = Firestore.firestore().collection("album")

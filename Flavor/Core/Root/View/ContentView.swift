@@ -12,6 +12,7 @@ struct ContentView: View {
     
     private var authService: AuthService
     @StateObject var viewModel: ContentViewModel
+    @EnvironmentObject var sceneController: SceneController
     
     init(authService: AuthService){
         self.authService = authService
@@ -30,6 +31,7 @@ struct ContentView: View {
                     
                 } else {
                     UserControllView(authservice: authService)
+                        .environmentObject(sceneController)
                         .environment(\.namespace, namespace)
                         .environmentObject(viewModel)
                        

@@ -15,6 +15,7 @@ class MainCrewViewModel: ObservableObject {
     @Published var crew: Crew
     
     @Published var challenges: [Challenge] = []
+    @Published var fetchingChallenges = false
 
     
     //Edit
@@ -63,6 +64,7 @@ class MainCrewViewModel: ObservableObject {
     
     func fetchChallenges() async throws {
         do {
+            self.fetchingChallenges = true
             let (challenges, newRating) = try await CrewService.fetchChallenges(crewId: crew.id)
             self.challenges = challenges
             
@@ -74,7 +76,9 @@ class MainCrewViewModel: ObservableObject {
                    // try await fetchRatingUsers()
                 }
             }
+            self.fetchingChallenges = false
         } catch {
+            self.fetchingChallenges = false
             print("Error fetching challenges: \(error.localizedDescription)")
         }
     }

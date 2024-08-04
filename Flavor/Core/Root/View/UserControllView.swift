@@ -11,6 +11,7 @@ struct UserControllView: View {
     
     @StateObject var viewModel = UserControllViewModel()
     @EnvironmentObject var contentViewModel: ContentViewModel
+    @EnvironmentObject var sceneController: SceneController
     var authservice: AuthService
     
     var body: some View {
@@ -20,6 +21,7 @@ struct UserControllView: View {
             Color.colorOrange
             if let user = viewModel.user {
                 Tabview(user: user, authService: authservice)
+                    .environmentObject(sceneController)
                     .environmentObject(contentViewModel)
             } else if viewModel.user == nil && viewModel.hasFetchedUser {
                 SetupAccount()

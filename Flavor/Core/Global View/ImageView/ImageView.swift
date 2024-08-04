@@ -33,6 +33,7 @@ struct ImageView: View {
                     .background(
                         RoundedRectangle(cornerRadius: size.rawValue/8)
                             .fill(Color(.systemGray5))
+                        
                             .stroke(
                                                     LinearGradient(
                                                         gradient: Gradient(colors: [.colorYellow, .colorOrange]),
@@ -41,6 +42,7 @@ struct ImageView: View {
                                                     ),
                                                     lineWidth: size.rawValue/20 // Adjust the width of the border as needed
                                                 )
+                            .frame(width: size.rawValue, height: size.rawValue)
                     )
             } else {
                 RoundedRectangle(cornerRadius: size.rawValue/8)

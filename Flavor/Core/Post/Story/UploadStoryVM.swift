@@ -7,6 +7,7 @@
 
 import Foundation
 import Firebase
+import MapKit
 
 class UploadStoryVM: ObservableObject {
     @Published var image: FilteredImage?
@@ -19,6 +20,9 @@ class UploadStoryVM: ObservableObject {
     
     @Published var allPublicChallenges: [PublicChallenge] = []
     @Published var publicChallenge: PublicChallenge?
+    
+    @Published var selectedMapItem: MKMapItem?
+    @Published var selectedMapItemTitle: String?
     
     
     init(image: FilteredImage? = nil) {
@@ -47,10 +51,15 @@ class UploadStoryVM: ObservableObject {
                 publicChallengeId = FirebaseConstants.PublicChallengeCollection.document(publicChallenge.id).collection("posts").document()
             }
             
+            var Locationid: String?
+            if let selectedMapItem = selectedMapItem {
+               Locationid = getIdentifier(for: selectedMapItem)
+            }
+            
             var IMAGEURL: String?
             
             
-            var story = Story(id: storyId, ownerUid: user.id, imageUrl: nil, postID: nil, challengeUploadId: challenge != nil ? challengeUploadId.documentID : nil, timestamp: Timestamp(date: Date()), timestampDate: todayString, title: title)
+            var story = Story(id: storyId, ownerUid: user.id, imageUrl: nil, postID: nil, challengeUploadId: challenge != nil ? challengeUploadId.documentID : nil, locationId: selectedMapItem != nil ? Locationid : nil, timestamp: Timestamp(date: Date()), timestampDate: todayString, title: title)
             
             if let imageUrl = try await ImageUploader.uploadImage(image: image!.image){
                 story.imageUrl = imageUrl
@@ -137,6 +146,21 @@ class UploadStoryVM: ObservableObject {
                 homeVM.newPublicChallengePosts.append(challengeToDisplay)
             }
             
+            //MARK: LOCATION
+            
+            if let location = selectedMapItem {
+                
+                guard Locationid != nil else {return}
+                    guard Locationid != "" else {return}
+                    
+                if let name = selectedMapItemTitle {
+                    try await FirebaseConstants.LocationCollection.document(Locationid ?? "noLocation").setData(["name": name, "id": Locationid ?? ""], merge: true)
+                }
+                if homeVM.user.publicAccount == true {
+                    try await FirebaseConstants.LocationCollection.document(Locationid ?? "noLocation").setData(["storyIds": FieldValue.arrayUnion([storyId])], merge: true)
+                }
+            }
+            
             //MARK: LOCAL CHANGES
             var localStory = story
             homeVM.currentUserHasStory = true
@@ -170,5 +194,13 @@ class UploadStoryVM: ObservableObject {
         } catch {
             return
         }
+    }
+    
+    func getIdentifier(for mapItem: MKMapItem) -> String {
+        let latitude = mapItem.placemark.coordinate.latitude
+        let longitude = mapItem.placemark.coordinate.longitude
+        // Create a unique identifier based on coordinates and name
+        var identifier: String =  "\(latitude)\(longitude)".replacingOccurrences(of: ".", with: "")
+        return identifier
     }
 }

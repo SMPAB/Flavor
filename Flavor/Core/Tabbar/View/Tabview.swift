@@ -20,6 +20,7 @@ struct Tabview: View {
     @StateObject var homeViewModel: HomeViewModel
     
     @EnvironmentObject var contentViewmodel: ContentViewModel
+    @EnvironmentObject var sceneController: SceneController
     
     
     @State var offsetFocusPost: CGFloat = 0
@@ -86,6 +87,7 @@ struct Tabview: View {
                                 }
                             
                            MainMapView()
+                                .environmentObject(sceneController)
                                 .tabItem {
                                     Iconoir.map.asImage
                                 }
@@ -324,9 +326,16 @@ struct Tabview: View {
                     
                     Task{
                         homeViewModel.fetchingPosts = true
+                        try await homeViewModel.fetchFeedPostIds()
+                        try await homeViewModel.fetchPublicFeed()
                         try await homeViewModel.fetchFollowingUsernames()
-                        try await homeViewModel.fetchFeedPosts()
+                        //try await homeViewModel.fetchFeedPosts()
+                        
+                        
                         try await homeViewModel.fetchStoryUsers()
+                        try await homeViewModel.fetchFollowersIds()
+                        
+                        
                     }
                     
                     Task{
@@ -335,6 +344,7 @@ struct Tabview: View {
                     }
                     
                 }
+            
             
             
             

@@ -209,6 +209,10 @@ struct MainCrewView: View {
                         }.padding(.horizontal, 16)
                     }
                     
+                    if viewModel.fetchingChallenges {
+                        Loading()
+                    }
+                    
                 //MARK: FORUM
                     HStack{
                         Text("Forum")
@@ -236,6 +240,10 @@ struct MainCrewView: View {
                                 .padding(.horizontal, 16)
                                 .environmentObject(viewModel)
                         }
+                    }
+                    
+                    if viewModel.fetchingForum {
+                        Loading()
                     }
                 }
             }

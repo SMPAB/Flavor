@@ -132,7 +132,7 @@ struct MainHomeView: View {
                         }
                     }
             } else {
-                FeedView()
+                LazyFeedView()
                     .environmentObject(viewModel)
             }
             

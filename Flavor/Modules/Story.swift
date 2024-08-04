@@ -15,10 +15,13 @@ struct Story: Identifiable, Hashable, Codable {
     var imageUrl: String?
     let postID: String?
     let challengeUploadId: String?
+    var locationId: String?
     
     let timestamp: Timestamp
     let timestampDate: String
     let title: String
+    
+    var user: User?
 }
 
 extension Story {

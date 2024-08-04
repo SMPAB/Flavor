@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 import Firebase
+import MapKit
 
 class UploadFlavorPostViewModel: ObservableObject {
     @Published var title = ""
@@ -21,6 +22,10 @@ class UploadFlavorPostViewModel: ObservableObject {
     
     @Published var allPublicChallenges: [PublicChallenge] = []
     @Published var publicChallenge: PublicChallenge?
+    
+    
+    @Published var selectedMapItem: MKMapItem?
+    @Published var selectedMapItemTitle: String?
 
     @Published var recipeTitle = ""
     @Published var recipeDiff: Int?
@@ -63,13 +68,20 @@ class UploadFlavorPostViewModel: ObservableObject {
                 publicChallengeId = FirebaseConstants.PublicChallengeCollection.document(publicChallenge.id).collection("posts").document()
             }
             
-            var post = Post(id: postId.documentID, ownerUid: user.id, ownerUsername: user.userName, likes: 0, title: title, caption: caption, imageUrls: nil, storyID: storyId.documentID, recipeId: recipe ? recipeId.documentID : nil, challengeUploadId: challenge != nil ? challengeUploadId.documentID : nil, timestamp: Timestamp(date: Date()), timestampDate: todayString, hasLiked: nil, hasSaved: nil, user: nil)
+            var Locationid: String?
+            if let selectedMapItem = selectedMapItem {
+               Locationid = getIdentifier(for: selectedMapItem)
+            }
+            
+            var post = Post(id: postId.documentID, ownerUid: user.id, ownerUsername: user.userName, likes: 0, title: title, caption: caption, imageUrls: nil, storyID: storyId.documentID, recipeId: recipe ? recipeId.documentID : nil, challengeUploadId: challenge != nil ? challengeUploadId.documentID : nil, locationId: selectedMapItem != nil ? Locationid : nil, publicPost: user.publicAccount, timestamp: Timestamp(date: Date()), timestampDate: todayString, hasLiked: nil, hasSaved: nil, user: nil)
             
             var imageUrls: [String] = []
             
             for i in 0..<images.count {
                 if let imageUrl = try await ImageUploader.uploadImage(image: images[i]){
                     imageUrls.append(imageUrl)
+                } else {
+                    print("DEBUG APP FAILED TO UPLOAD IMAGE")
                 }
             }
             post.imageUrls = imageUrls
@@ -80,7 +92,7 @@ class UploadFlavorPostViewModel: ObservableObject {
             
             //MARK: STORY
             
-            var story = Story(id: storyId.documentID, ownerUid: user.id, imageUrl: imageUrls[0], postID: postId.documentID, challengeUploadId: challenge != nil ? challengeUploadId.documentID : nil, timestamp: Timestamp(date: Date()), timestampDate: todayString, title: title)
+            var story = Story(id: storyId.documentID, ownerUid: user.id, imageUrl: imageUrls[0], postID: postId.documentID, challengeUploadId: challenge != nil ? challengeUploadId.documentID : nil, locationId: selectedMapItem != nil ? Locationid : nil, timestamp: Timestamp(date: Date()), timestampDate: todayString, title: title)
             
             guard let encodedPost = try? Firestore.Encoder().encode(post) else { return }
             guard let encodedStory = try? Firestore.Encoder().encode(story) else { return }
@@ -198,6 +210,31 @@ class UploadFlavorPostViewModel: ObservableObject {
             }
             
             
+            //MARK: LOCATION
+            
+            if let location = selectedMapItem {
+                
+                guard Locationid != nil else {return}
+                    guard Locationid != "" else {return}
+                    
+                if let name = selectedMapItemTitle {
+                    try await FirebaseConstants.LocationCollection.document(Locationid ?? "noLocation").setData(["name": name, "id": Locationid ?? ""], merge: true)
+                }
+                if homeVM.user.publicAccount == true {
+                    try await FirebaseConstants.LocationCollection.document(Locationid ?? "noLocation").setData(["postIds": FieldValue.arrayUnion([postId.documentID])], merge: true)
+                }
+            }
+            
+            
+            //MARK: UPDATE FOLLOWERS FEEDS:::
+            let followers = homeVM.followerIds
+            
+            if !followers.isEmpty {
+                for i in 0..<followers.count {
+                    try await FirebaseConstants.FeedCollection.document(followers[i]).setData(["postIds": FieldValue.arrayUnion([postId.documentID])], merge: true)
+                }
+            }
+            
             
             //MARK: HOMEVIEWMODEL!
             var localPost = post
@@ -242,5 +279,13 @@ class UploadFlavorPostViewModel: ObservableObject {
         } catch {
             return
         }
+    }
+    
+    func getIdentifier(for mapItem: MKMapItem) -> String {
+        let latitude = mapItem.placemark.coordinate.latitude
+        let longitude = mapItem.placemark.coordinate.longitude
+        // Create a unique identifier based on coordinates and name
+        var identifier: String =  "\(latitude)\(longitude)".replacingOccurrences(of: ".", with: "")
+        return identifier
     }
 }

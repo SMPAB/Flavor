@@ -281,6 +281,64 @@ struct UploadPostView: View {
                     }
                     
                 }
+                
+                
+                Text("Add location")
+                    .font(.primaryFont(.P1))
+                    .fontWeight(.semibold)
+                
+                if let selectedItem = viewMdeol.selectedMapItem {
+                    HStack{
+                        
+                        Text(viewMdeol.selectedMapItemTitle ?? "")
+                            .font(.primaryFont(.P2))
+                            .fontWeight(.semibold)
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            viewMdeol.selectedMapItem = nil
+                            viewMdeol.selectedMapItemTitle = nil
+                        }){
+                            Iconoir.trash.asImage
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 16, height: 16)
+                                .foregroundStyle(.colorOrange)
+                        }
+                    }.padding(.horizontal, 8)
+                    .frame(maxWidth: .infinity)
+                        .frame(height: 48)
+                        .background(
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(Color.clear)
+                            .stroke(Color(.systemGray))
+                        )
+                }  else {
+                    
+                    NavigationLink(destination:
+                                    SelectLocationView(selectedLocation: $viewMdeol.selectedMapItem, selectedLocationTitle: $viewMdeol.selectedMapItemTitle)
+                    ){
+                        HStack{
+                            Text("Add Location")
+                                .font(.primaryFont(.P2))
+                                .foregroundStyle(Color(.systemGray))
+                            
+                            Spacer()
+                            
+                            Iconoir.globe.asImage
+                                .foregroundStyle(Color(.systemGray))
+                        }.padding(.horizontal, 8)
+                        .frame(maxWidth: .infinity)
+                            .frame(height: 48)
+                            .background(
+                            RoundedRectangle(cornerRadius: 8)
+                                .fill(Color.clear)
+                                .stroke(Color(.systemGray))
+                            )
+                    }
+                    
+                }
             }
             .padding(.horizontal, 16)
             

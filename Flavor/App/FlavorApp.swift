@@ -107,25 +107,59 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
 import UIKit
 import SwiftUI
+import Combine
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+import SwiftUI
+
+class SceneDelegate: UIResponder, UIWindowSceneDelegate, ObservableObject {
     var window: UIWindow?
+    var overlayWindow: UIWindow?
+    private var cancellables = Set<AnyCancellable>()
+    
+    @Published var sceneController = SceneController()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
+        let contentView = ContentView(authService: AuthService())
+            .environmentObject(sceneController)
+            .environmentObject(self) // Pass SceneDelegate to ContentView
         
-        var authService = AuthService()
-        
-        let contentView = ContentView(authService: authService)  // Your root view
-        //let contentView = TestPostPicker()
         let window = UIWindow(windowScene: windowScene)
         window.rootViewController = UIHostingController(rootView: contentView)
         self.window = window
         window.makeKeyAndVisible()
-    }
+        
+        // Initialize the overlay window
+        overlayWindow = UIWindow(windowScene: windowScene)
+        overlayWindow?.windowLevel = .alert + 1
+        let overlayHostingController = UIHostingController(rootView: MapFocusPostView().environmentObject(sceneController))
+        overlayWindow?.rootViewController = overlayHostingController
 
-    // Implement other scene lifecycle methods as needed
+        // Initialize with the correct visibility
+        updateOverlayVisibility(sceneController.hideOverlay)
+
+        // Observe SceneController's changes to toggle overlay visibility
+        sceneController.$hideOverlay
+            .sink { [weak self] hideOverlay in
+                self?.updateOverlayVisibility(hideOverlay)
+            }
+            .store(in: &cancellables)
+    }
+    
+    func updateOverlayVisibility(_ hideOverlay: Bool) {
+        guard let overlayWindow = overlayWindow else { return }
+        
+        if hideOverlay {
+            overlayWindow.isHidden = true
+        } else {
+            overlayWindow.isHidden = false
+            overlayWindow.makeKeyAndVisible()
+        }
+    }
+    
+    // Other scene lifecycle methods
 }
+
 
 

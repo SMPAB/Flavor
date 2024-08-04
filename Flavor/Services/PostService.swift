@@ -80,12 +80,50 @@ class PostService {
             posts = posts.filter { !seenPosts.contains($0.id)}
             let lastSnapshot = snapshot.documents.last
             
-            return (posts,lastDocument)
+            return (posts,lastSnapshot)
         } catch {
             return ([], lastDocument)
         }
         
         
+    }
+    
+    static func fetchPublicFeedPosts(latestFetched: DocumentSnapshot? = nil, fetchedPostsIds: [String]) async throws -> ([Post], DocumentSnapshot?){
+        
+        guard let currentUid = Auth.auth().currentUser?.uid else { return ([], latestFetched) }
+        do {
+            var query: Query =  FirebaseConstants
+                .PostCollection
+                .whereField("publicPost", isEqualTo: true)
+                .order(by: "timestamp", descending: true)
+                .whereField("ownerUid", isNotEqualTo: currentUid)
+                .limit(to: 3)
+            
+            if let latestFetched = latestFetched {
+                query = query.start(afterDocument: latestFetched)
+            }
+            
+            let snapshot = try await query.getDocuments()
+            
+            var posts = snapshot.documents.compactMap({try? $0.data(as: Post.self)})
+            
+            for i in 0..<posts.count {
+                let user = try await UserService.fetchUser(withUid: posts[i].ownerUid)
+                posts[i].user = user
+            }
+            
+            posts = posts.filter { !fetchedPostsIds.contains($0.id) }
+            
+            let lastSnapshotDocument = snapshot.documents.last
+            
+            return (posts, lastSnapshotDocument)
+                
+            
+            
+        } catch {
+            return ([], latestFetched)
+            print("DEBUG APP \(error.localizedDescription)")
+        }
     }
     
     static func reportPost(reportText: String, post: Post) async throws {
@@ -172,6 +210,14 @@ extension PostService{
             return false
         }
         
+    }
+    
+    static func removePostIdFromUserFeed(username: String, postId: String) async throws {
+        do {
+            try await FirebaseConstants.FeedCollection.document(username).setData(["postIds": FieldValue.arrayRemove([postId])], merge: true)
+        } catch {
+            return
+        }
     }
 }
 //MARK: - Saved

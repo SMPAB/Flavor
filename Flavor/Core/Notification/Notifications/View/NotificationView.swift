@@ -149,6 +149,13 @@ struct NotificationView: View {
             if viewModel.fetchingNotifications {
                 Loading()
             }
+            
+            if viewModel.initialFetched == true && viewModel.notifications.isEmpty {
+                Text("You have no notifications")
+                    .font(.primaryFont(.P1))
+                    .foregroundStyle(Color(.systemGray))
+                    .padding(.top, 200)
+            }
         }.padding(.horizontal, 16)
         .onFirstAppear {
             Task {

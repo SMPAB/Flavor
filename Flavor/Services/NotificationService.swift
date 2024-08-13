@@ -61,6 +61,7 @@ class NotificationService {
         
         
     }
+
     
     @MainActor
     func uploadNotification(toUid uid: String, type: NotificationsType, post: Post? = nil) async throws {
@@ -80,6 +81,8 @@ class NotificationService {
         }
         do {
             //CHECK IF USER HAS A NOTIFICATION OF THIS TYPE
+            
+            
             let snapshot = try await FirebaseConstants
                 .UserCollection
                 .document(uid)
@@ -210,7 +213,7 @@ extension NotificationService {
             
             let currentUser = try await UserService.fetchUser(withUid: currentUid)
             
-            var data: [String:Any] = [
+            let data: [String:Any] = [
                 "title": "started following you",
                 "fromUsername": currentUser.userName,
             ]
@@ -220,6 +223,44 @@ extension NotificationService {
             return
         }
     }
+    
+    @MainActor
+    func uploadCrewAnnouncment(crew: Crew, type: ForumType) async throws {
+        
+        do {
+            var data: [String:Any] = [:]
+            if type == .Announcement {
+                data = [
+                    "title": "has a new announcment",
+                    "fromUsername": crew.crewName
+                ]
+            } else if type == .newChallenge {
+                data = [
+                    "title": "started added a new challenge",
+                    "fromUsername": crew.crewName
+                ]
+            } else if type == .voting {
+                data = [
+                    "title": "started a new voting",
+                    "fromUsername": crew.crewName
+                ]
+            } else {
+                    data = [
+                        "title": "has a new member!",
+                        "fromUsername": crew.crewName
+                    ]
+                
+            }
+            
+            for i in 0..<crew.uids.count {
+                let userId = crew.uids[i]
+                try await FirebaseConstants.PushNotificationCollectio.document(userId).collection("notifications").document().setData(data)
+            }
+        } catch {
+            return
+        }
+    }
+    
     
     @MainActor
     func uploadFriendRequest(toUid: String) async throws {
@@ -242,3 +283,5 @@ extension NotificationService {
     }
     
 }
+
+

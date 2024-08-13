@@ -628,7 +628,17 @@ extension PostService {
             
             if let storyId = post.storyID {
                 if storyId != ""{
-                    try await FirebaseConstants.StoryCollection.document(storyId).delete()
+                    //try await FirebaseConstants.StoryCollection.document(storyId).delete()
+                    let story = try await StoryService.fetchStoryWithId(storyId)
+                    if let story = story {
+                        try await deleteStory(story)
+                    }
+                }
+            }
+            
+            if let locationId = post.locationId {
+                if locationId != "" {
+                    try await FirebaseConstants.LocationCollection.document(locationId).setData(["postIds": FieldValue.arrayRemove([post.id])], merge: true)
                 }
             }
             
@@ -639,6 +649,13 @@ extension PostService {
                     let imageUrl = imageUrls[i]
                     let storageRef = Storage.storage().reference(forURL: imageUrl)
                     try await storageRef.delete()
+                }
+            }
+            
+            if let albums = post.Albums {
+                for i in 0..<albums.count {
+                    let album = albums[i]
+                    try await FirebaseConstants.AlbumCollection.document(album).setData(["uploadIds": FieldValue.arrayRemove([post.id])], merge: true)
                 }
             }
             
@@ -682,6 +699,7 @@ extension PostService {
         
         
     }
+    
     
     static func deleteStory(_ story: Story) async throws {
         
@@ -729,6 +747,13 @@ extension PostService {
             
             if let postID = story.postID {
                 try await FirebaseConstants.PostCollection.document(postID).updateData(["storyID": ""])
+            }
+            
+            if let locationId = story.locationId {
+                if locationId != "" {
+                    try await FirebaseConstants.LocationCollection.document(locationId).setData(["storyIds": FieldValue.arrayRemove([story.id])], merge: true)
+                }
+               
             }
         } catch {
             

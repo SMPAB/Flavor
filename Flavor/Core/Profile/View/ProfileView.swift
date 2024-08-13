@@ -17,6 +17,8 @@ struct ProfileView: View {
     
     @State var offsetRectangle: CGFloat = 0
     
+    @State var hapticPuls = false
+    
     @State var mockPostForGrid: [Post] = [Post.mockPosts[0], Post.mockPosts[0], Post.mockPosts[0], Post.mockPosts[0], Post.mockPosts[0], Post.mockPosts[0], Post.mockPosts[0], Post.mockPosts[0]]
     
     init(user: User){
@@ -350,6 +352,7 @@ struct ProfileView: View {
                 .presentationDetents([.height(400)])
                 .presentationDragIndicator(.visible)
         }
+        .sensoryFeedback(.impact(weight: .heavy, intensity: 1), trigger: hapticPuls)
         .fullScreenCover(isPresented: $viewModel.showReport){
             ReportView()
                 .environmentObject(viewModel)
@@ -359,7 +362,7 @@ struct ProfileView: View {
     private func handleFollowTapped() {
         
        
-           
+        hapticPuls.toggle()
            if user.isFollowed == true {
                Task {
                    try await viewModel.unfollow(userToUnfollow: user, userUnfollowing: homeVM.user, homeVM: homeVM)

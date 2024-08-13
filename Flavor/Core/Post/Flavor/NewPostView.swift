@@ -28,12 +28,14 @@ struct NewPostView: View {
         NavigationStack {
             VStack {
                 ZStack{
+                    //Color.black
                     ForEach(viewModel.selectedAssets, id: \.self) { asset in
                         TestPostCell(asset: asset)
                             .zIndex(viewModel.selectedAsset == asset ? 100 : 1)
                             .environmentObject(viewModel)
                     }
                 }.frame(height: width)
+                    //.background(.black)
                 
                 footerView
                     .padding(.horizontal, 16)
@@ -174,9 +176,7 @@ struct NewPostView: View {
                     )
             }
             .padding(.horizontal, 5)
-            Iconoir.camera.asImage.onTapGesture {
-                // Camera action
-            }
+            
         }
     }
 

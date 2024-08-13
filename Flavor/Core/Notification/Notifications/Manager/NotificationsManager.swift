@@ -28,7 +28,7 @@ class NotificationsManager{
         try await service.uploadNotification(toUid: uid, type: .comment, post: post)
         try await service.uploadCommentPush(toUid: uid, post: post)
     }
-    
+
     func uploadFollowNotification(toUid uid: String) async throws {
         
         guard uid != Auth.auth().currentUser?.uid else { return }
@@ -42,5 +42,18 @@ class NotificationsManager{
         guard uid != Auth.auth().currentUser?.uid else { return }
         
         try await service.uploadFriendRequest(toUid: uid)
+    }
+    
+    //MARK: CREW
+    func uploadNewChallengeNotification(crew: Crew) async throws {
+        try await service.uploadCrewAnnouncment(crew: crew, type: .newChallenge)
+    }
+    
+    func uploadNewAnnouncmentNotification(crew: Crew) async throws {
+        try await service.uploadCrewAnnouncment(crew: crew, type: .Announcement)
+    }
+    
+    func uploadNewVotingNotification(crew: Crew) async throws {
+        try await service.uploadCrewAnnouncment(crew: crew, type: .voting)
     }
 }

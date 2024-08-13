@@ -195,6 +195,8 @@ class MainCrewViewModel: ObservableObject {
             var forumForDisplay = forum
             forumForDisplay.challenge = challenge
             forumPosts.insert(forumForDisplay, at: 0)
+            
+            try await NotificationsManager.shared.uploadNewChallengeNotification(crew: crew)
         } catch {
             return
         }
@@ -275,6 +277,8 @@ extension MainCrewViewModel {
                 forum.user = currentUser
                 
                 forumPosts.insert(forum, at: 0)
+                
+                try await NotificationsManager.shared.uploadNewVotingNotification(crew: crew)
             } else {
                 let forumRef = FirebaseConstants.CrewCollection.document(crew.id).collection("forum").document()
                 
@@ -288,6 +292,7 @@ extension MainCrewViewModel {
                 forum.user = currentUser
                 
                 forumPosts.insert(forum, at: 0)
+                try await NotificationsManager.shared.uploadNewAnnouncmentNotification(crew: crew)
             }
            
         } catch {

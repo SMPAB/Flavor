@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftUI
-
+import Firebase
 class EditAlbumViewModel: ObservableObject {
     @Published var showImagePicker = false
     @Published var image: Image?
@@ -76,6 +76,12 @@ class EditAlbumViewModel: ObservableObject {
             var sortedPosts = selectedPosts.sorted(by: {$0.timestamp.dateValue() > $1.timestamp.dateValue()})
             let sortedPostIds = sortedPosts.map { $0.id }
             data["uploadIds"] = sortedPostIds
+            
+            for i in 0..<sortedPostIds.count {
+                if !originalPosts.contains(where: {$0.id == sortedPostIds[i]}) {
+                    try await FirebaseConstants.PostCollection.document(sortedPostIds[i]).setData(["Albums": FieldValue.arrayUnion([albumViewModel.album.id])], merge: true)
+                }
+            }
             
             albumViewModel.posts = sortedPosts
             

@@ -71,6 +71,12 @@ struct Tabview: View {
                                 .environmentObject(homeViewModel)
                                 .tabItem {
                                     Iconoir.homeSimpleDoor.asImage
+                                        .onTapGesture(count: 2, perform: {
+                                            print("DEBUG APP DOUBLE TAPPED ")
+                                            withAnimation{
+                                                homeViewModel.navigateFeedToTop.toggle()
+                                            }
+                                        })
                                 }
                             
                             LandingCommunityView()

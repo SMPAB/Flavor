@@ -18,6 +18,7 @@ struct Post: Identifiable, Hashable, Codable{
     var title: String?
     var caption: String?
     var imageUrls: [String]?
+    var Albums: [String]?
     
     var storyID: String?
     let recipeId: String?

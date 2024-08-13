@@ -52,6 +52,10 @@ class CreateAlbumViewModel: ObservableObject {
             albumtodisplay.user = profileVM.user
             profileVM.albums.insert(albumtodisplay, at: 0)
             
+            for i in 0..<uploadIds.count {
+                try await FirebaseConstants.PostCollection.document(uploadIds[i]).setData(["Albums": FieldValue.arrayUnion([album.id])], merge: true)
+            }
+            
         } catch {
             return
         }

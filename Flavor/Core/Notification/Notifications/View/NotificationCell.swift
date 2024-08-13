@@ -65,7 +65,7 @@ struct NotificationCell: View {
                     .font(.custom("HankenGrotesk-Regular", size: .P2))
                 
                 +
-                Text("@\(notification.users![0].userName)")
+                Text("@\(notification.users![1].userName)")
                     .fontWeight(.semibold)
                     .foregroundStyle(.colorOrange)
                     .font(.custom("HankenGrotesk-Regular", size: .P2))

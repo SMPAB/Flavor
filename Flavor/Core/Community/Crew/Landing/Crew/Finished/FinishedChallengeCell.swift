@@ -69,7 +69,7 @@ struct FinishedChallengeCell: View {
                     }
                 }
                 VStack(spacing: 2){
-                    Text("\(viewModel.challenge.crew?.crewName ?? "Flavor")")
+                    Text("\(crewVM.crew.crewName ?? "Flavor")")
                         .font(.primaryFont(.P1))
                         .foregroundStyle(Color(.systemGray))
                     

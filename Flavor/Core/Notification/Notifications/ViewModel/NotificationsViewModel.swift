@@ -12,6 +12,7 @@ class NotificationsViewModel: ObservableObject {
     @Published var notifications: [Notification] = []
     private var latestDocument: DocumentSnapshot?
     @Published var fetchingNotifications = false
+    @Published var initialFetched = false
     
     @MainActor
     func fetchNotifications() async throws {
@@ -24,5 +25,6 @@ class NotificationsViewModel: ObservableObject {
         }
         latestDocument = lastDocument
         fetchingNotifications = false
+        initialFetched = true
     }
 }

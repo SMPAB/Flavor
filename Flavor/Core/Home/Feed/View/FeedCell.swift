@@ -14,6 +14,7 @@ struct FeedCell: View {
     @EnvironmentObject var homeVM: HomeViewModel
     
     @State var showComments = false
+    @State var hapticPuls = false
     
     init(post: Post){
         self._viewModel = StateObject(wrappedValue: FeedCellViewModel(post: post))
@@ -36,11 +37,7 @@ struct FeedCell: View {
         let width = UIScreen.main.bounds.width
         VStack(spacing: 8){
             if let user = post.user {
-                NavigationLink(destination: 
-                                ProfileView(user: user)
-                    .environmentObject(homeVM)
-                
-                ){
+                if user.isCurrentUser {
                     HStack(spacing: 16){
                         ImageView(size: .small, imageUrl: user.profileImageUrl, background: false)
                         
@@ -66,6 +63,38 @@ struct FeedCell: View {
                         
                         
                     }.foregroundStyle(.black)
+                } else {
+                    NavigationLink(destination:
+                                    ProfileView(user: user)
+                        .environmentObject(homeVM)
+                    
+                    ){
+                        HStack(spacing: 16){
+                            ImageView(size: .small, imageUrl: user.profileImageUrl, background: false)
+                            
+                            VStack(alignment: .leading){
+                                Text(user.userName)
+                                    .font(.primaryFont(.P1))
+                                    .fontWeight(.semibold)
+                                
+                                Text(post.timestamp.timestampString())
+                                    .font(.primaryFont(.P2))
+                                    
+                            }
+                            
+                            Spacer()
+                            
+                           
+                                Button(action: {
+                                    viewModel.showOptionsSheet.toggle()
+                                }){
+                                    Iconoir.moreHoriz.asImage
+                                        .foregroundStyle(.black)
+                                }
+                            
+                            
+                        }.foregroundStyle(.black)
+                    }
                 }
             }
             VStack(spacing: 0){
@@ -282,6 +311,15 @@ struct FeedCell: View {
                 
                 Spacer()
                 
+                if viewModel.topComment == nil {
+                    Button(action: {
+                        showComments.toggle()
+                    }) {
+                        Iconoir.chatBubbleEmpty.asImage
+                            .foregroundStyle(.black)
+                    }
+                }
+                
                 if let recipeId = post.recipeId {
                     NavigationLink(destination:
                     MainRecipeView(recipeId: recipeId)
@@ -307,22 +345,25 @@ struct FeedCell: View {
                 
             }
             
-            HStack(spacing: 4){
-                Iconoir.chatBubbleEmpty.asImage
-                    .resizable()
-                    .frame(width: 12, height: 12)
-                    .foregroundStyle(Color(.systemGray))
-                
-                Text("Comments")
-                    .font(.primaryFont(.P2))
-                    .foregroundStyle(Color(.systemGray))
-                
-                Spacer()
-            }.onTapGesture {
-                showComments.toggle()
-            }
+            
             
             if let comment = viewModel.topComment{
+                
+                HStack(spacing: 4){
+                    Iconoir.chatBubbleEmpty.asImage
+                        .resizable()
+                        .frame(width: 12, height: 12)
+                        .foregroundStyle(Color(.systemGray))
+                    
+                    Text("Comments")
+                        .font(.primaryFont(.P2))
+                        .foregroundStyle(Color(.systemGray))
+                    
+                    Spacer()
+                }.onTapGesture {
+                    showComments.toggle()
+                }
+                
                 HStack(alignment: .top){
                     ImageView(size: .xxsmall, imageUrl: comment.user?.profileImageUrl, background: false)
                     
@@ -353,6 +394,8 @@ struct FeedCell: View {
                     }
                 }
             }
+            .sensoryFeedback(.impact(weight: .heavy, intensity: 1), trigger: hapticPuls)
+            
         .onFirstAppear {
             Task{
                 try await viewModel.checkIfuserHasSavedPost()
@@ -366,7 +409,7 @@ struct FeedCell: View {
             }
         }
         .sheet(isPresented: $showComments){
-            MainCommentsView(post: post)
+            MainCommentsView(post: post, cellVM: viewModel)
                 .environmentObject(homeVM)
         }
         .sheet(isPresented: $viewModel.showOptionsSheet, content: {
@@ -390,6 +433,7 @@ struct FeedCell: View {
             }
         } else {
             Task{
+                hapticPuls.toggle()
                try await viewModel.like()
             }
         }
@@ -402,6 +446,7 @@ struct FeedCell: View {
             }
         } else {
             Task{
+                hapticPuls.toggle()
                 try await viewModel.save()
             }
         }

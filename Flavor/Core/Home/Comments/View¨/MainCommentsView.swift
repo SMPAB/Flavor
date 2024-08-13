@@ -18,8 +18,8 @@ struct MainCommentsView: View {
     
     @FocusState private var isCommentFieldFocused: Bool
     
-    init(post: Post){
-        self._viewModel = StateObject(wrappedValue: CommentsViewModel(post: post))
+    init(post: Post, cellVM: FeedCellViewModel){
+        self._viewModel = StateObject(wrappedValue: CommentsViewModel(post: post, cellVM: cellVM))
     }
     var body: some View {
         VStack(spacing: 0){
@@ -51,6 +51,22 @@ struct MainCommentsView: View {
                         Loading()
                     }
                 }.padding(.top)
+                
+                if viewModel.initialFetchedCompleted == true && viewModel.comments.isEmpty {
+                    
+                   
+                    VStack{
+                        Text("Be the first to comment!")
+                            .font(.primaryFont(.H4))
+                            .fontWeight(.semibold)
+                        
+                        Text("This post has no comments")
+                            .font(.primaryFont(.P2))
+                            .foregroundStyle(Color(.systemGray))
+                    }.padding(.top, 250)
+                    
+                  
+                }
             }
             
             Divider()
@@ -140,6 +156,6 @@ struct MainCommentsView: View {
 }
 
 #Preview {
-    MainCommentsView(post: Post.mockPosts[0])
+    MainCommentsView(post: Post.mockPosts[0], cellVM: FeedCellViewModel(post: Post.mockPosts[0]))
         .environmentObject(HomeViewModel(user: User.mockUsers[0]))
 }

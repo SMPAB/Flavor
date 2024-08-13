@@ -12,6 +12,8 @@ struct RecomendedCell: View {
     @StateObject var viewModel: RecomendedCellViewModel
     @EnvironmentObject var homeVM: HomeViewModel
     
+    @State var hapticPuls = false
+    
     init(user: User) {
         self._viewModel = StateObject(wrappedValue: RecomendedCellViewModel(user: user))
     }
@@ -62,9 +64,12 @@ struct RecomendedCell: View {
             }
             
         }
+        .sensoryFeedback(.impact(weight: .heavy, intensity: 1), trigger: hapticPuls)
     }
     
     func handleFollowTapped() {
+        
+        hapticPuls.toggle()
         if isFollowed {
             Task {
                 try await viewModel.unfollow(currentUser: homeVM.user)

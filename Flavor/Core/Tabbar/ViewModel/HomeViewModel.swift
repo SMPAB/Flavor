@@ -123,6 +123,10 @@ class HomeViewModel: ObservableObject{
     @Published var deletedStorys: [String] = []
     
     
+    //OTHER
+    @Published var navigateFeedToTop = false
+    
+    
     
     init(user: User) {
         self.user = user

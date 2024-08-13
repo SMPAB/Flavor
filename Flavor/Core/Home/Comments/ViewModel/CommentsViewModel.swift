@@ -27,9 +27,13 @@ class CommentsViewModel: ObservableObject {
     @Published var addedSubComments: [Comment] = []
     
     @Published var fetchingComments = false
+    @Published var initialFetchedCompleted = false
     
-    init(post: Post) {
+    @Published var cellVM: FeedCellViewModel
+    
+    init(post: Post, cellVM: FeedCellViewModel) {
         self.post = post
+        self.cellVM = cellVM
     }
     
     @MainActor
@@ -58,10 +62,17 @@ class CommentsViewModel: ObservableObject {
         )
         
         //comments.append(commentToDisplay)
+        
+        if comments.isEmpty {
+            cellVM.topComment = commentToDisplay
+        }
+        
         comments.insert(commentToDisplay, at: 0)
         self.commentText = ""
         try await CommentService.uploadPrimaryComment(comment, postId: post.id, documentId: docId)
         try await NotificationsManager.shared.uploadCommentNotification(toUid: post.ownerUid, post: post)
+        
+    
     }
     
     @MainActor
@@ -107,6 +118,7 @@ class CommentsViewModel: ObservableObject {
         self.comments.append(contentsOf: fetchedComments)
         self.lastDocument = lastSnapshot
         fetchingComments = false
+        initialFetchedCompleted = true
     }
 }
 

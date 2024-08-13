@@ -13,6 +13,8 @@ struct ListCell: View {
     @EnvironmentObject var profileVM: ProfileViewModel
     @EnvironmentObject var homeVM: HomeViewModel
     
+    @State var hapticPuls = false
+    
     init(username: String) {
         self._viewModel = StateObject(wrappedValue: ListCellViewModel(username: username))
     }
@@ -80,6 +82,7 @@ struct ListCell: View {
                                 }
                             }
                         }
+                        .sensoryFeedback(.impact(weight: .heavy, intensity: 1), trigger: hapticPuls)
                     }
                 }
             } else {
@@ -111,6 +114,7 @@ struct ListCell: View {
     
     private func handleFollowTapped() {
         
+        hapticPuls.toggle()
        if let user = viewModel.user {
            
            if user.isFollowed == true {

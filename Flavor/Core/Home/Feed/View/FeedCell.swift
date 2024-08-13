@@ -279,7 +279,7 @@ struct FeedCell: View {
                                 }
                                 .onTapGesture{
                                     homeVM.focusPost = post
-                                    homeVM.focusPostIndex = 1
+                                    homeVM.focusPostIndex = 2
                                     homeVM.showFocusPost.toggle()
                                 }
                         }.frame(width: 120, height: 125-4)

@@ -73,7 +73,7 @@ class UploadFlavorPostViewModel: ObservableObject {
                Locationid = getIdentifier(for: selectedMapItem)
             }
             
-            var post = Post(id: postId.documentID, ownerUid: user.id, ownerUsername: user.userName, likes: 0, title: title, caption: caption, imageUrls: nil, storyID: storyId.documentID, recipeId: recipe ? recipeId.documentID : nil, challengeUploadId: challenge != nil ? challengeUploadId.documentID : nil, locationId: selectedMapItem != nil ? Locationid : nil, publicPost: user.publicAccount, timestamp: Timestamp(date: Date()), timestampDate: todayString, hasLiked: nil, hasSaved: nil, user: nil)
+            var post = Post(id: postId.documentID, ownerUid: user.id, ownerUsername: user.userName, likes: 0, title: title, caption: caption, imageUrls: nil, storyID: storyId.documentID, recipeId: recipe ? recipeId.documentID : nil, challengeUploadId: challenge != nil ? challengeUploadId.documentID : nil, locationId: selectedMapItem != nil ? Locationid : nil, locationTitle: selectedMapItemTitle != nil ? selectedMapItemTitle : nil, publicPost: user.publicAccount, timestamp: Timestamp(date: Date()), timestampDate: todayString, hasLiked: nil, hasSaved: nil, user: nil)
             
             var imageUrls: [String] = []
             
@@ -92,7 +92,7 @@ class UploadFlavorPostViewModel: ObservableObject {
             
             //MARK: STORY
             
-            var story = Story(id: storyId.documentID, ownerUid: user.id, imageUrl: imageUrls[0], postID: postId.documentID, challengeUploadId: challenge != nil ? challengeUploadId.documentID : nil, locationId: selectedMapItem != nil ? Locationid : nil, timestamp: Timestamp(date: Date()), timestampDate: todayString, title: title)
+            var story = Story(id: storyId.documentID, ownerUid: user.id, imageUrl: imageUrls[0], postID: postId.documentID, challengeUploadId: challenge != nil ? challengeUploadId.documentID : nil, locationId: selectedMapItem != nil ? Locationid : nil, locationTitle: selectedMapItemTitle != nil ? selectedMapItemTitle : nil, timestamp: Timestamp(date: Date()), timestampDate: todayString, title: title)
             
             guard let encodedPost = try? Firestore.Encoder().encode(post) else { return }
             guard let encodedStory = try? Firestore.Encoder().encode(story) else { return }

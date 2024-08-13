@@ -64,7 +64,10 @@ struct SavedView: View {
                 }
                 
                 if viewModel.fetchingSavedPosts{
-                    Loading()
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(Color(.systemGray6))
+                            .frame(width: (width - 48)/3, height: (width - 48)/3 )
+                    
                 }
             }.padding(.horizontal, 16)
             
@@ -113,7 +116,9 @@ struct SavedView: View {
                 }
                 
                 if viewModel.fetchingSavedRecipes{
-                    Loading()
+                    RoundedRectangle(cornerRadius: 16)
+                        .fill(Color(.systemGray6))
+                        .frame(width: (width - 48)/3, height: (width - 48)/3 )
                 }
             }.padding(.horizontal, 16)
         }.onFirstAppear {

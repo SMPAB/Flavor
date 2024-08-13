@@ -16,6 +16,7 @@ struct Story: Identifiable, Hashable, Codable {
     let postID: String?
     let challengeUploadId: String?
     var locationId: String?
+    var locationTitle: String?
     
     let timestamp: Timestamp
     let timestampDate: String

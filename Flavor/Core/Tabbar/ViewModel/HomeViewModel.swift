@@ -101,7 +101,7 @@ class HomeViewModel: ObservableObject{
     @Published var newVotePublicChallenge = false
     @Published var newunVotePublicChallenge = false
     
-    
+
     
     
     //Edit
@@ -217,7 +217,10 @@ extension HomeViewModel {
             for i in 0..<posts.count {
                 print("DEBUG APP NEW POST ID \(posts[i].id)")
                 if !publicFeedPosts.contains(where: {$0.id == posts[i].id}){
-                    publicFeedPosts.append(posts[i])
+                    if !feedPostIds.contains(where: {$0 == posts[i].id}){
+                        publicFeedPosts.append(posts[i])
+                    }
+                   
                 }
             }
             

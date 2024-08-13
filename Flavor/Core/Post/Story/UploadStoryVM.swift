@@ -59,7 +59,7 @@ class UploadStoryVM: ObservableObject {
             var IMAGEURL: String?
             
             
-            var story = Story(id: storyId, ownerUid: user.id, imageUrl: nil, postID: nil, challengeUploadId: challenge != nil ? challengeUploadId.documentID : nil, locationId: selectedMapItem != nil ? Locationid : nil, timestamp: Timestamp(date: Date()), timestampDate: todayString, title: title)
+            var story = Story(id: storyId, ownerUid: user.id, imageUrl: nil, postID: nil, challengeUploadId: challenge != nil ? challengeUploadId.documentID : nil, locationId: selectedMapItem != nil ? Locationid : nil, locationTitle: selectedMapItemTitle != nil ? selectedMapItemTitle : nil, timestamp: Timestamp(date: Date()), timestampDate: todayString, title: title)
             
             if let imageUrl = try await ImageUploader.uploadImage(image: image!.image){
                 story.imageUrl = imageUrl

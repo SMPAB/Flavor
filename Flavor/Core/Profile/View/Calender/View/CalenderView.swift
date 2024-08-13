@@ -38,7 +38,7 @@ struct CalendarView: View {
                 //TOP OF VIEW
                         
                         let days: [String] =
-                        ["Sön", "Mån", "Tis", "Ons", "Tor", "Fre", "Lör"]
+                        ["Mån", "Tis", "Ons", "Tor", "Fre", "Lör", "Sön"]
                         
                         
                         
@@ -177,6 +177,8 @@ struct CalendarView: View {
                 .onAppear{
                     print("DEBUG APP DATEVALUE: \(value)")
                 }
+        }else {
+            VStack{} .frame(width: 30, height: 30)
         }
     }
     
@@ -233,22 +235,32 @@ struct CalendarView: View {
             
             let firstWeekday = calendar.component(.weekday, from: days.first?.date ?? Date())
             
-            for _ in 0..<firstWeekday - 1{
-                days.insert(DateValue(day: -1, date: Date()), at: 0)
+            print("DEBUG APP DELUX FIRST WEEKDAY: \(firstWeekday)")
+            if firstWeekday != 1 {
+                for i in 0..<firstWeekday - 2{
+                    print("DEBUG APP DELUX INSERTING")
+                    days.insert(DateValue(day: -1, date: Date()), at: 0)
+                }
+            } else {
+                for i in 0..<6 {
+                    days.insert(DateValue(day: -1, date: Date()), at: 0)
+                }
             }
             
+            print("DEBUG APP DELUX RETURNING")
             return days
         } else {
             let calendar = Calendar.current
 
                 // Get the start of the week for the currentDate
-                guard let weekStartDate = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: currentDate)) else {
+                guard var weekStartDate = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: currentDate)) else {
                     return []
                 }
+            
 
                 // Generate an array of DateValue for the week
                 return (0..<7).compactMap { offset in
-                    guard let weekDate = calendar.date(byAdding: .day, value: offset, to: weekStartDate) else {
+                    guard let weekDate = calendar.date(byAdding: .day, value: offset , to: weekStartDate) else {
                         return nil
                     }
                     let day = calendar.component(.day, from: weekDate)
@@ -257,6 +269,8 @@ struct CalendarView: View {
         }
         
     }
+    
+    
     
     func majorityMonthInWeek() -> String {
         let datesInWeek = extractDate().map { $0.date }

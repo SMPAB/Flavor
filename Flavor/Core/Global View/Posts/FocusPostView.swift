@@ -11,7 +11,6 @@ import Kingfisher
 
 struct FocusPostView: View {
     @EnvironmentObject var homeViewModel: HomeViewModel
-    @State private var selectedTab: Int = 0
     @State var scalePhoto: CGFloat = 1.0
     var body: some View {
         
@@ -39,7 +38,7 @@ struct FocusPostView: View {
                 }.padding(.top, 100)
                 
                
-                TabView(/*selection: $selectedTab*/){
+                TabView(selection: $homeViewModel.focusPostIndex){
                         ForEach(post.imageUrls!, id: \.self){ imageUrl in
                             KFImage(URL(string: imageUrl))
                                 .resizable()
@@ -90,10 +89,7 @@ struct FocusPostView: View {
             RoundedRectangle(cornerRadius: 32)
                 .fill(.black)
             )
-            .onAppear{
-                selectedTab = homeViewModel.focusPostIndex ?? 0
-                print("DEBUG APP selectedtab \(selectedTab)")
-            }
+            
                
         }
         

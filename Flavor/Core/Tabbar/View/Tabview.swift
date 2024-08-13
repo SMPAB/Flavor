@@ -159,7 +159,7 @@ struct Tabview: View {
                 }
                 
                 if homeViewModel.showFocusPost{
-                    
+                
                     
                     FocusPostView()
                         .environmentObject(homeViewModel)

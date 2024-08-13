@@ -24,6 +24,7 @@ struct Post: Identifiable, Hashable, Codable{
     let recipeId: String?
     var challengeUploadId: String?
     var locationId: String?
+    var locationTitle: String?
     
     var pinned: Bool? = false
     

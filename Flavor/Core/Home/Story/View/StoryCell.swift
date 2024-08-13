@@ -51,6 +51,12 @@ struct StoryCell: View {
                                     .fontWeight(.semibold)
                             }
                             
+                            if let location = story.locationTitle {
+                                Text("🌏 \(location)")
+                                    .font(.primaryFont(.P1))
+                                    .fontWeight(.semibold)
+                            }
+                            
                             Text("⏰ \(story.timestamp.timestampHourlyString())")
                                 .font(.primaryFont(.P1))
                                 .fontWeight(.semibold)

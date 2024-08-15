@@ -102,7 +102,7 @@ struct ListCell: View {
                     }
                     
                     Spacer()
-                }
+                }.shimmering()
             }
         }.onFirstAppear {
             Task{

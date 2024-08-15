@@ -232,7 +232,6 @@ extension HomeViewModel {
         }
     }
 }
-
 //MARK: - Story
 extension HomeViewModel {
     
@@ -355,8 +354,9 @@ extension HomeViewModel {
     
     @MainActor
     func chechIfCurrentUserSeenStory()  {
-        let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MMMdd"
+        var dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "MMMddYY"
         var last2Days: [String] = []
 
         for i in 0..<2 {
@@ -442,6 +442,10 @@ extension HomeViewModel {
             return
         }
     }
+    
+    
+    
+  
     
    
 }

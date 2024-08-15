@@ -21,14 +21,14 @@ struct HeaderMain: View {
             Button(action: {
                 dismiss()
             }){
-                Text(cancelText)
+                Text(LocalizedStringKey(cancelText))
                     .font(.primaryFont(.P1))
                     .foregroundStyle(.black)
             }
             
             Spacer()
             
-            Text(title)
+            Text(LocalizedStringKey(title))
                 .font(.primaryFont(.H4))
                 .foregroundStyle(.black)
                 .fontWeight(.semibold)
@@ -38,7 +38,7 @@ struct HeaderMain: View {
             Button(action: {
                 action()
             }){
-                Text(actionText)
+                Text(LocalizedStringKey(actionText))
                     .font(.primaryFont(.P1))
                     .foregroundStyle(.black)
             }

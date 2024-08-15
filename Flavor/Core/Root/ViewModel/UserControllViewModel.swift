@@ -19,7 +19,7 @@ class UserControllViewModel: ObservableObject {
             try await fetchUser()
         }
     }
-    
+
     @MainActor
     func fetchAllUsernames() async throws {
         self.allUsernames = try await UserService.fetchAllUsernames()

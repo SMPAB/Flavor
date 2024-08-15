@@ -13,7 +13,8 @@ class StoryService {
     static func fetchStoryUsers(userFollowingBacth: [String]) async throws -> [User]{
         
         let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MMMdd"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "MMMddYY"
         var last2Days: [String] = []
 
         for i in 0..<2 {
@@ -66,7 +67,8 @@ class StoryService {
     static func fetchStory(userId: String) async throws -> [Story] {
         
         let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MMMdd"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "MMMddYY"
         var last2Days: [String] = []
 
         for i in 0..<2 {

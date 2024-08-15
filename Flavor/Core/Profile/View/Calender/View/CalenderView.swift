@@ -38,7 +38,7 @@ struct CalendarView: View {
                 //TOP OF VIEW
                         
                         let days: [String] =
-                        ["Mån", "Tis", "Ons", "Tor", "Fre", "Lör", "Sön"]
+                        ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
                         
                         
                         
@@ -86,7 +86,7 @@ struct CalendarView: View {
                             VStack(spacing: 2){
                                 HStack(spacing: 0){
                                     ForEach(days, id: \.self){ day in
-                                        Text(day)
+                                        Text(LocalizedStringKey(day))
                                             .font(.custom("HankenGrotesk-Regular", size: 18))
                                             .fontWeight(.semibold)
                                             .frame(maxWidth: .infinity)
@@ -184,7 +184,8 @@ struct CalendarView: View {
     
     func isInStoryUploadDays(date: Date) -> Bool {
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MMMdd"
+            dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+            dateFormatter.dateFormat = "MMMddYY"
             let dateString = dateFormatter.string(from: date)
             return profileViewModel.userStoryDats.contains(dateString)
         }

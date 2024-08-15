@@ -46,11 +46,11 @@ class MapViewModel: NSObject, ObservableObject {
                 let coordinate = item.placemark.coordinate
                 self.selectedLocationCoordingate = coordinate
                 print("DEBUG APP COORDINATES: \(coordinate)")*/
-                
-                
+                print("DEBUG APP RESPONS: \(respons?.description)")
+                guard let item = respons?.mapItems.first else { return }
                 self.MKresults = respons?.mapItems ?? []
                 self.MKselectedLocation = respons?.mapItems.first
-                print("DEBUG APP RESULTS: \(respons?.mapItems.first)")
+                print("DEBUG APP RESULTS: \(item.placemark.title)")
             })
         
         
@@ -64,18 +64,34 @@ class MapViewModel: NSObject, ObservableObject {
     
     func locationSearch(forLocalSearchCompletion localSearch: MKLocalSearchCompletion,
                         completion: @escaping MKLocalSearch.CompletionHandler) {
-        let searchRequest = MKLocalSearch.Request()
-        
+        var searchRequest = MKLocalSearch.Request()
         
         if containsNumber(localSearch.subtitle) {
-            searchRequest.naturalLanguageQuery = localSearch.title.appending(localSearch.subtitle)
+           
+            //searchRequest.naturalLanguageQuery = localSearch.title.appending(localSearch.subtitle)
+            searchRequest.naturalLanguageQuery = "\(localSearch.title) \(localSearch.subtitle)"
+            print("DEBUG APP CONTRAINSNUMBER, subtitle: \(localSearch.subtitle)")
         } else {
             searchRequest.naturalLanguageQuery = localSearch.title
         }
+        
+        
+        
+        print("DEBUG APP SEARCH REQUEST: \(localSearch.title.appending(localSearch.subtitle))")
         let search = MKLocalSearch(request: searchRequest)
         
         search.start(completionHandler: completion)
     }
+    
+    /*func locationSearch(forLocalSearchCompletion localSearch: MKLocalSearchCompletion,
+                        completion: @escaping MKLocalSearch.CompletionHandler) {
+        let searchRequest = MKLocalSearch.Request()
+        searchRequest.naturalLanguageQuery = "\(localSearch.title) \(localSearch.subtitle)"//localSearch.title.appending(localSearch.subtitle)
+        print("DEBUG APP LOCAL SEARCH: \(localSearch.title.appending(localSearch.subtitle))")
+        let search = MKLocalSearch(request: searchRequest)
+        
+        search.start(completionHandler: completion)
+    }*/
 }
 
 //MARK: - MKLocalSearchCompleterDelegate

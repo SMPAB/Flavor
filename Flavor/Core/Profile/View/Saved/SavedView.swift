@@ -63,10 +63,11 @@ struct SavedView: View {
                     
                 }
                 
-                if viewModel.fetchingSavedPosts{
+                if viewModel.fetchingSavedPosts && viewModel.savedPosts.isEmpty{
                         RoundedRectangle(cornerRadius: 16)
-                            .fill(Color(.systemGray6))
+                            .fill(Color(.systemGray4))
                             .frame(width: (width - 48)/3, height: (width - 48)/3 )
+                            .shimmering()
                     
                 }
             }.padding(.horizontal, 16)
@@ -115,10 +116,11 @@ struct SavedView: View {
                     
                 }
                 
-                if viewModel.fetchingSavedRecipes{
+                if viewModel.fetchingSavedRecipes && viewModel.savedRecipes.isEmpty{
                     RoundedRectangle(cornerRadius: 16)
-                        .fill(Color(.systemGray6))
+                        .fill(Color(.systemGray4))
                         .frame(width: (width - 48)/3, height: (width - 48)/3 )
+                        .shimmering()
                 }
             }.padding(.horizontal, 16)
         }.onFirstAppear {

@@ -42,7 +42,8 @@ class PostService {
     static func fetchFeedPosts(userFollowingUsernames: [String], seenPosts: [String], lastDocument: DocumentSnapshot? = nil) async throws -> ([Post], DocumentSnapshot?){
         
         let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "MMMdd"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "MMMddYY"
                 var last7Days: [String] = []
         //MARK: THIS IS LAST 60 DAYS!!!
         for i in 0..<60 {
@@ -766,7 +767,8 @@ extension PostService {
     static func newCalender(dateString: String, user: User, homeVM: HomeViewModel) async throws {
         
         let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "MMMdd"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "MMMddYY"
                 var last2Days: [String] = []
         //MARK: THIS IS LAST 60 DAYS!!!
         for i in 0..<2 {

@@ -33,7 +33,8 @@ class UploadStoryVM: ObservableObject {
         
         guard image != nil else { return }
         let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MMMdd"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "MMMddYY"
         let todayString = dateFormatter.string(from: Date())
         
         do {

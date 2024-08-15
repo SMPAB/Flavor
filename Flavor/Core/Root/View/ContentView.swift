@@ -20,6 +20,7 @@ struct ContentView: View {
     }
     
     @Namespace private var namespace
+
     
     var body: some View {
         ZStack {

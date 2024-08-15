@@ -690,7 +690,8 @@ extension UserService {
   static func checkAndUpdateUserStreak(user: User) async throws -> Int?{
         
         let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "MMMdd"
+      dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+      dateFormatter.dateFormat = "MMMddYY"
                 var last7Days: [String] = []
         //MARK: THIS IS LAST 60 DAYS!!!
         for i in 0..<2 {

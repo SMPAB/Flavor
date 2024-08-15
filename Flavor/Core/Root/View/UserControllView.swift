@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct UserControllView: View {
-    
+
     @StateObject var viewModel = UserControllViewModel()
     @EnvironmentObject var contentViewModel: ContentViewModel
     @EnvironmentObject var sceneController: SceneController

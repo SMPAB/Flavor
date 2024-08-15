@@ -50,17 +50,6 @@ struct CreateRecipeView: View {
                 }.padding(.horizontal, 16)
                     .padding(.top, 8)
                 
-                VStack(alignment: .leading){
-                    Text("Create a post")
-                        .font(.custom("HankenGrotesk-Regular", size: .H4))
-                        .fontWeight(.semibold)
-                    
-                    Text("Create a recipe for the world or just for your inner circle. Will it be a public feast or a private treat?")
-                        .font(.custom("HankenGrotesk-Regular", size: .P2))
-                        .foregroundStyle(Color(.systemGray))
-                        
-                }
-                
                 VStack(spacing: 5){
                     HStack{
                         Text("Recipe name:")

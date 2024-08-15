@@ -44,7 +44,7 @@ struct StoryIconView: View {
                             ImageView(size: .medium, imageUrl: homeVM.user.profileImageUrl, background: false)
                             
                             Button(action: {
-                                
+                                showCamera.toggle()
                             }){
                                 Iconoir.plus.asImage
                                     .foregroundStyle(.colorWhite)

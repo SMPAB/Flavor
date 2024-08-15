@@ -21,7 +21,11 @@ struct LandingCrewView: View {
                     .font(.primaryFont(.H4))
                     .fontWeight(.semibold)
                 
-                Text("You have \(viewModel.crews.count) crews")
+                Text("You have ")
+                    .font(.primaryFont(.P2))
+                    .foregroundStyle(Color(.systemGray))
+                
+               + Text("\(viewModel.crews.count) crews")
                     .font(.primaryFont(.P2))
                     .foregroundStyle(Color(.systemGray))
                 

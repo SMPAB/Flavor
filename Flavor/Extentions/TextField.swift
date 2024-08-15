@@ -22,7 +22,7 @@ struct CustomTextField: View {
                 if !multiRow{
                     ZStack{
                         if secureField{
-                            SecureField(textInfo, text: $text)
+                            SecureField(LocalizedStringKey(textInfo), text: $text)
                                 .font(.primaryFont(.P1))
                                 .padding(8)
                                 .frame(height: 48)
@@ -32,7 +32,7 @@ struct CustomTextField: View {
                                     .stroke(Color(.systemGray))
                                 )
                         } else {
-                            TextField(textInfo, text: $text)
+                            TextField(LocalizedStringKey(textInfo), text: $text)
                                 .font(.primaryFont(.P1))
                                 .padding(8)
                                 .frame(height: 48)
@@ -48,7 +48,7 @@ struct CustomTextField: View {
                 } else {
                     ZStack{
                         if secureField{
-                            SecureField(textInfo, text: $text)
+                            SecureField(LocalizedStringKey(textInfo), text: $text)
                                 .font(.primaryFont(.P1))
                                 .padding(8)
                                 .frame(height: 48)
@@ -58,7 +58,7 @@ struct CustomTextField: View {
                                     .stroke(Color(.systemGray))
                                 )
                         } else {
-                            TextField(textInfo, text: $text, axis: .vertical)
+                            TextField(LocalizedStringKey(textInfo), text: $text, axis: .vertical)
                                 .font(.primaryFont(.P1))
                                 .padding(8)
                                 .frame(height: 95, alignment: .topLeading)
@@ -82,7 +82,7 @@ struct CustomTextField: View {
                     .frame(width: 16, height: 16)
                     .foregroundStyle(.colorOrange)
                 
-                TextField(textInfo, text: $text)
+                TextField(LocalizedStringKey(textInfo), text: $text)
                     
                     .font(.primaryFont(.P2))
             }.padding(8)

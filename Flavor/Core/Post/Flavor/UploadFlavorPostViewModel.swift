@@ -50,8 +50,10 @@ class UploadFlavorPostViewModel: ObservableObject {
     func uploadFlavorPostViewModel(images: [UIImage], user: User, homeVM: HomeViewModel) async throws {
     
         let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MMMdd"
-        let todayString = dateFormatter.string(from: Date())
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "MMMddYY"
+        var todayString = dateFormatter.string(from: Date())
+        
        
         do {
             //MARK: POST

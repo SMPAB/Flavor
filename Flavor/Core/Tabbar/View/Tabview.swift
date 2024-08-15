@@ -327,7 +327,7 @@ struct Tabview: View {
             }, imageUrl: homeViewModel.deleteStory?.imageUrl, dismissText: "Cancel", acceptText: "Delete")
                 
                 .onFirstAppear {
-                    
+                
                     homeViewModel.chechIfCurrentUserSeenStory()
                     
                     Task{
@@ -363,6 +363,17 @@ struct Tabview: View {
         
         
         
+    }
+}
+
+extension UINavigationController: UIGestureRecognizerDelegate {
+    override open func viewDidLoad() {
+        super.viewDidLoad()
+        interactivePopGestureRecognizer?.delegate = self
+    }
+    
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return viewControllers.count > 1
     }
 }
 

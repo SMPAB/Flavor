@@ -23,7 +23,8 @@ struct CustomButton: View {
             action()
         }
         ){
-            Text(text)
+            Text(LocalizedStringKey(text))
+                
                 .font(.primaryFont(.P1))
                 .foregroundStyle(textColor)
                 .fontWeight(.semibold)
@@ -41,4 +42,5 @@ struct CustomButton: View {
 
 #Preview {
     CustomButton(text: "Go to post", textColor: .colorWhite, backgroundColor: .colorOrange, strokeColor: .colorOrange, action: {})
+        
 }

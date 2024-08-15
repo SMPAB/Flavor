@@ -209,7 +209,8 @@ extension ProfileViewModel{
     func fetchStorysForDate(date: Date) async throws {
         
         let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MMMdd"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "MMMddYY"
         
         let dateString = dateFormatter.string(from: date)
         

@@ -60,7 +60,7 @@ struct AddUserName: View {
             }.padding(.horizontal)
                 .padding(.top, 48)
             
-            
+        
             Button(action: {
                 Task{
                     if !viewModel.allUserNames.contains(viewModel.userName.lowercased()) && viewModel.password == viewModel.repeatPassword{

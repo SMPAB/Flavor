@@ -194,6 +194,10 @@
 		188B3DD12C5ED6170069B861 /* LazyFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188B3DD02C5ED6170069B861 /* LazyFeedView.swift */; };
 		188B3DD32C5ED7B10069B861 /* LazyFeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188B3DD22C5ED7B10069B861 /* LazyFeedCell.swift */; };
 		188B3DD52C5ED84C0069B861 /* LazyfeedCellVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188B3DD42C5ED84C0069B861 /* LazyfeedCellVM.swift */; };
+		188B3DE72C6CCA660069B861 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 188B3DE62C6CCA660069B861 /* Localizable.strings */; };
+		188B3DEA2C6D04600069B861 /* Shimmer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188B3DE92C6D045F0069B861 /* Shimmer.swift */; };
+		188B3DEC2C6E5C420069B861 /* TestPrint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188B3DEB2C6E5C410069B861 /* TestPrint.swift */; };
+		188B3DF02C6EC0C70069B861 /* MapBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188B3DEF2C6EC0C70069B861 /* MapBoxView.swift */; };
 		188E62D72C2418DC001D9FBB /* CreateCrewVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188E62D62C2418DC001D9FBB /* CreateCrewVM.swift */; };
 		188E62D92C241970001D9FBB /* CreateCrewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188E62D82C241970001D9FBB /* CreateCrewView.swift */; };
 		188E62DB2C242427001D9FBB /* CreateCrewUserList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188E62DA2C242427001D9FBB /* CreateCrewUserList.swift */; };
@@ -428,6 +432,11 @@
 		188B3DD02C5ED6170069B861 /* LazyFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyFeedView.swift; sourceTree = "<group>"; };
 		188B3DD22C5ED7B10069B861 /* LazyFeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyFeedCell.swift; sourceTree = "<group>"; };
 		188B3DD42C5ED84C0069B861 /* LazyfeedCellVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyfeedCellVM.swift; sourceTree = "<group>"; };
+		188B3DE52C6CCA660069B861 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		188B3DE82C6CCB160069B861 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
+		188B3DE92C6D045F0069B861 /* Shimmer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shimmer.swift; sourceTree = "<group>"; };
+		188B3DEB2C6E5C410069B861 /* TestPrint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPrint.swift; sourceTree = "<group>"; };
+		188B3DEF2C6EC0C70069B861 /* MapBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapBoxView.swift; sourceTree = "<group>"; };
 		188E62D62C2418DC001D9FBB /* CreateCrewVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCrewVM.swift; sourceTree = "<group>"; };
 		188E62D82C241970001D9FBB /* CreateCrewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCrewView.swift; sourceTree = "<group>"; };
 		188E62DA2C242427001D9FBB /* CreateCrewUserList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCrewUserList.swift; sourceTree = "<group>"; };
@@ -521,6 +530,7 @@
 			children = (
 				1807B7B22C49287800643C39 /* TestPostPickerVM.swift */,
 				1807B7B42C4928C100643C39 /* TestPostPicker.swift */,
+				188B3DEB2C6E5C410069B861 /* TestPrint.swift */,
 			);
 			path = PlayGround;
 			sourceTree = "<group>";
@@ -1198,6 +1208,7 @@
 				1844C23B2C18D58900243FAB /* Font1.ttf */,
 				18DDBD1D2C19077400E288DE /* background.gif */,
 				1844C22C2C18D13B00243FAB /* Assets.xcassets */,
+				188B3DE62C6CCA660069B861 /* Localizable.strings */,
 			);
 			path = Additionals;
 			sourceTree = "<group>";
@@ -1222,6 +1233,7 @@
 		1844C25C2C18D8B800243FAB /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				188B3DEE2C6EC0BC0069B861 /* MapBox */,
 				189016142C4668A700609C50 /* Map */,
 				18D91A8E2C2327C600CD1E6C /* Community */,
 				183C7D1A2C2062BE00E00241 /* Post */,
@@ -1516,6 +1528,7 @@
 			isa = PBXGroup;
 			children = (
 				186E2B872C1B098E003E35D4 /* SkeletonPost.swift */,
+				188B3DE92C6D045F0069B861 /* Shimmer.swift */,
 			);
 			path = Skeleton;
 			sourceTree = "<group>";
@@ -1591,6 +1604,14 @@
 				188B3DD42C5ED84C0069B861 /* LazyfeedCellVM.swift */,
 			);
 			path = LazyFeed;
+			sourceTree = "<group>";
+		};
+		188B3DEE2C6EC0BC0069B861 /* MapBox */ = {
+			isa = PBXGroup;
+			children = (
+				188B3DEF2C6EC0C70069B861 /* MapBoxView.swift */,
+			);
+			path = MapBox;
 			sourceTree = "<group>";
 		};
 		188E62D42C2418C6001D9FBB /* View */ = {
@@ -1915,8 +1936,9 @@
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				Base,
+				en,
+				sv,
 			);
 			mainGroup = 1844C21C2C18D13900243FAB;
 			packageReferences = (
@@ -1943,6 +1965,7 @@
 				1844C2302C18D13B00243FAB /* Preview Assets.xcassets in Resources */,
 				18DDBD1E2C19077400E288DE /* background.gif in Resources */,
 				18332F372C19BF3E002E95F4 /* Checkmark.json in Resources */,
+				188B3DE72C6CCA660069B861 /* Localizable.strings in Resources */,
 				180D88C62C30A5090030322B /* Uploading.json in Resources */,
 				183963A92C3977E10030278E /* confetti.json in Resources */,
 				183963A52C39758B0030278E /* dog.json in Resources */,
@@ -2032,6 +2055,7 @@
 				183963AB2C397E590030278E /* FinishedChallengeCellVM.swift in Sources */,
 				184060DE2C1CA97E0002894C /* StoryCell.swift in Sources */,
 				183C7D152C204FF500E00241 /* MainBlockedViewModel.swift in Sources */,
+				188B3DF02C6EC0C70069B861 /* MapBoxView.swift in Sources */,
 				188B3DAF2C52A8260069B861 /* LocationDetailVM.swift in Sources */,
 				183963A32C396A1E0030278E /* FinishedChallengeCell.swift in Sources */,
 				180D88CD2C318C090030322B /* NamesSpace.swift in Sources */,
@@ -2046,6 +2070,8 @@
 				183963822C3566750030278E /* EditPostView.swift in Sources */,
 				189D02222C20DE9C00A93C4B /* camera.swift in Sources */,
 				180D88DD2C32CDFD0030322B /* GridCell.swift in Sources */,
+				188B3DEA2C6D04600069B861 /* Shimmer.swift in Sources */,
+				188B3DEC2C6E5C420069B861 /* TestPrint.swift in Sources */,
 				18F5FE4F2C255F7500A94B57 /* ChallengeUpload.swift in Sources */,
 				18623F962C3EE37C00B26DF5 /* MainPublicChallengeView.swift in Sources */,
 				183B21EF2C19D105008A3DCF /* UserControllView.swift in Sources */,
@@ -2181,12 +2207,25 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXVariantGroup section */
+		188B3DE62C6CCA660069B861 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				188B3DE52C6CCA660069B861 /* en */,
+				188B3DE82C6CCB160069B861 /* sv */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		1844C2312C18D13B00243FAB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -2250,6 +2289,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";

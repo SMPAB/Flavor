@@ -1,0 +1,175 @@
+
+//MARK: - PROFILE
+"Followers" = "Följare";
+"Following" = "Följer";
+"Edit profile" = "Redigera profil";
+
+//Album
+"Create Album" = "Skapa Album";
+"Edit Album" = "Redigera Album";
+"Cancel" = "Avbryt";
+"Save" = "Spara";
+"Album name" = "Album namn";
+"Choose Flavors" = "Välj Flavors";
+
+//Calender
+"Mon" = "Mån";
+"Tue" = "Tis";
+"Wed" = "Ons";
+"Thu" = "Tor";
+"Fri" = "Fre";
+"Sat" = "Lör";
+"Sun" = "Sön";
+
+//Saved
+"Posts" = "Flavors";
+"Recipes" = "Recept";
+
+//Variable Feed
+"Saved Posts" = "Sparade Flavors";
+
+//Settings
+"Preferences" = "Preferenser";
+"Blocked" = "Blockerade";
+"Flavor details" = "Flavor detaljer";
+"Contact" = "Kontakta";
+"Sign out" = "Logga ut";
+"Delete account" = "Radera konto";
+"Blocked Users" = "Blockerade Användare";
+"You have no blocked users" = "Du har inga blockerade användare";
+"Unblock" = "Avblockera";
+"Are you sure you want to permanently delete your account?" = "Är du säker på att du vill permanent radera ditt konto?";
+
+//Edit Profil
+"Biography" = "Biografi";
+"Edit Profile" = "Redigera Profil";
+"Public Account" = "Offentligt Konto";
+
+//Other Profile Specific
+"Follow" = "Följ";
+"Unfollow" = "Avfölj";
+"Block" = "Blockera";
+"Report" = "Raportera";
+"Tell us more:" = "Ge oss mer information:";
+"Write here.." = "Skriv här...";
+"Do you want to block" = "Vill du blockera";
+"wont be able to find your profile, and you wont be able to find their profile. You can modify your blocked user in settings" = "kommer inte kunna hitta din profil, och du kommer inte kunna hitta deras profil. Du kan hantera dina blockerade användare i inställningar!";
+
+//List
+
+"Searcg for users..." = "Sök efter användare...";
+"Request Sent" = "Följförfrågan Skickad";
+
+
+//MARK: - MAP
+
+"Search..." = "Sök...";
+"Locations" = "Platser";
+"Call" = "Ring";
+"Go to website" = "Gå till hemsida";
+"Open in apple maps" = "Öppna i apple maps";
+
+//MARK: - Post
+
+//Normal Post
+"New Post" = "Ny Flavor";
+"Next" = "Nästa";
+"Your Photos:" = "Dina Bilder:";
+
+"Upload post" = "Skapa Flavor";
+"Add your cover-image:" = "Lägg till din huvudbild:";
+"This image will be portrayed larger as the cover of this post" = "Den här bilden kommer visas i större format";
+"Add other images:" = "Lägg till andra bilder:";
+"Images will be shown in smaller format than cover-image" = "Bilderna kommer visas i mindre format änn huvudbilden";
+"Title:" = "Titel";
+"Write here..." = "Skriv här...";
+"Recipe" = "Recept";
+"Add recipe+" = "Lägg till recept+";
+"Connect challenge" = "Koppla challenge";
+"Add challenge" = "Välj challenge";
+"Add location" = "Lägg till plats";
+"Add Location" = "Lägg till plats";
+"Publish" = "Publisera";
+
+//recipe
+"save" = "Spara";
+"Create Recipe" = "Skapa Recept";
+"Recipe name:" = "Recept namn:";
+"Write your recipe name..." = "Skriv in ditt recept namn...";
+"Difficulty" = "Svårhetsgrad";
+"Very Easy" = "Väldigt lätt";
+"Easy" = "Lätt";
+"Medium" = "Medium";
+"Hard" = "Svår";
+"Very Hard" = "Väldigt Svårt";
+"Time:" = "Tid";
+"Servings" = "Portioner";
+"Select Time" = "Välj tid";
+"Select servings" = "Välj portioner";
+"servings" = "portioner";
+"Steps" = "Steg";
+"Step:" = "Steg:";
+"Ingrediences" = "Ingridienser";
+"Quantity" = "Mängd";
+"Quantity:" = "Mängd:";
+"Unit:" = "Enhet:";
+"Unit" = "Enhet";
+"Ingredient:" = "Ingridiens:";
+"Write Ingredient" = "Skriv Ingridiensen";
+"Utensils" = "Redskap";
+"Utensils:" = "Redskap:";
+"Step %@:" = "Steg %@:";
+"Instructions" = "Instruktioner";
+"Write your instrictions" = "Skriv dina instruktioner";
+"By going back your recipe wont be saved." = "Genom att gå tillbaka kommer ditt recept inte vara sparat.";
+"go back" = "gå tillbaka";
+"cancel" = "avbryt";
+
+//challenge
+"Select challenge" = "Välj challenge";
+
+//MARK: - Home
+
+//story
+"Today" = "Idag";
+"(Today)" = "(Idag)";
+
+"Yesterday" = "Igår";
+"(Yesterday)" = "(Igår)";
+
+"day streak" = "dag streak";
+ 
+//FeedCell
+"Comments" = "Kommentarer";
+"QR-code" = "QR-kod";
+"Go to account" = "Gå till profil";
+"Report Flavor" = "Rapportera Flavor";
+"Add a comment.." = "Lägg till kommentar";
+"Answering" = "Svarar";
+
+//MARK: - Crew
+
+//Landing
+"My crews" = "Mina crews";
+"You have %@ crews" = "Du har %@ crews";
+"You have " = "Du har ";
+"members" = "medlemmar";
+"Public" = "Offentlig";
+"Private" = "Privat";
+"Create Crew+" = "Skapa Crew+";
+"Join other crews!" = "Gå med i andra crews!";
+"Find people with similar interests" = "Hitta användare med liknande intressen.";
+
+//Create
+"Create" = "Skapa";
+"Create crew +" = "Skapa Crew +";
+"Lets get your friends together!" = "Samla dina vänner!";
+"create a crew with you closest friends and comptete in exiting challenges" = "Skapa en crew med dina närmsta vänner och tävla i spännande challenges";
+"Choose crew-image" = "Välj crewbild";
+"Crew-name" = "Crewnamn";
+"Name here..." = "Namn här...";
+"Add crew-mates" = "Lägg till medlemmar";
+"Add crew mates" = "Lägg till medlemmar";
+"remove" = "ta bort";
+
+

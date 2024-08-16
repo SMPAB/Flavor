@@ -21,7 +21,10 @@ struct MainMapView: View {
     
     
     @StateObject var viewModel = MapViewModel()
-    @State var showdetail = false
+   
+    private var showdetail: Bool {
+        return viewModel.showDetail == true && viewModel.MKselectedLocation != nil
+    }
     
     @State var searchText = ""
     
@@ -117,6 +120,19 @@ struct MainMapView: View {
                                 
                         }
                     }
+                    .onTapGesture(perform: { screenCoord in
+                        
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2){
+                            guard viewModel.MKselectedLocation == nil else { return }
+                            if let pinLocation = reader.convert(screenCoord, from: .local) {
+                                print(pinLocation)
+                               // viewModel.locationSearchFromCoordinate(coordinate: pinLocation)
+                                viewModel.selectLocationFromCoordinate(pinLocation)
+                            }
+                        }
+                        
+                    })
                     
                     .onAppear {
                         if let userLocation = locationManager.userLocation {
@@ -134,14 +150,18 @@ struct MainMapView: View {
                         }
                     }
                     .onChange(of: viewModel.MKselectedLocation){
-                        
                         withAnimation{
                             if let selectedLocation = viewModel.MKselectedLocation {
                                 
                                 print("DEBUG APP SELECTED LOCATION NAME: \(selectedLocation.name)")
                                 cameraPosition = .region(MKCoordinateRegion(center: selectedLocation.placemark.coordinate, latitudinalMeters: 2000, longitudinalMeters: 2000))
                                 
-                                showdetail.toggle()
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2){
+                                    if viewModel.showDetail == false && viewModel.MKselectedLocation != nil {
+                                        viewModel.showDetail = true
+                                    }
+                                }
+                                
                             }
                         }
                     
@@ -149,7 +169,7 @@ struct MainMapView: View {
                 }
                
                 
-                VStack{
+                VStack(spacing: 0){
                     
                    /* HStack{
                         
@@ -173,7 +193,15 @@ struct MainMapView: View {
                     
                     
                     Button(action: {
-                        viewModel.showSearch.toggle()
+                        if viewModel.showDetail {
+                            viewModel.showDetail = false
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15){
+                                viewModel.showSearch.toggle()
+                            }
+                        } else {
+                            viewModel.showSearch.toggle()
+                        }
+                        
                     }){
                         HStack{
                             Iconoir.search.asImage
@@ -197,13 +225,151 @@ struct MainMapView: View {
                             .background(RoundedRectangle(cornerRadius: 8).fill(.colorWhite).stroke(Color(.systemGray4)))
                             .padding(.horizontal, 16)
                     }
+                    
+                    
+                    ScrollView(.horizontal, showsIndicators: false){
+                        HStack{
+                            Button(action: {
+                                viewModel.selectLocationByText(text: "Italian Food", coordinates: locationManager.userLocation ?? CLLocationCoordinate2D.defaultUserLocation)
+                            }){
+                                
+                                VStack{
+                                    Text("Italian🍝")
+                                        .foregroundStyle(.colorWhite)
+                                        .font(.primaryFont(.P2))
+                                        .frame(height: 24)
+                                        .padding(.horizontal, 8)
+                                        .background(
+                                        RoundedRectangle(cornerRadius: 4)
+                                            .fill(.colorOrange)
+                                        )
+                                }
+                                .padding(.top, 8)
+                                .frame(height: 45, alignment: .top)
+                                    
+                            }
+                            
+                            Button(action: {
+                                viewModel.selectLocationByText(text: "Healthy Food", coordinates: locationManager.userLocation ?? CLLocationCoordinate2D.defaultUserLocation)
+                            }){
+                                VStack{
+                                    Text("Healthy🌮")
+                                        .foregroundStyle(.colorWhite)
+                                        .font(.primaryFont(.P2))
+                                        .frame(height: 24)
+                                        .padding(.horizontal, 8)
+                                        .background(
+                                        RoundedRectangle(cornerRadius: 4)
+                                            .fill(.colorOrange)
+                                        )
+                                }
+                                .padding(.top, 8)
+                                .frame(height: 45, alignment: .top)
+                                    
+                            }
+                            
+                            
+                            Button(action: {
+                                viewModel.selectLocationByText(text: "Breakfast", coordinates: locationManager.userLocation ?? CLLocationCoordinate2D.defaultUserLocation)
+                            }){
+                                
+                                VStack{
+                                    Text("Breakfast🍳")
+                                        .foregroundStyle(.colorWhite)
+                                        .font(.primaryFont(.P2))
+                                        .frame(height: 24)
+                                        .padding(.horizontal, 8)
+                                        .background(
+                                        RoundedRectangle(cornerRadius: 4)
+                                            .fill(.colorOrange)
+                                        )
+                                }
+                                .padding(.top, 8)
+                                .frame(height: 45, alignment: .top)
+                                    
+                            }
+                            
+                            Button(action: {
+                                viewModel.selectLocationByText(text: "Bars", coordinates: locationManager.userLocation ?? CLLocationCoordinate2D.defaultUserLocation)
+                            }){
+                                
+                                VStack{
+                                    Text("Bars🍻")
+                                        .foregroundStyle(.colorWhite)
+                                        .font(.primaryFont(.P2))
+                                        .frame(height: 24)
+                                        .padding(.horizontal, 8)
+                                        .background(
+                                        RoundedRectangle(cornerRadius: 4)
+                                            .fill(.colorOrange)
+                                        )
+                                }
+                                .padding(.top, 8)
+                                .frame(height: 45, alignment: .top)
+                                    
+                            }
+                            
+                            Button(action: {
+                                viewModel.selectLocationByText(text: "American Food", coordinates: locationManager.userLocation ?? CLLocationCoordinate2D.defaultUserLocation)
+                            }){
+                                VStack{
+                                    Text("Barbeque🍖")
+                                        .foregroundStyle(.colorWhite)
+                                        .font(.primaryFont(.P2))
+                                        .frame(height: 24)
+                                        .padding(.horizontal, 8)
+                                        .background(
+                                        RoundedRectangle(cornerRadius: 4)
+                                            .fill(.colorOrange)
+                                        )
+                                }
+                                .padding(.top, 8)
+                                .frame(height: 45, alignment: .top)
+                                    
+                            }
+                            
+                           
+                                
+                            Button(action: {
+                                viewModel.selectLocationByText(text: "Mexican Food", coordinates: locationManager.userLocation ?? CLLocationCoordinate2D.defaultUserLocation)
+                            }){
+                                VStack{
+                                    Text("Mexican🌮")
+                                        .foregroundStyle(.colorWhite)
+                                        .font(.primaryFont(.P2))
+                                        .frame(height: 24)
+                                        .padding(.horizontal, 8)
+                                        .background(
+                                        RoundedRectangle(cornerRadius: 4)
+                                            .fill(.colorOrange)
+                                        )
+                                        
+                                }
+                                .padding(.top, 8)
+                                .frame(height: 45, alignment: .top)
+                            }
+                            
+                                
+                                   
+                                    
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                        }.padding(.leading, 16)
+                    }
                     Spacer()
                 }
             }.fullScreenCover(isPresented: $viewModel.showSearch, content: {
                 MapSearchView()
                     .environmentObject(viewModel)
+                    
             })
-            .sheet(isPresented: $showdetail) {
+            .sheet(isPresented: $viewModel.showDetail) {
                 
                 let height = UIScreen.main.bounds.height
                 
@@ -217,6 +383,25 @@ struct MainMapView: View {
                         .presentationCornerRadius(12)
                         .presentationDragIndicator(.visible)
                         .environmentObject(sceneController)
+                        .onChange(of: viewModel.MKselectedLocation){
+                            
+                            if viewModel.MKselectedLocation != nil {
+                                viewModel.showDetail = false
+                                
+                                if viewModel.MKselectedLocation != nil {
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.15){
+                                        viewModel.showDetail = true
+                                    }
+                                }
+                            }
+                        }
+                        
+                } else {
+                    VStack{}
+                        .onAppear{
+                            viewModel.showDetail = false
+                        }
+                        .presentationDetents([.height(0)])
                         
                 }
                 

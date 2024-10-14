@@ -46,10 +46,12 @@ struct MainSearchView: View {
                         ForEach(filteredUsernames.filter({$0 != homeVM.user.userName}), id: \.self){ username in
                             SearchCell(username: username)
                                 .environmentObject(homeVM)
+                                
                         }
                     }.padding(.horizontal)
                 } else {
                     EmptySearchView()
+                        .environmentObject(homeVM)
                         .environmentObject(viewModel)
                         .onFirstAppear {
                             Task{

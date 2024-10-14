@@ -102,9 +102,13 @@
 "Medium" = "Medium";
 "Hard" = "Svår";
 "Very Hard" = "Väldigt Svårt";
-"Time:" = "Tid";
-"Servings" = "Portioner";
-"Select Time" = "Välj tid";
+"Time:" = "Tid:";
+"Servings:" = "Portioner:";
+"select unit" = "välj enhet";
+"Write your utensils" = "Skriv dina redskap";
+"Write your instructions" = "Skriv dina instruktioner";
+"Step:" = "Steg:";
+"Select time" = "Välj tid";
 "Select servings" = "Välj portioner";
 "servings" = "portioner";
 "Steps" = "Steg";
@@ -163,13 +167,115 @@
 //Create
 "Create" = "Skapa";
 "Create crew +" = "Skapa Crew +";
+"Create Crew +" = "Skapa Crew +";
 "Lets get your friends together!" = "Samla dina vänner!";
-"create a crew with you closest friends and comptete in exiting challenges" = "Skapa en crew med dina närmsta vänner och tävla i spännande challenges";
+"create a crew with you closest friends and comptete in exiting challenges" = "Skapa en crew med dina närmsta vänner och tävla i spännande utmaningar";
 "Choose crew-image" = "Välj crewbild";
 "Crew-name" = "Crewnamn";
 "Name here..." = "Namn här...";
 "Add crew-mates" = "Lägg till medlemmar";
 "Add crew mates" = "Lägg till medlemmar";
 "remove" = "ta bort";
+"Post" = "Flavor";
+"Write..." = "Skriv...";
+"By going back your recipe wont be saved." = "Genom att gå tillbaka kommer ditt recept inte vara sparat.";
+"cancel" = "avbryt";
+"go back" = "gå tillbaka";
+"Create Challenge" = "Skapa Utmaning";
+"Create a memorable competition between you and your friends" = "Skapa en minnesvärd utmaning mellan dig och dina vänner";
 
+//Main
+"Go to challenge" = "Gå till utmaning";
+"Upcomming Challenges" = "Kommande Utmaningar";
+"Active Challenges" = "Aktiva Utmaningar";
+"members" = "medlemmar";
+"show past" = "visa förflutna";
+"New Challenge" = "Ny Utmaning";
+"New Crew Message" = "Nytt Crew Medelande";
+"Write here" = "Skriv här...";
+"crew-voting" = "Crew-Voting";
+"Send" = "Skicka";
+"Past Challenges" = "Förflutna Utmaningar";
+"Leaderboard" = "Topplista";
+"Edit crew" = "Redigera Crew";
+"Crew image" = "Crewbild";
+"Crewname" = "Crewname";
+"Crew-mates" = "Crewmedlemmar";
+
+"Challenge Image" = "Challenge Bild";
+"Name" = "Name";
+"Description" = "Beskrivning";
+"Date-From" = "Startdatum";
+"Date-Too" = "Slutdatum";
+"Starting: " = "Startade: ";
+"Ended: " = "Slutade: ";
+"Ending: " = "Slutar: ";
+"today" = "idag";
+"yesterday" = "igår";
+"tommarow" = "imorgon";
+"Don't forgett to publish" = "Glöm inte att publicera";
+"members done" = "medlemmar klara";
+"members left" = "medlemmar kvar";
+"Published" = "Publiserade";
+"Don't forgett to publish" = "Glöm inte att publisera";
+"Your Active Challenges" = "Dina Aktiva Utmaningar";
+
+"Notifications" = "Notificationer";
+"Last 7 days" = "Senaste veckan";
+"Last 30 days" = "Senaste månaden";
+"Friend Requests" = "Följningsförfrågningar";
+"You have no friend requests" = "Du har inga följningsförfrågningar";
+
+"Be the first to comment!" = "Va den första att kommentera!";
+"This post has no comments" = "Den här flavorn har inga kommentarer";
+"Add a comment.." = "Lägg till en kommentar..";
+"Show" = "Visa";
+"Answer" = "Svara";
+"answers" = "svar";
+
+"Post Story" = "Publisera Story";
+"Title" = "Titel";
+
+"Remove from saved" = "Ta bort från sparade";
+"Remove pin on profile" = "Ta bort pin";
+"Edit" = "Redigera";
+"Delete flavor" = "Radera flavor";
+
+
+
+//MARK: - AUTH
+"Tap anywhere to begin" = "Tryck vart som helst för att börja";
+"E-mail/phone-number" = "Epost/telefonnummer";
+"Password" = "Lösenord";
+"Forgot password?" = "Glömt ditt lösenord?";
+"login" = "Logga in";
+"Don't have an account?" = "Har du inget konto?";
+" Sign up" = " Registera konto";
+"Email" = "E-post";
+"By continuing and signing up, you are creating a Flavor account and agree to Flavors" = "Genom att fortsätta skapar du ett Flavor konto och går därmed med på Flavors";
+" Terms" = "Användarvilkor";
+" and" = "och";
+" Privacy Policy" = "Integretetspolicy";
+"Continue" = "Fortsätt";
+"Continue with google" = "Fortsätt med google";
+
+
+"Your Account" = "Ditt Konto";
+"Username" = "Användarnamn";
+"Repeat passowrd" = "Återupprepa lösenord";
+"Repeat your password" = "Återupprepa ditt lösenord";
+"Create a password" = "Skapa ett lösenord";
+"Write your username" = "Skriv ditt användarnamn";
+"This username is already taken" = "Detta användarnamn är redan uppdaget";
+"The passwords dont match up" = "Lösenorden är inte samma";
+
+"Search for users..." = "Sök efter användare";
+
+"Recomended for your" = "Rekomenderat för dig";
+"Trending right now" = "Trendar just nu";
+"Friend Requests" = "Följningsförfrågningar";
+
+"New" = "Nya";
+"there are currently no challenges available" = "för nuvarande finns det inga utmaningar tillgängliga";
+"Challenges" = "Utmaningar";
 

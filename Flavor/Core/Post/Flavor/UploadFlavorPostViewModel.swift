@@ -86,6 +86,8 @@ class UploadFlavorPostViewModel: ObservableObject {
                     print("DEBUG APP FAILED TO UPLOAD IMAGE")
                 }
             }
+            
+            guard !imageUrls.isEmpty else { return }
             post.imageUrls = imageUrls
             
             if recipe{
@@ -99,7 +101,29 @@ class UploadFlavorPostViewModel: ObservableObject {
             guard let encodedPost = try? Firestore.Encoder().encode(post) else { return }
             guard let encodedStory = try? Firestore.Encoder().encode(story) else { return }
             
-            try await postId.setData(encodedPost)
+           // try await postId.setData(encodedPost)
+            
+            var postData: [String:Any?] = [
+                "id": postId.documentID,
+                "ownerUid": user.id,
+                "ownerUsername": user.userName,
+                "likes": 0,
+                "title": title,
+                "caption": caption,
+                "imageUrls": imageUrls,
+                "storyID": storyId.documentID,
+                "recipeId": recipe ? recipeId.documentID : nil,
+                "challengeUploadId": challenge != nil ? challengeUploadId.documentID : nil,
+                "locationId": selectedMapItem != nil ? Locationid : nil,
+                "locationTitle": selectedMapItemTitle != nil ? selectedMapItemTitle : nil,
+                "publicPost": user.publicAccount,
+                "timestamp": Timestamp(date: Date()),
+                "timestampDate": todayString,
+                "hasLiked": nil,
+                "hasSaved": nil,
+                "user": nil
+            ]
+            try await postId.setData(postData)
             try await storyId.setData(encodedStory)
             
             //MARK: UPDATE USER

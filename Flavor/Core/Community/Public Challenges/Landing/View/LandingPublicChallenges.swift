@@ -115,6 +115,12 @@ struct LandingPublicChallenges: View {
                     }.foregroundStyle(.black)
                 }
                 
+                if viewModel.userChallenges.isEmpty && viewModel.otherChallenges.isEmpty {
+                    Text("there are currently no challenges available")
+                        .font(.primaryFont(.P1))
+                        .foregroundStyle(Color(.systemGray))
+                }
+                
             }
         }.padding(.top, 16)
         .onFirstAppear {

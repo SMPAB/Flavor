@@ -215,6 +215,9 @@
 		189D02222C20DE9C00A93C4B /* camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189D02212C20DE9C00A93C4B /* camera.swift */; };
 		189D02242C20E06A00A93C4B /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189D02232C20E06A00A93C4B /* Recipe.swift */; };
 		189D02262C20E2BD00A93C4B /* CreateRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189D02252C20E2BD00A93C4B /* CreateRecipeView.swift */; };
+		18B88C222C70169F00E14054 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 18B88C212C70169F00E14054 /* PrivacyInfo.xcprivacy */; };
+		18B88C372C73DA3800E14054 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18B88C362C73DA3800E14054 /* AdSupport.framework */; };
+		18B88C3A2C73DA6900E14054 /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B88C392C73DA6900E14054 /* AnalyticsView.swift */; };
 		18C954412C1B168200B6439E /* CommentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C954402C1B168200B6439E /* CommentService.swift */; };
 		18C954472C1B172300B6439E /* CommentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C954462C1B172300B6439E /* CommentsViewModel.swift */; };
 		18C954492C1B174200B6439E /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C954482C1B174200B6439E /* Comment.swift */; };
@@ -454,6 +457,9 @@
 		189D02212C20DE9C00A93C4B /* camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = camera.swift; sourceTree = "<group>"; };
 		189D02232C20E06A00A93C4B /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		189D02252C20E2BD00A93C4B /* CreateRecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRecipeView.swift; sourceTree = "<group>"; };
+		18B88C212C70169F00E14054 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		18B88C362C73DA3800E14054 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		18B88C392C73DA6900E14054 /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
 		18C954402C1B168200B6439E /* CommentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentService.swift; sourceTree = "<group>"; };
 		18C954462C1B172300B6439E /* CommentsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewModel.swift; sourceTree = "<group>"; };
 		18C954482C1B174200B6439E /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
@@ -497,6 +503,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				18DDBD0F2C18E4A300E288DE /* GoogleSignInSwift in Frameworks */,
+				18B88C372C73DA3800E14054 /* AdSupport.framework in Frameworks */,
 				1844C25B2C18D8AD00243FAB /* Kingfisher in Frameworks */,
 				1844C24C2C18D7FF00243FAB /* FirebaseDatabaseSwift in Frameworks */,
 				1844C24A2C18D7FF00243FAB /* FirebaseDatabase in Frameworks */,
@@ -1152,6 +1159,7 @@
 		1844C21C2C18D13900243FAB = {
 			isa = PBXGroup;
 			children = (
+				18B88C212C70169F00E14054 /* PrivacyInfo.xcprivacy */,
 				1844C2272C18D13900243FAB /* Flavor */,
 				1844C2262C18D13900243FAB /* Products */,
 				1844C2682C18DE3F00243FAB /* Frameworks */,
@@ -1169,6 +1177,7 @@
 		1844C2272C18D13900243FAB /* Flavor */ = {
 			isa = PBXGroup;
 			children = (
+				18B88C382C73DA4C00E14054 /* Analytics */,
 				1807B7B12C49285300643C39 /* PlayGround */,
 				1844C2372C18D16E00243FAB /* Additionals */,
 				1844C2362C18D16000243FAB /* App */,
@@ -1318,6 +1327,7 @@
 		1844C2682C18DE3F00243FAB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				18B88C362C73DA3800E14054 /* AdSupport.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1700,6 +1710,14 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		18B88C382C73DA4C00E14054 /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				18B88C392C73DA6900E14054 /* AnalyticsView.swift */,
+			);
+			path = Analytics;
+			sourceTree = "<group>";
+		};
 		18C954422C1B170C00B6439E /* Comments */ = {
 			isa = PBXGroup;
 			children = (
@@ -1886,6 +1904,7 @@
 				1844C2212C18D13900243FAB /* Sources */,
 				1844C2222C18D13900243FAB /* Frameworks */,
 				1844C2232C18D13900243FAB /* Resources */,
+				18B88C352C73D40200E14054 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1965,6 +1984,7 @@
 				1844C2302C18D13B00243FAB /* Preview Assets.xcassets in Resources */,
 				18DDBD1E2C19077400E288DE /* background.gif in Resources */,
 				18332F372C19BF3E002E95F4 /* Checkmark.json in Resources */,
+				18B88C222C70169F00E14054 /* PrivacyInfo.xcprivacy in Resources */,
 				188B3DE72C6CCA660069B861 /* Localizable.strings in Resources */,
 				180D88C62C30A5090030322B /* Uploading.json in Resources */,
 				183963A92C3977E10030278E /* confetti.json in Resources */,
@@ -1980,6 +2000,31 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		18B88C352C73D40200E14054 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${PRODUCT_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist",
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/GoogleService-Info.plist",
+				"$(TARGET_BUILD_DIR)/$(EXECUTABLE_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1844C2212C18D13900243FAB /* Sources */ = {
@@ -2172,6 +2217,7 @@
 				18623F8E2C3C3DF700B26DF5 /* PublicChallengeFocusView.swift in Sources */,
 				183B22112C1A12D2008A3DCF /* EditProfileView.swift in Sources */,
 				184060D12C1C30C00002894C /* GridView.swift in Sources */,
+				18B88C3A2C73DA6900E14054 /* AnalyticsView.swift in Sources */,
 				183963932C37F6A90030278E /* ChallengeService.swift in Sources */,
 				18C954552C1B2B5100B6439E /* SubCommentCell.swift in Sources */,
 				18332F1A2C198BA2002E95F4 /* ImageView.swift in Sources */,
@@ -2349,6 +2395,7 @@
 				CODE_SIGN_ENTITLEMENTS = Flavor/Flavor.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"Flavor/Preview Content\"";
 				DEVELOPMENT_TEAM = K5K3Y6P78W;
 				ENABLE_PREVIEWS = YES;

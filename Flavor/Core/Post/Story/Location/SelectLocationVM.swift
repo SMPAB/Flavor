@@ -53,7 +53,7 @@ class SelectLocationVM: NSObject, ObservableObject {
         
         
         if containsNumber(localSearch.subtitle) {
-            searchRequest.naturalLanguageQuery = localSearch.title.appending(localSearch.subtitle)
+            searchRequest.naturalLanguageQuery = "\(localSearch.title) \(localSearch.subtitle)" //localSearch.title.appending(localSearch.subtitle)
         } else {
             searchRequest.naturalLanguageQuery = localSearch.title
         }

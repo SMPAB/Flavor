@@ -85,8 +85,14 @@ struct MainChallengeView: View {
                             HStack{
                                 Iconoir.check.asImage
                                 
-                                Text("\(challenge.completedUsers.count) members done")
+                                Text("\(challenge.completedUsers.count) ")
                                     .font(.primaryFont(.P2))
+                                
+                                +
+                                
+                                Text("members done")
+                                    .font(.primaryFont(.P2))
+                                
                                 
                                 Rectangle()
                                     .fill(Color(.systemGray))
@@ -95,7 +101,12 @@ struct MainChallengeView: View {
                                 
                                 Iconoir.hourglass.asImage
                                 
-                                Text("\(challenge.users.count - challenge.completedUsers.count) members left")
+                                Text("\(challenge.users.count - challenge.completedUsers.count) ")
+                                    .font(.primaryFont(.P2))
+                                
+                                +
+                                
+                                Text("members left")
                                     .font(.primaryFont(.P2))
                                 
                                 Spacer()
@@ -238,7 +249,7 @@ struct MainChallengeView: View {
                             }){
                                 VStack{
                                     HStack{
-                                        Text("Don't forgett to publish")
+                                        Text(LocalizedStringKey("Don't forgett to publish"))
                                             .font(.primaryFont(.P2))
                                             .fontWeight(.semibold)
                                         

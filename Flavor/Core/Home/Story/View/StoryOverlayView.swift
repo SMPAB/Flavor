@@ -109,7 +109,13 @@ struct StoryOverlayView: View {
                             } else {
                                 if !(storiesToday?.isEmpty ?? [].isEmpty){
                                     VStack(spacing: 16){
-                                        Text("\(today.toFormattedString()) (Today)")
+                                        Text("\(today.toFormattedString()) ")
+                                            .font(.primaryFont(.P1))
+                                            .fontWeight(.semibold)
+                                        
+                                        +
+                                        
+                                        Text("(Today)")
                                             .font(.primaryFont(.P1))
                                             .fontWeight(.semibold)
                                         
@@ -122,7 +128,13 @@ struct StoryOverlayView: View {
                                 
                                 if !(storiesYesterday?.isEmpty ?? [].isEmpty){
                                     VStack(spacing: 16){
-                                        Text("\(yesterday.toFormattedString()) (Yesterday)")
+                                        Text("\(yesterday.toFormattedString()) ")
+                                            .font(.primaryFont(.P1))
+                                            .fontWeight(.semibold)
+                                        
+                                        +
+                                        
+                                        Text("(Yesterday)")
                                             .font(.primaryFont(.P1))
                                             .fontWeight(.semibold)
                                         

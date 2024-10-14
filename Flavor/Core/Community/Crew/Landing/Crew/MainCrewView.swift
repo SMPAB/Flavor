@@ -68,7 +68,11 @@ struct MainCrewView: View {
                                 .scaledToFill()
                                 .frame(width: 16, height: 16)
                             
-                            Text("\(viewModel.crew.uids.count) members")
+                            Text("\(viewModel.crew.uids.count) ")
+                                .font(.primaryFont(.P2))
+
+                            
+                            + Text("members")
                                 .font(.primaryFont(.P2))
                         }
                         
@@ -83,7 +87,12 @@ struct MainCrewView: View {
                                 .scaledToFill()
                                 .frame(width: 16, height: 16)
                             
-                            Text("\(viewModel.crew.challengeIds?.count ?? 0) challenges")
+                            Text("\(viewModel.crew.challengeIds?.count ?? 0) ")
+                                .font(.primaryFont(.P2))
+                            
+                            +
+                            
+                            Text("challenges")
                                 .font(.primaryFont(.P2))
                         }
                         

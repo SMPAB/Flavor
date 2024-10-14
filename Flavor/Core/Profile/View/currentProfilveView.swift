@@ -44,6 +44,7 @@ struct currentProfilveView: View {
                         Text("@\(user.userName)")
                             .font(.primaryFont(.H3))
                             .fontWeight(.semibold)
+                            
                         
                         Spacer()
                       /*  NavigationLink(destination: {
@@ -126,7 +127,13 @@ struct currentProfilveView: View {
                             .multilineTextAlignment(.leading)
                     }
                     
-                    CustomButton(text: "Edit profile", textColor: .black, backgroundColor: .colorWhite, strokeColor: Color(.systemGray), action: {viewModel.showEditProfile.toggle()})
+                    CustomButton(text: "Edit profile", textColor: .black, backgroundColor: .colorWhite, strokeColor: Color(.systemGray), action: {
+                        viewModel.showEditProfile.toggle()
+                        AnalyticsManager.shared.logEvent(name: "CurrentProfileView_EditProfileButtonPressed")
+                    }
+                                 
+                    )
+                    
                     
                     HStack{
                         Button(action: {
@@ -135,6 +142,7 @@ struct currentProfilveView: View {
                                 viewModel.album = false
                                 viewModel.calender = false
                                 viewModel.saved = false
+                            AnalyticsManager.shared.logEvent(name: "CurrentProfileView_GridSelected")
                             //}
                             withAnimation{
                                 offsetRectangle = -(width/4 + 35 + 6)
@@ -152,6 +160,7 @@ struct currentProfilveView: View {
                                 viewModel.album = true
                                 viewModel.calender = false
                                 viewModel.saved = false
+                            AnalyticsManager.shared.logEvent(name: "CurrentProfileView_AlbumsSelected")
                             //}
                             withAnimation{
                                 offsetRectangle =  -(35 + 6 + 6)
@@ -171,6 +180,7 @@ struct currentProfilveView: View {
                                 viewModel.album = false
                                 viewModel.calender = true
                                 viewModel.saved = false
+                            AnalyticsManager.shared.logEvent(name: "CurrentProfileView_CalenderSelected")
                             //}
                         }){
                             Iconoir.calendar.asImage
@@ -189,6 +199,8 @@ struct currentProfilveView: View {
                                 viewModel.calender = false
                                 viewModel.saved = true
                             //}
+                            
+                            AnalyticsManager.shared.logEvent(name: "CurrentProfileView_SavedSelected")
                             
                         }){
                             Iconoir.bookmark.asImage

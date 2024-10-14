@@ -26,7 +26,13 @@ struct ChallengeCell: View {
                         .frame(width: 16, height: 16)
                         .foregroundStyle(.colorWhite)
                     
-                    Text("Starting: \(challenge.startDate.dateValue().formattedChallengeCell())")
+                    Text("Starting: ")
+                        .font(.primaryFont(.P2))
+                        .foregroundStyle(.colorWhite)
+                    
+                    +
+                    
+                    Text(challenge.startDate.dateValue().formattedChallengeCell())
                         .font(.primaryFont(.P2))
                         .foregroundStyle(.colorWhite)
                 }
@@ -71,9 +77,15 @@ struct ChallengeCell: View {
                         .frame(width: 16, height: 16)
                         .foregroundStyle(.colorWhite)
                     
-                    Text("Ended: \(challenge.endDate.dateValue().formattedChallengeCell())")
+                    Text("Ended: ")
                         .font(.primaryFont(.P2))
-                        .foregroundStyle(.black)
+                        .foregroundStyle(.colorWhite)
+                    
+                    +
+                    
+                    Text(challenge.endDate.dateValue().formattedChallengeCell())
+                        .font(.primaryFont(.P2))
+                        .foregroundStyle(.colorWhite)
                 }
                 
                 HStack(spacing: 16){
@@ -116,7 +128,13 @@ struct ChallengeCell: View {
                         .frame(width: 16, height: 16)
                         .foregroundStyle(.colorWhite)
                     
-                    Text("Ending: \(challenge.endDate.dateValue().formattedChallengeCell())")
+                    Text("Ending: ")
+                        .font(.primaryFont(.P2))
+                        .foregroundStyle(.colorWhite)
+                    
+                    +
+                    
+                    Text(challenge.endDate.dateValue().formattedChallengeCell())
                         .font(.primaryFont(.P2))
                         .foregroundStyle(.colorWhite)
                 }
@@ -195,11 +213,11 @@ extension Date {
         dateFormatter.dateFormat = "d MMMM, HH:mm"
         
         if calendar.isDateInToday(self) {
-            dateFormatter.dateFormat = "'today,' HH:mm"
+            dateFormatter.dateFormat = "'\(NSLocalizedString("today", comment: "")),' HH:mm"
         } else if calendar.isDateInYesterday(self) {
-            dateFormatter.dateFormat = "'yesterday,' HH:mm"
+            dateFormatter.dateFormat = "'\(NSLocalizedString("yesterday", comment: "")),' HH:mm"
         } else if calendar.isDateInTomorrow(self) {
-            dateFormatter.dateFormat = "'tomorrow,' HH:mm"
+            dateFormatter.dateFormat = "'\(NSLocalizedString("tomorrow", comment: "")),' HH:mm"
         }
         
         return dateFormatter.string(from: self)

@@ -66,7 +66,10 @@ struct LandingCrewView: View {
                                             .scaledToFill()
                                             .frame(width: 16, height: 16)
                                         
-                                        Text("\(crew.uids.count) members")
+                                        Text("\(crew.uids.count) ")
+                                        
+                                        +
+                                        Text("members")
                                     }
                                     
                                     
@@ -76,7 +79,12 @@ struct LandingCrewView: View {
                                             .scaledToFill()
                                             .frame(width: 16, height: 16)
                                         
-                                        Text("\(crew.publicCrew ? "Public" : "Private")")
+                                        if crew.publicCrew {
+                                            Text("Public")
+                                        } else {
+                                            Text("Private")
+                                        }
+                                        //Text("\(crew.publicCrew ? "Public" : "Private")")
                                     }
                                     
                                     

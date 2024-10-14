@@ -151,6 +151,7 @@ struct ProfileView: View {
                                     viewModel.album = false
                                     viewModel.calender = false
                                     viewModel.saved = false
+                                AnalyticsManager.shared.logEvent(name: "ProfileView_GridSelected")
                                 //}
                                 withAnimation{
                                     offsetRectangle = -(width/3 + 16 - 24)
@@ -168,6 +169,7 @@ struct ProfileView: View {
                                     viewModel.album = true
                                     viewModel.calender = false
                                     viewModel.saved = false
+                                AnalyticsManager.shared.logEvent(name: "ProfileView_AlbumSelected")
                                 //}
                                 withAnimation{
                                     offsetRectangle =  0
@@ -187,6 +189,7 @@ struct ProfileView: View {
                                     viewModel.album = false
                                     viewModel.calender = true
                                     viewModel.saved = false
+                                AnalyticsManager.shared.logEvent(name: "ProfileView_CalenderSelected")
                                 //}
                             }){
                                 Iconoir.calendar.asImage
@@ -366,22 +369,26 @@ struct ProfileView: View {
            if user.isFollowed == true {
                Task {
                    try await viewModel.unfollow(userToUnfollow: user, userUnfollowing: homeVM.user, homeVM: homeVM)
+                   AnalyticsManager.shared.logEvent(name: "ProfileView_Unfollow")
                }
            } else if user.isFollowed == false && user.hasFriendRequests != true{
                if user.publicAccount {
                    //Follow
                    Task{
                        try await viewModel.follow(userToFollow: user, userFollowing: homeVM.user, homeVM: homeVM)
+                       AnalyticsManager.shared.logEvent(name: "ProfileView_Follow")
                    }
                } else {
                    Task{
                        try await viewModel.sendFriendRequest(sendRequestTo: user, userSending: homeVM.user)
+                       AnalyticsManager.shared.logEvent(name: "ProfileView_SendFriendRequest")
                    }
                }
            } else if user.hasFriendRequests == true {
                //Remove friend request
                Task{
                    try await viewModel.unsendFriendRequest(userToUnFriendRequest: user, userUnfriendrequesting: homeVM.user)
+                   AnalyticsManager.shared.logEvent(name: "ProfileView_UnSendFriendRequest")
                }
                
            }

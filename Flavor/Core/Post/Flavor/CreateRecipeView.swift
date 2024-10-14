@@ -159,7 +159,7 @@ struct CreateRecipeView: View {
                             .font(.custom("HankenGrotesk-Regular", size: .P1))
                             .fontWeight(.semibold)
                         
-                        Menu(viewModel.recipeTime == nil ? "Select Time" : viewModel.recipeTime!){
+                        Menu(viewModel.recipeTime == nil ? "Select time" : viewModel.recipeTime!){
                             Button(action:{
                                 viewModel.recipeTime = "<20min"
                             }){
@@ -290,7 +290,13 @@ struct CreateRecipeView: View {
                 ForEach(Array(viewModel.recipeSteps.enumerated()), id: \.offset) { index, step in
                     VStack {
                         HStack{
-                            Text("Step: \(index + 1)") // Display 1-based index
+                            Text("Step:") // Display 1-based index
+                                .font(.custom("HankenGrotesk-Regular", size: .P1))
+                                .fontWeight(.semibold)
+                            
+                            +
+                            
+                            Text(" \(index + 1)")
                                 .font(.custom("HankenGrotesk-Regular", size: .P1))
                                 .fontWeight(.semibold)
                             
@@ -370,11 +376,128 @@ struct CreateRecipeView: View {
                                     
                                     Menu{
                                         Button(action: {
-                                            viewModel.recipeSteps[index].ingrediences[ind].messurment = "grams"
-                                        }){
-                                           Text("grams")
-                                                .font(.primaryFont(.P2))
-                                        }
+                                                viewModel.recipeSteps[index].ingrediences[ind].messurment = "cup"
+                                            }) {
+                                                Text("cup")
+                                                    .font(.primaryFont(.P2))
+                                            }
+
+                                            Button(action: {
+                                                viewModel.recipeSteps[index].ingrediences[ind].messurment = "gallon"
+                                            }) {
+                                                Text("gallon")
+                                                    .font(.primaryFont(.P2))
+                                            }
+
+                                            Button(action: {
+                                                viewModel.recipeSteps[index].ingrediences[ind].messurment = "grams"
+                                            }) {
+                                                Text("grams")
+                                                    .font(.primaryFont(.P2))
+                                            }
+
+                                            // K - L
+                                            Button(action: {
+                                                viewModel.recipeSteps[index].ingrediences[ind].messurment = "kg"
+                                            }) {
+                                                Text("kg")
+                                                    .font(.primaryFont(.P2))
+                                            }
+
+                                            Button(action: {
+                                                viewModel.recipeSteps[index].ingrediences[ind].messurment = "liters"
+                                            }) {
+                                                Text("liters")
+                                                    .font(.primaryFont(.P2))
+                                            }
+
+                                            // M - O
+                                            Button(action: {
+                                                viewModel.recipeSteps[index].ingrediences[ind].messurment = "ml"
+                                            }) {
+                                                Text("ml")
+                                                    .font(.primaryFont(.P2))
+                                            }
+
+                                            Button(action: {
+                                                viewModel.recipeSteps[index].ingrediences[ind].messurment = "oz"
+                                            }) {
+                                                Text("oz")
+                                                    .font(.primaryFont(.P2))
+                                            }
+
+                                            // P
+                                            Button(action: {
+                                                viewModel.recipeSteps[index].ingrediences[ind].messurment = "packages"
+                                            }) {
+                                                Text("packages")
+                                                    .font(.primaryFont(.P2))
+                                            }
+
+                                            Button(action: {
+                                                viewModel.recipeSteps[index].ingrediences[ind].messurment = "pieces"
+                                            }) {
+                                                Text("pieces")
+                                                    .font(.primaryFont(.P2))
+                                            }
+
+                                            Button(action: {
+                                                viewModel.recipeSteps[index].ingrediences[ind].messurment = "pinch"
+                                            }) {
+                                                Text("pinch")
+                                                    .font(.primaryFont(.P2))
+                                            }
+
+                                            Button(action: {
+                                                viewModel.recipeSteps[index].ingrediences[ind].messurment = "pint"
+                                            }) {
+                                                Text("pint")
+                                                    .font(.primaryFont(.P2))
+                                            }
+
+                                            // Q - S
+                                            Button(action: {
+                                                viewModel.recipeSteps[index].ingrediences[ind].messurment = "quart"
+                                            }) {
+                                                Text("quart")
+                                                    .font(.primaryFont(.P2))
+                                            }
+
+                                            Button(action: {
+                                                viewModel.recipeSteps[index].ingrediences[ind].messurment = "slices"
+                                            }) {
+                                                Text("slices")
+                                                    .font(.primaryFont(.P2))
+                                            }
+
+                                            Button(action: {
+                                                viewModel.recipeSteps[index].ingrediences[ind].messurment = "tsp"
+                                            }) {
+                                                Text("tsp")
+                                                    .font(.primaryFont(.P2))
+                                            }
+
+                                            Button(action: {
+                                                viewModel.recipeSteps[index].ingrediences[ind].messurment = "tbsp"
+                                            }) {
+                                                Text("tbsp")
+                                                    .font(.primaryFont(.P2))
+                                            }
+
+                                            // V - Z
+                                            Button(action: {
+                                                viewModel.recipeSteps[index].ingrediences[ind].messurment = "liters"
+                                            }) {
+                                                Text("liters")
+                                                    .font(.primaryFont(.P2))
+                                            }
+
+                                            Button(action: {
+                                                viewModel.recipeSteps[index].ingrediences[ind].messurment = "lb"
+                                            }) {
+                                                Text("lb")
+                                                    .font(.primaryFont(.P2))
+                                            }
                                     } label: {
                                         Text(viewModel.recipeSteps[index].ingrediences[ind].messurment.isEmpty ? "select unit" : viewModel.recipeSteps[index].ingrediences[ind].messurment)
                                             .font(.primaryFont(.P2))
